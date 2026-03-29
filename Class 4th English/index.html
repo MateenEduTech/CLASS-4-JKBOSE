@@ -1,0 +1,2294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#FF6B6B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Class 4 English">
+<meta name="description" content="JKBOSE Class 4 English Interactive Learning App by Mateen Yousuf">
+<title>Class 4 English Learning App</title>
+
+<style>
+/* ============================================================
+   DESIGN SYSTEM — Vibrant Candy-Pop Child Theme
+   Playful, bright, joyful — built for Class 4 learners
+   ============================================================ */
+:root {
+  --coral:   #FF6B6B;
+  --orange:  #FF9F43;
+  --yellow:  #FECA57;
+  --lime:    #26de81;
+  --teal:    #2bcbba;
+  --sky:     #45aaf2;
+  --blue:    #4361EE;
+  --purple:  #a55eea;
+  --pink:    #fd79a8;
+  --white:   #FFFFFF;
+  --dark:    #2d3436;
+  --grey:    #636e72;
+  --light:   #f8f9fa;
+  --shadow:  0 8px 30px rgba(0,0,0,0.15);
+  --radius:  20px;
+  --radius-sm: 12px;
+}
+
+body.dark {
+  --white: #1e272e;
+  --light: #2d3436;
+  --dark:  #f8f9fa;
+  --grey:  #b2bec3;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+body {
+  font-family: 'Segoe UI', 'Comic Sans MS', 'Chalkboard SE', cursive, sans-serif;
+  background: var(--light);
+  color: var(--dark);
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* ── SCREENS ─────────────────────────────────────── */
+.screen { display: none; min-height: 100vh; animation: fadeUp 0.4s ease; }
+.screen.active { display: block; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── TITLE SCREEN ────────────────────────────────── */
+#title-screen {
+  background: linear-gradient(135deg, #667eea 0%, #f64f59 35%, #c471ed 65%, #12c2e9 100%);
+  background-size: 400% 400%;
+  animation: gradShift 7s ease infinite;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes gradShift {
+  0%,100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+/* Floating letters */
+.fl {
+  position: absolute;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  font-weight: 900;
+  color: rgba(255,255,255,0.25);
+  animation: floatLetter linear infinite;
+  pointer-events: none;
+  user-select: none;
+}
+
+@keyframes floatLetter {
+  0%   { transform: translateY(0)   rotate(0deg);   opacity: 0.2; }
+  50%  { transform: translateY(-35px) rotate(15deg); opacity: 0.5; }
+  100% { transform: translateY(0)   rotate(0deg);   opacity: 0.2; }
+}
+
+.title-chip {
+  background: rgba(255,255,255,0.22);
+  border: 2px solid rgba(255,255,255,0.5);
+  border-radius: 50px;
+  padding: 6px 20px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: white;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.title-h1 {
+  font-size: clamp(2rem, 8vw, 3.2rem);
+  font-weight: 900;
+  color: white;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  line-height: 1.15;
+  margin-bottom: 6px;
+}
+
+.title-sub {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.85);
+  letter-spacing: 1px;
+  margin-bottom: 24px;
+}
+
+/* Author photo ring */
+.ap-wrap { position: relative; width: 120px; height: 120px; margin: 0 auto 14px; }
+
+.ap-ring {
+  position: absolute; inset: -5px; border-radius: 50%;
+  background: conic-gradient(#FECA57, #FF6B6B, #a55eea, #26de81, #45aaf2, #FECA57);
+  animation: spinRing 3s linear infinite;
+}
+
+@keyframes spinRing { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+.ap-inner {
+  position: absolute; inset: 3px; border-radius: 50%;
+  border: 3px solid white; overflow: hidden;
+  background: #ddd; z-index: 1;
+}
+
+.ap-inner img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+
+.ap-name { font-size: 1.25rem; font-weight: 900; color: white; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+.ap-desig { font-size: 0.78rem; color: rgba(255,255,255,0.85); margin-top: 4px; line-height: 1.6; }
+
+.emoji-row { display: flex; gap: 10px; justify-content: center; margin: 16px 0; font-size: 1.5rem; }
+.emoji-row span { animation: bounce 1.5s ease infinite; }
+.emoji-row span:nth-child(2) { animation-delay: 0.2s; }
+.emoji-row span:nth-child(3) { animation-delay: 0.4s; }
+.emoji-row span:nth-child(4) { animation-delay: 0.6s; }
+
+@keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+.start-btn {
+  background: white;
+  color: var(--blue);
+  border: none;
+  border-radius: 50px;
+  padding: 16px 48px;
+  font-size: 1.15rem;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+  animation: pulseShadow 2.5s ease infinite;
+  transition: transform 0.2s;
+  display: flex; align-items: center; gap: 10px; margin: 0 auto;
+}
+
+@keyframes pulseShadow {
+  0%,100% { box-shadow: 0 8px 30px rgba(0,0,0,0.25); }
+  50%      { box-shadow: 0 12px 50px rgba(255,255,255,0.5); }
+}
+
+.start-btn:hover { transform: scale(1.06); }
+
+/* ── TOP BAR ─────────────────────────────────────── */
+.top-bar {
+  background: var(--white);
+  padding: 12px 16px;
+  display: flex; align-items: center; gap: 10px;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+}
+
+.back-btn {
+  background: #f0f4ff; border: none; border-radius: 12px;
+  width: 38px; height: 38px; font-size: 1.1rem;
+  cursor: pointer; color: var(--blue);
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s; flex-shrink: 0;
+}
+
+.back-btn:hover { background: #dce4ff; }
+.tb-title { flex: 1; font-size: 1rem; font-weight: 800; color: var(--dark); }
+.tb-stars { background: #fff8e1; border: 2px solid var(--yellow); border-radius: 20px; padding: 4px 12px; font-size: 0.8rem; font-weight: 800; color: #c0850a; }
+.dark-btn { background: none; border: none; font-size: 1.2rem; cursor: pointer; padding: 4px; }
+
+/* ── HOME SCREEN ─────────────────────────────────── */
+#home-screen { background: var(--light); }
+
+.home-hero {
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  padding: 22px 20px 30px;
+  border-radius: 0 0 36px 36px;
+  color: white; text-align: center;
+  box-shadow: 0 6px 24px rgba(67,97,238,0.35);
+}
+
+.hero-greet { font-size: 0.85rem; opacity: 0.85; margin-bottom: 3px; }
+.hero-title { font-size: 1.5rem; font-weight: 900; margin-bottom: 12px; }
+.hero-title span { color: var(--yellow); }
+
+.prog-wrap { background: rgba(255,255,255,0.25); border-radius: 20px; height: 10px; overflow: hidden; }
+.prog-bar  { background: var(--yellow); height: 100%; border-radius: 20px; transition: width 0.8s ease; }
+.prog-text { font-size: 0.75rem; opacity: 0.85; margin-top: 5px; }
+
+.sec-hd { font-size: 0.7rem; font-weight: 900; color: var(--grey); letter-spacing: 3px; text-transform: uppercase; padding: 18px 16px 10px; }
+
+.nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 14px; }
+
+.nav-card {
+  border-radius: var(--radius); padding: 18px 12px; text-align: center;
+  cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 8px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: var(--shadow); border: none;
+}
+
+.nav-card:hover  { transform: translateY(-4px); box-shadow: 0 14px 40px rgba(0,0,0,0.2); }
+.nav-card:active { transform: scale(0.97); }
+.nav-card .nc-icon  { font-size: 2.4rem; }
+.nav-card .nc-label { font-size: 0.9rem; font-weight: 900; color: white; }
+.nav-card .nc-sub   { font-size: 0.7rem; color: rgba(255,255,255,0.85); }
+
+.stat-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; padding: 0 14px 24px; }
+
+.stat-box {
+  background: var(--white); border-radius: var(--radius-sm);
+  padding: 14px 8px; text-align: center;
+  box-shadow: 0 3px 14px rgba(0,0,0,0.07);
+}
+
+.stat-num { font-size: 1.5rem; font-weight: 900; color: var(--coral); display: block; }
+.stat-lbl { font-size: 0.65rem; color: var(--grey); margin-top: 2px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+
+/* ── CHAPTERS SCREEN ─────────────────────────────── */
+#chapters-screen { background: var(--light); }
+
+.ch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 14px; }
+
+.ch-card {
+  background: var(--white); border-radius: var(--radius);
+  padding: 16px 12px; text-align: center; cursor: pointer;
+  box-shadow: var(--shadow); transition: transform 0.2s;
+  border: 3px solid transparent; position: relative; overflow: hidden;
+}
+
+.ch-card:hover { transform: translateY(-4px); }
+.ch-card.done  { border-color: var(--lime); }
+
+.ch-card .cc-icon { font-size: 2.2rem; display: block; margin-bottom: 6px; }
+.ch-card .cc-num  { font-size: 0.65rem; font-weight: 800; color: var(--grey); text-transform: uppercase; }
+.ch-card .cc-name { font-size: 0.88rem; font-weight: 800; color: var(--dark); margin-top: 4px; line-height: 1.3; }
+.ch-card .cc-type { font-size: 0.68rem; color: var(--grey); margin-top: 3px; }
+.ch-card .cc-stars{ color: var(--yellow); font-size: 0.85rem; margin-top: 5px; }
+.ch-card .cc-badge { position: absolute; top: 8px; right: 8px; background: var(--lime); color: white; font-size: 0.6rem; font-weight: 800; padding: 2px 7px; border-radius: 10px; }
+
+/* ── CHAPTER SCREEN ──────────────────────────────── */
+#chapter-screen { background: var(--light); }
+
+.tab-scroll {
+  display: flex; gap: 0; overflow-x: auto; scrollbar-width: none;
+  background: var(--white); border-bottom: 2px solid #f0f0f0;
+}
+
+.tab-scroll::-webkit-scrollbar { display: none; }
+
+.t-btn {
+  background: none; border: none; border-bottom: 3px solid transparent;
+  padding: 11px 15px; font-size: 0.72rem; font-weight: 800; color: var(--grey);
+  cursor: pointer; white-space: nowrap; transition: all 0.2s; letter-spacing: 0.5px;
+}
+
+.t-btn.active { color: var(--coral); border-bottom-color: var(--coral); }
+
+.tab-panel { display: none; padding: 14px; animation: fadeUp 0.3s ease; }
+.tab-panel.active { display: block; }
+
+/* ── STORY CARD ──────────────────────────────────── */
+.story-card {
+  background: var(--white); border-radius: var(--radius); padding: 20px;
+  box-shadow: var(--shadow); margin-bottom: 14px;
+}
+
+.story-title { font-size: 1.2rem; font-weight: 900; color: var(--coral); margin-bottom: 12px; }
+
+.story-body { font-size: 1rem; line-height: 1.9; color: var(--dark); }
+
+.story-body .hw {
+  background: linear-gradient(135deg, #fff3cd, #ffeeba);
+  border-radius: 6px; padding: 1px 5px;
+  font-weight: 700; color: #856404; cursor: pointer;
+  transition: background 0.2s;
+}
+
+.story-body .hw:hover { background: #ffc107; color: white; }
+
+.explain-box {
+  background: linear-gradient(135deg, #e3f2fd, #e8f5e9);
+  border-left: 4px solid var(--sky);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 15px; margin: 12px 0;
+}
+
+.explain-box h4 { color: var(--sky); font-size: 0.9rem; font-weight: 900; margin-bottom: 7px; }
+.explain-box p  { font-size: 0.88rem; line-height: 1.65; color: var(--dark); }
+
+/* Grammar box */
+.grammar-card {
+  background: var(--white); border-radius: var(--radius); padding: 18px;
+  box-shadow: var(--shadow); margin-bottom: 14px;
+}
+
+.grammar-card h3 {
+  font-size: 1rem; font-weight: 900; color: var(--purple);
+  margin-bottom: 10px; display: flex; align-items: center; gap: 8px;
+}
+
+.grammar-card p { font-size: 0.88rem; line-height: 1.7; color: var(--dark); }
+
+.ex-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+
+.ex-chip {
+  background: linear-gradient(135deg, var(--purple), var(--blue));
+  color: white; border-radius: 20px; padding: 6px 14px;
+  font-size: 0.82rem; font-weight: 800;
+}
+
+/* ── FLASHCARD ────────────────────────────────────── */
+.fc-scene { perspective: 1000px; width: 100%; max-width: 300px; height: 190px; margin: 14px auto; cursor: pointer; }
+
+.fc-card {
+  width: 100%; height: 100%; position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+
+.fc-card.flipped { transform: rotateY(180deg); }
+
+.fc-face {
+  position: absolute; inset: 0; backface-visibility: hidden;
+  border-radius: var(--radius); display: flex;
+  flex-direction: column; align-items: center; justify-content: center;
+  padding: 16px; text-align: center;
+}
+
+.fc-front { background: linear-gradient(135deg, var(--blue), var(--purple)); }
+.fc-back  { background: linear-gradient(135deg, var(--lime), var(--teal)); transform: rotateY(180deg); }
+
+.fc-emoji { font-size: 2.8rem; margin-bottom: 8px; display: block; }
+.fc-word  { font-size: 1.3rem; font-weight: 900; color: white; }
+.fc-hint  { font-size: 0.72rem; color: rgba(255,255,255,0.8); margin-top: 4px; }
+.fc-mean  { font-size: 0.92rem; font-weight: 700; color: white; line-height: 1.5; text-align: center; }
+
+.fc-nav {
+  display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 8px;
+}
+
+.fc-nav-btn {
+  background: var(--blue); color: white; border: none; border-radius: 50%;
+  width: 40px; height: 40px; font-size: 1.1rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; transition: transform 0.15s;
+}
+
+.fc-nav-btn:hover { transform: scale(1.1); }
+.fc-counter { font-size: 0.9rem; font-weight: 700; color: var(--dark); min-width: 48px; text-align: center; }
+
+.fc-dots { display: flex; gap: 6px; justify-content: center; margin-top: 8px; }
+.fc-dot  { width: 8px; height: 8px; border-radius: 50%; background: #ddd; transition: background 0.2s; }
+.fc-dot.on { background: var(--coral); }
+
+/* ── QUIZ ─────────────────────────────────────────── */
+.quiz-prog-wrap { background: #eee; border-radius: 10px; height: 7px; overflow: hidden; margin-bottom: 12px; }
+.quiz-prog-fill { background: linear-gradient(90deg, var(--lime), var(--teal)); height: 100%; border-radius: 10px; transition: width 0.4s; }
+
+.quiz-meta { display: flex; justify-content: space-between; font-size: 0.72rem; font-weight: 700; color: var(--grey); margin-bottom: 14px; }
+
+.quiz-q-box {
+  background: var(--white); border-radius: var(--radius); padding: 18px;
+  text-align: center; font-size: 0.97rem; font-weight: 700;
+  color: var(--dark); box-shadow: var(--shadow); margin-bottom: 14px; line-height: 1.5;
+}
+
+.quiz-q-icon { font-size: 2.5rem; display: block; margin-bottom: 8px; }
+
+.quiz-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+.quiz-opt {
+  background: var(--white); border: 3px solid #e8e8f0;
+  border-radius: var(--radius-sm); padding: 13px 10px;
+  font-size: 0.88rem; font-weight: 700; color: var(--dark);
+  cursor: pointer; transition: all 0.2s; text-align: center;
+}
+
+.quiz-opt:hover   { border-color: var(--blue); background: #f0f4ff; transform: scale(1.02); }
+.quiz-opt.correct { background: #d4edda; border-color: var(--lime); color: #155724; }
+.quiz-opt.wrong   { background: #fde8e8; border-color: var(--coral); color: #721c24; }
+.quiz-opt:disabled { cursor: not-allowed; }
+
+.quiz-fb {
+  border-radius: var(--radius-sm); padding: 12px 14px;
+  font-size: 0.9rem; font-weight: 800; margin-top: 10px; text-align: center;
+  animation: bounceIn 0.3s ease;
+}
+
+@keyframes bounceIn { from { transform: scale(0.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+.fb-good { background: #d4edda; color: #155724; border: 2px solid var(--lime); }
+.fb-bad  { background: #fde8e8; color: #721c24; border: 2px solid var(--coral); }
+
+/* Score screen */
+.score-wrap { text-align: center; padding: 30px 16px; }
+.score-trophy { font-size: 5.5rem; display: block; animation: trophyBounce 1s ease infinite; }
+
+@keyframes trophyBounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+
+.score-num  { font-size: 3rem; font-weight: 900; color: var(--purple); }
+.score-msg  { font-size: 1.1rem; font-weight: 800; color: var(--dark); margin: 8px 0 18px; }
+.score-stars{ font-size: 2rem; margin-bottom: 18px; }
+
+/* ── GAMES ─────────────────────────────────────────── */
+.game-box { background: var(--white); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); }
+.game-title { font-size: 1rem; font-weight: 900; color: var(--dark); margin-bottom: 8px; text-align: center; }
+
+/* Match game */
+.match-area { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px; }
+.match-col   { display: flex; flex-direction: column; gap: 8px; }
+
+.match-item {
+  background: #f0f4ff; border: 3px solid #dde4f7;
+  border-radius: 12px; padding: 10px; font-size: 0.88rem;
+  font-weight: 700; cursor: pointer; text-align: center; transition: all 0.2s;
+}
+
+.match-item:hover    { border-color: var(--blue); background: #e4eaff; }
+.match-item.selected { border-color: var(--blue); background: var(--blue); color: white; }
+.match-item.matched  { border-color: var(--lime); background: #d4edda; color: #155724; cursor: default; }
+.match-item.wrong    { border-color: var(--coral); background: #fde8e8; animation: shake 0.3s ease; }
+
+@keyframes shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+
+/* Sentence builder */
+.sentence-display {
+  background: #f8f0ff; border-radius: 12px; padding: 14px;
+  min-height: 58px; margin-bottom: 14px;
+  display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+}
+
+.word-bank { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px; background: #fff8e1; border-radius: 12px; margin-bottom: 12px; }
+
+.word-chip {
+  background: linear-gradient(135deg, var(--orange), var(--coral));
+  color: white; border-radius: 20px; padding: 7px 14px;
+  font-size: 0.88rem; font-weight: 800; cursor: pointer;
+  transition: transform 0.15s; border: none; box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}
+
+.word-chip:hover { transform: scale(1.05); }
+.word-chip.used  { opacity: 0.35; cursor: not-allowed; }
+
+.slot-chip {
+  background: white; border: 2px solid var(--purple); border-radius: 8px;
+  padding: 6px 12px; font-size: 0.88rem; font-weight: 700; color: var(--purple); cursor: pointer;
+}
+
+/* Spelling game */
+.letter-rack { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 12px 0; }
+
+.letter-tile {
+  width: 42px; height: 42px; background: linear-gradient(135deg, var(--teal), var(--sky));
+  color: white; border-radius: 10px; font-size: 1.3rem; font-weight: 900;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; border: none; box-shadow: 0 3px 8px rgba(0,0,0,0.2); transition: transform 0.15s;
+}
+
+.letter-tile:hover { transform: translateY(-3px); }
+.letter-tile.used  { opacity: 0.3; cursor: not-allowed; }
+
+.spell-answer {
+  display: flex; gap: 6px; justify-content: center; align-items: center;
+  min-height: 50px; background: #f8f0ff; border-radius: 12px; padding: 8px; margin: 12px 0; flex-wrap: wrap;
+}
+
+.ans-tile {
+  width: 38px; height: 38px; background: white; border: 2px solid var(--purple);
+  border-radius: 8px; font-size: 1.2rem; font-weight: 900; color: var(--purple);
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+}
+
+/* Writing */
+.lined-area {
+  background: white; border-radius: var(--radius); padding: 14px;
+  background-image: repeating-linear-gradient(transparent, transparent 31px, #e8e8f0 31px, #e8e8f0 32px);
+  box-shadow: var(--shadow);
+}
+
+.lined-area textarea {
+  width: 100%; min-height: 140px; border: none; outline: none;
+  font-size: 0.97rem; line-height: 2; font-family: inherit;
+  background: transparent; resize: none; color: var(--dark);
+}
+
+.writing-prompt {
+  background: linear-gradient(135deg, #fff3cd, #ffe0e0);
+  border-radius: var(--radius-sm); padding: 14px; margin-bottom: 12px; text-align: center;
+}
+
+.writing-prompt .wp-title { font-size: 1rem; font-weight: 900; color: var(--orange); margin-bottom: 6px; }
+.writing-prompt .wp-hint  { font-size: 0.85rem; color: var(--grey); }
+
+/* ── PROGRESS SCREEN ─────────────────────────────── */
+#progress-screen { background: var(--light); padding: 14px; }
+
+.prog-hero {
+  background: linear-gradient(135deg, var(--lime), var(--teal));
+  border-radius: var(--radius); padding: 22px; text-align: center; margin-bottom: 18px;
+  box-shadow: var(--shadow);
+}
+
+.prog-big-stars { font-size: 2.5rem; font-weight: 900; color: white; display: block; }
+.prog-big-lbl   { font-size: 0.78rem; color: rgba(255,255,255,0.9); margin-top: 3px; }
+
+.badge-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 18px; }
+
+.badge-card {
+  background: var(--white); border-radius: var(--radius-sm); padding: 14px 8px; text-align: center;
+  box-shadow: 0 3px 14px rgba(0,0,0,0.07); opacity: 0.4; transition: opacity 0.3s;
+}
+
+.badge-card.earned  { opacity: 1; }
+.badge-card .b-icon { font-size: 2rem; }
+.badge-card .b-name { font-size: 0.65rem; font-weight: 800; color: var(--dark); margin-top: 4px; }
+
+.ch-prog-item {
+  background: var(--white); border-radius: 12px; padding: 12px 14px;
+  display: flex; align-items: center; gap: 12px; margin-bottom: 8px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+}
+
+.ch-prog-icon { font-size: 1.5rem; }
+.ch-prog-name { flex: 1; font-size: 0.85rem; font-weight: 800; color: var(--dark); }
+.ch-prog-score{ color: var(--yellow); font-size: 0.88rem; }
+
+/* ── BOOKMARKS ───────────────────────────────────── */
+#bookmarks-screen { background: var(--light); padding: 14px; }
+
+.bm-empty { text-align: center; padding: 40px 20px; font-size: 0.95rem; color: var(--grey); }
+.bm-item  {
+  background: var(--white); border-radius: var(--radius-sm); padding: 14px 16px;
+  display: flex; align-items: center; gap: 12px; cursor: pointer; margin-bottom: 8px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.07); transition: transform 0.2s;
+}
+.bm-item:hover { transform: translateX(4px); }
+
+/* ── MODAL ───────────────────────────────────────── */
+.overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.55); backdrop-filter: blur(6px);
+  z-index: 500; align-items: center; justify-content: center; padding: 20px;
+}
+
+.overlay.on { display: flex; }
+
+.modal-box {
+  background: var(--white); border-radius: var(--radius); padding: 24px;
+  max-width: 340px; width: 100%; text-align: center; animation: bounceIn 0.3s ease;
+}
+
+.modal-box h3 { font-size: 1.2rem; color: var(--dark); margin-bottom: 8px; }
+.modal-box p  { font-size: 0.88rem; color: var(--grey); margin-bottom: 18px; line-height: 1.5; }
+
+/* ── CONFETTI ────────────────────────────────────── */
+.confetti-layer { position: fixed; inset: 0; pointer-events: none; z-index: 9000; overflow: hidden; }
+
+.conf-dot {
+  position: absolute; border-radius: 2px;
+  animation: confFall linear forwards;
+}
+
+@keyframes confFall {
+  from { transform: translateY(-15px) rotate(0deg);   opacity: 1; }
+  to   { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+/* ── BUTTONS ─────────────────────────────────────── */
+.btn {
+  border: none; border-radius: 50px; padding: 12px 24px;
+  font-size: 0.9rem; font-weight: 900; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 7px;
+  transition: transform 0.15s, box-shadow 0.15s; font-family: inherit;
+}
+
+.btn:hover   { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+.btn:active  { transform: scale(0.97); }
+.btn-coral   { background: linear-gradient(135deg, var(--coral), var(--orange)); color: white; }
+.btn-green   { background: linear-gradient(135deg, var(--lime), var(--teal));    color: white; }
+.btn-blue    { background: linear-gradient(135deg, var(--blue), var(--purple));  color: white; }
+.btn-yellow  { background: linear-gradient(135deg, var(--yellow), var(--orange));color: var(--dark); }
+.btn-ghost   { background: rgba(0,0,0,0.06); border: 2px solid rgba(0,0,0,0.1); color: var(--dark); }
+.btn-full    { width: 100%; justify-content: center; margin-bottom: 8px; }
+
+/* ── INSTALL BANNER ──────────────────────────────── */
+.install-banner {
+  display: none; position: fixed; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(90deg, var(--blue), var(--purple));
+  padding: 12px 16px; align-items: center; gap: 10px; z-index: 300;
+  animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+.install-banner.show { display: flex; }
+.ib-text { flex: 1; font-size: 0.8rem; color: white; font-weight: 700; }
+.ib-btn  { background: white; color: var(--blue); border: none; border-radius: 20px; padding: 7px 16px; font-weight: 900; font-size: 0.8rem; cursor: pointer; }
+.ib-x    { background: none; border: none; color: rgba(255,255,255,0.7); font-size: 1.2rem; cursor: pointer; }
+
+/* ── SCROLLBAR ───────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     TITLE SCREEN
+═══════════════════════════════════════════ -->
+<div id="title-screen" class="screen active">
+  <!-- Floating alphabet letters -->
+  <span class="fl" style="top:4%;left:4%;animation-duration:4s">A</span>
+  <span class="fl" style="top:6%;right:6%;animation-duration:5s;animation-delay:.5s">B</span>
+  <span class="fl" style="top:14%;left:12%;animation-duration:3.5s;animation-delay:1s">C</span>
+  <span class="fl" style="top:18%;right:8%;animation-duration:4.5s;animation-delay:.3s">D</span>
+  <span class="fl" style="bottom:22%;left:5%;animation-duration:3.8s;animation-delay:.8s">E</span>
+  <span class="fl" style="bottom:26%;right:7%;animation-duration:4.2s;animation-delay:1.2s">F</span>
+  <span class="fl" style="top:38%;left:2%;animation-duration:5.5s;animation-delay:.6s">📚</span>
+  <span class="fl" style="top:50%;right:3%;animation-duration:4s;animation-delay:.2s">✏️</span>
+  <span class="fl" style="bottom:12%;left:10%;animation-duration:5s;animation-delay:1s">📝</span>
+  <span class="fl" style="top:28%;right:2%;animation-duration:3.5s;animation-delay:.4s">🌟</span>
+
+  <div style="position:relative;z-index:2;width:100%;max-width:400px">
+    <div class="title-chip">📖 JKBOSE · Class 4</div>
+    <h1 class="title-h1">Class 4 English<br>Learning App</h1>
+    <p class="title-sub">Stories · Grammar · Games · Fun!</p>
+
+    <!-- Author photo -->
+    <div class="ap-wrap">
+      <div class="ap-ring"></div>
+      <div class="ap-inner">
+        <img src="author.jpg" alt="Mateen Yousuf"
+          onerror="this.style.display='none';this.parentElement.innerHTML='<div style=\'width:100%;height:100%;background:linear-gradient(135deg,#4361EE,#a55eea);display:flex;align-items:center;justify-content:center;font-size:2.5rem\'>👨‍🏫</div>'">
+      </div>
+    </div>
+
+    <div class="ap-name">Mateen Yousuf</div>
+    <div class="ap-desig">Teacher<br>School Education Department<br>Jammu and Kashmir</div>
+
+    <div class="emoji-row">
+      <span>📚</span><span>✏️</span><span>🌟</span><span>🎉</span>
+    </div>
+
+    <button class="start-btn" onclick="showScreen('home-screen')">
+      🚀 Start Learning!
+    </button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     HOME SCREEN
+═══════════════════════════════════════════ -->
+<div id="home-screen" class="screen">
+  <div class="top-bar">
+    <div class="tb-title">📚 Class 4 English</div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <div class="tb-stars">⭐ <span id="home-stars">0</span></div>
+      <button class="dark-btn" onclick="toggleDark()" id="dark-btn">🌙</button>
+    </div>
+  </div>
+
+  <div class="home-hero">
+    <div class="hero-greet">👋 Hello, Young Learner!</div>
+    <div class="hero-title">Welcome to <span>Class 4 English!</span></div>
+    <div class="prog-wrap">
+      <div class="prog-bar" id="overall-bar" style="width:0%"></div>
+    </div>
+    <div class="prog-text" id="overall-txt">0% Complete</div>
+  </div>
+
+  <div class="sec-hd">⚡ Quick Access</div>
+  <div class="nav-grid" style="margin-bottom:10px">
+    <button class="nav-card" style="background:linear-gradient(135deg,#4361EE,#a55eea)" onclick="showScreen('chapters-screen');renderChapters()">
+      <span class="nc-icon">📖</span>
+      <span class="nc-label">All Chapters</span>
+      <span class="nc-sub">14 Lessons</span>
+    </button>
+    <button class="nav-card" style="background:linear-gradient(135deg,#FF6B6B,#fd79a8)" onclick="showScreen('progress-screen');renderProgress()">
+      <span class="nc-icon">🏆</span>
+      <span class="nc-label">My Progress</span>
+      <span class="nc-sub">Stars & badges</span>
+    </button>
+    <button class="nav-card" style="background:linear-gradient(135deg,#26de81,#2bcbba)" onclick="showScreen('bookmarks-screen');renderBookmarks()">
+      <span class="nc-icon">🔖</span>
+      <span class="nc-label">Bookmarks</span>
+      <span class="nc-sub">Saved lessons</span>
+    </button>
+    <button class="nav-card" style="background:linear-gradient(135deg,#FECA57,#FF9F43)" onclick="startRandomQuiz()">
+      <span class="nc-icon">🎲</span>
+      <span class="nc-label">Random Quiz</span>
+      <span class="nc-sub">Mixed questions</span>
+    </button>
+  </div>
+
+  <div class="sec-hd">📊 My Stats</div>
+  <div class="stat-row">
+    <div class="stat-box"><span class="stat-num" id="st-done">0</span><span class="stat-lbl">Done</span></div>
+    <div class="stat-box"><span class="stat-num" id="st-stars">0</span><span class="stat-lbl">Stars</span></div>
+    <div class="stat-box"><span class="stat-num" id="st-quiz">0</span><span class="stat-lbl">Quizzes</span></div>
+  </div>
+
+  <div class="sec-hd">📖 Recent Chapters</div>
+  <div id="recent-list" style="padding:0 14px 24px"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CHAPTERS SCREEN
+═══════════════════════════════════════════ -->
+<div id="chapters-screen" class="screen">
+  <div class="top-bar">
+    <button class="back-btn" onclick="showScreen('home-screen')">←</button>
+    <div class="tb-title">📖 Chapter Library</div>
+    <div class="tb-stars">⭐ <span id="ch-stars">0</span></div>
+  </div>
+  <div class="ch-grid" id="ch-grid"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CHAPTER DETAIL SCREEN
+═══════════════════════════════════════════ -->
+<div id="chapter-screen" class="screen">
+  <div class="top-bar">
+    <button class="back-btn" onclick="showScreen('chapters-screen');renderChapters()">←</button>
+    <div class="tb-title" id="ch-screen-title">Chapter</div>
+    <button style="background:none;border:none;font-size:1.3rem;cursor:pointer" onclick="toggleBM()" id="bm-btn">🔖</button>
+  </div>
+
+  <div class="tab-scroll">
+    <button class="t-btn active" onclick="showTab('story')"   data-tab="story">📖 Story</button>
+    <button class="t-btn"        onclick="showTab('vocab')"   data-tab="vocab">🔤 Vocab</button>
+    <button class="t-btn"        onclick="showTab('grammar')" data-tab="grammar">📝 Grammar</button>
+    <button class="t-btn"        onclick="showTab('game')"    data-tab="game">🎮 Game</button>
+    <button class="t-btn"        onclick="showTab('flash')"   data-tab="flash">🃏 Flash</button>
+    <button class="t-btn"        onclick="showTab('quiz')"    data-tab="quiz">❓ Quiz</button>
+    <button class="t-btn"        onclick="showTab('write')"   data-tab="write">✍️ Write</button>
+  </div>
+
+  <div id="tab-story"   class="tab-panel active"></div>
+  <div id="tab-vocab"   class="tab-panel"></div>
+  <div id="tab-grammar" class="tab-panel"></div>
+  <div id="tab-game"    class="tab-panel"></div>
+  <div id="tab-flash"   class="tab-panel"></div>
+  <div id="tab-quiz"    class="tab-panel"></div>
+  <div id="tab-write"   class="tab-panel"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PROGRESS SCREEN
+═══════════════════════════════════════════ -->
+<div id="progress-screen" class="screen">
+  <div class="top-bar">
+    <button class="back-btn" onclick="showScreen('home-screen')">←</button>
+    <div class="tb-title">🏆 My Progress</div>
+  </div>
+  <div style="padding:14px">
+    <div class="prog-hero">
+      <span class="prog-big-stars" id="prog-stars">0 ⭐</span>
+      <span class="prog-big-lbl">Total Stars Earned</span>
+    </div>
+    <div class="sec-hd" style="padding:0 0 10px">🥇 Badges</div>
+    <div class="badge-grid" id="badge-grid"></div>
+    <div class="sec-hd" style="padding:0 0 10px">📖 Chapter Progress</div>
+    <div id="prog-ch-list"></div>
+    <div style="text-align:center;margin-top:20px">
+      <button class="btn btn-coral" onclick="confirmReset()">🔄 Reset Progress</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     BOOKMARKS SCREEN
+═══════════════════════════════════════════ -->
+<div id="bookmarks-screen" class="screen">
+  <div class="top-bar">
+    <button class="back-btn" onclick="showScreen('home-screen')">←</button>
+    <div class="tb-title">🔖 Bookmarks</div>
+  </div>
+  <div id="bm-body" style="padding:14px"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     RANDOM QUIZ SCREEN
+═══════════════════════════════════════════ -->
+<div id="rquiz-screen" class="screen">
+  <div class="top-bar">
+    <button class="back-btn" onclick="showScreen('home-screen')">←</button>
+    <div class="tb-title">🎲 Random Quiz</div>
+  </div>
+  <div id="rquiz-body" style="padding:14px"></div>
+</div>
+
+<!-- Modal -->
+<div class="overlay" id="overlay">
+  <div class="modal-box" id="modal-inner"></div>
+</div>
+
+<!-- Confetti -->
+<div class="confetti-layer" id="confetti-layer"></div>
+
+<!-- Install banner -->
+<div class="install-banner" id="install-banner">
+  <span class="ib-text">📲 Install Class 4 English App!</span>
+  <button class="ib-btn" id="install-btn">Install</button>
+  <button class="ib-x" onclick="document.getElementById('install-banner').classList.remove('show')">✕</button>
+</div>
+
+<script>
+/* ============================================================
+   JKBOSE CLASS 4 ENGLISH — COMPLETE CURRICULUM DATA
+   Based on standard Class 4 English syllabus
+   ============================================================ */
+const CHAPTERS = [
+  {
+    id: 1, icon: '🤝', type: 'Story',
+    name: 'Wake Up!',
+    color: '#FF6B6B',
+    story: {
+      title: 'Wake Up! (Poem)',
+      text: `The <span class="hw" onclick="popWord('Sun','The bright star that gives us light and warmth every day')">sun</span> is up, the sky is blue,
+It's a <span class="hw" onclick="popWord('beautiful','Very pleasing and attractive to see')">beautiful</span> morning, just for you!
+Wake up, wake up, don't sleep away,
+Come outside and <span class="hw" onclick="popWord('greet','To say hello and welcome someone warmly')">greet</span> the day!
+
+The <span class="hw" onclick="popWord('birds','Feathered animals that can fly and sing')">birds</span> are singing, the flowers bloom,
+Open your eyes and leave your room.
+The world is <span class="hw" onclick="popWord('waiting','To stay in a place until something happens')">waiting</span>, fresh and bright,
+Everything glows in morning <span class="hw" onclick="popWord('light','Brightness that helps us see')">light</span>!`
+    },
+    explain: 'This beautiful poem teaches us about the morning. The poet wants us to wake up early and enjoy the beauty of the day. The sun, birds, and flowers all welcome us every morning. It is a reminder to start each day with joy and energy.',
+    vocab: [
+      { emoji: '☀️', word: 'Sun', meaning: 'The star that gives us light and warmth' },
+      { emoji: '🌸', word: 'Bloom', meaning: 'When flowers open up and grow beautifully' },
+      { emoji: '🌅', word: 'Morning', meaning: 'The early part of the day after the night' },
+      { emoji: '✨', word: 'Glows', meaning: 'To give out a soft, warm light' },
+      { emoji: '🐦', word: 'Singing', meaning: 'Making beautiful musical sounds with the voice' }
+    ],
+    grammar: {
+      topic: 'Nouns — Names of People, Places, Animals, Things',
+      rule: 'A <b>noun</b> is the name of a person, place, animal, or thing. Every sentence has a noun. Nouns name the world around us!',
+      examples: ['Sun', 'Bird', 'Morning', 'Flower', 'School', 'Aman']
+    },
+    game: { type: 'match', title: '🎯 Match Word to Meaning!',
+      pairs: [
+        { word: 'Sun', meaning: 'Gives us light ☀️' },
+        { word: 'Bloom', meaning: 'Flowers open 🌸' },
+        { word: 'Glows', meaning: 'Gives soft light ✨' },
+        { word: 'Birds', meaning: 'Animals that fly 🐦' },
+        { word: 'Morning', meaning: 'Start of the day 🌅' }
+      ]
+    },
+    quiz: [
+      { q: 'What colour is the sky in the poem?', opts: ['Red', 'Blue', 'Green', 'Yellow'], ans: 1, icon: '🌤️' },
+      { q: 'What are the birds doing in the poem?', opts: ['Sleeping', 'Flying', 'Singing', 'Eating'], ans: 2, icon: '🐦' },
+      { q: 'Which word is a NOUN?', opts: ['Run', 'Beautiful', 'Sun', 'Quick'], ans: 2, icon: '📝' },
+      { q: 'What does "bloom" mean?', opts: ['Fly away', 'Make noise', 'Flowers open', 'Sleep well'], ans: 2, icon: '🌸' },
+      { q: 'What should we do in the morning according to the poem?', opts: ['Keep sleeping', 'Wake up and greet the day', 'Watch TV', 'Eat snacks'], ans: 1, icon: '🌅' }
+    ],
+    writing: { prompt: 'Write 3 sentences about what you see in the morning.', hint: 'Think about the sky, birds, sun, and your family.' }
+  },
+  {
+    id: 2, icon: '🦁', type: 'Story',
+    name: 'The Little Mouse',
+    color: '#FF9F43',
+    story: {
+      title: 'The Little Mouse and the Big Lion',
+      text: `Once upon a time, a big <span class="hw" onclick="popWord('lion','The king of the jungle — a large wild cat')">lion</span> was sleeping in the forest.
+A little <span class="hw" onclick="popWord('mouse','A tiny animal with a long tail')">mouse</span> ran across his nose by mistake.
+The lion woke up and caught the mouse in his large <span class="hw" onclick="popWord('paw','The foot of an animal like a cat or dog')">paw</span>.
+"Please let me go," <span class="hw" onclick="popWord('begged','To ask for something in a very humble way')">begged</span> the little mouse. "One day I will help you!"
+The lion laughed but set the mouse free.
+One day, hunters caught the lion in a strong <span class="hw" onclick="popWord('net','A trap made of many woven threads')">net</span>.
+The little mouse heard the lion's roar.
+She ran quickly and <span class="hw" onclick="popWord('gnawed','Bit something slowly with small teeth')">gnawed</span> the ropes of the net.
+The lion was free!
+"You saved my life!" said the lion. "Thank you, little friend!"
+<b>Moral:</b> <i>A small friend can be a great friend.</i>`
+    },
+    explain: 'This is a famous Aesop\'s fable. It teaches us that kindness is never wasted. When the lion showed kindness to the little mouse, the mouse remembered it and returned the favour. Even the smallest creature can help a powerful one. We should always be kind and never underestimate anyone.',
+    vocab: [
+      { emoji: '🦁', word: 'Lion', meaning: 'The king of the jungle, a powerful wild animal' },
+      { emoji: '🐭', word: 'Mouse', meaning: 'A tiny, quick animal that squeaks' },
+      { emoji: '🕸️', word: 'Net', meaning: 'A trap made of woven threads to catch animals' },
+      { emoji: '😢', word: 'Begged', meaning: 'To ask for something very humbly and earnestly' },
+      { emoji: '✂️', word: 'Gnawed', meaning: 'Chewed or bit through something slowly' }
+    ],
+    grammar: {
+      topic: 'Verbs — Action Words',
+      rule: 'A <b>verb</b> is an action word. It tells us what someone or something DOES. Every sentence needs a verb to be complete!',
+      examples: ['Run', 'Sleep', 'Catch', 'Laugh', 'Save', 'Bite']
+    },
+    game: { type: 'spelling', title: '🔤 Spell the Word!',
+      words: [
+        { word: 'LION', emoji: '🦁', hint: 'King of the jungle' },
+        { word: 'MOUSE', emoji: '🐭', hint: 'Tiny squeaking animal' },
+        { word: 'FREE', emoji: '🕊️', hint: 'Not trapped, at liberty' },
+        { word: 'HELP', emoji: '🤝', hint: 'To assist someone' }
+      ]
+    },
+    quiz: [
+      { q: 'Where was the lion sleeping?', opts: ['In a cave', 'In the forest', 'By a river', 'On a rock'], ans: 1, icon: '🌲' },
+      { q: 'How did the mouse free the lion?', opts: ['Pulled the net', 'Called hunters', 'Gnawed the ropes', 'Used scissors'], ans: 2, icon: '✂️' },
+      { q: 'What is the moral of the story?', opts: ['Be strong', 'Never sleep outside', 'A small friend can be a great friend', 'Don\'t catch mice'], ans: 2, icon: '💡' },
+      { q: 'Which word is a VERB?', opts: ['Lion', 'Forest', 'Gnawed', 'Little'], ans: 2, icon: '📝' },
+      { q: 'Why did the lion let the mouse go?', opts: ['He was full', 'Mouse made him laugh', 'He was kind', 'Hunters came'], ans: 1, icon: '😄' }
+    ],
+    writing: { prompt: 'Write the moral of the story in your own words. Why is kindness important?', hint: 'Think about what the lion did for the mouse and what the mouse did for the lion.' }
+  },
+  {
+    id: 3, icon: '🌧️', type: 'Poem',
+    name: 'Rain on the Roof',
+    color: '#45aaf2',
+    story: {
+      title: 'Rain on the Roof',
+      text: `When the <span class="hw" onclick="popWord('humid','When the air feels warm and moist')">humid</span> shadows hover
+Over all the <span class="hw" onclick="popWord('starry','Full of stars, shining brightly')">starry</span> spheres,
+And the <span class="hw" onclick="popWord('melancholy','A feeling of gentle sadness')">melancholy</span> darkness
+Gently weeps in <span class="hw" onclick="popWord('rainy','Having a lot of rain falling')">rainy</span> tears,
+What a bliss to press the pillow
+Of a cottage-chamber bed,
+And to <span class="hw" onclick="popWord('listen','To pay attention to sounds carefully')">listen</span> to the <span class="hw" onclick="popWord('patter','The sound of many quick light taps')">patter</span>
+Of the soft rain overhead!`
+    },
+    explain: 'This poem describes the joy of lying in bed and listening to rain falling on the roof. The poet loves the sound of rain at night. Words like "bliss" (great happiness) and "patter" (gentle sound of rain) make us imagine the cozy, peaceful feeling of a rainy night.',
+    vocab: [
+      { emoji: '🌧️', word: 'Patter', meaning: 'A quick, light tapping sound, like rain on a roof' },
+      { emoji: '😊', word: 'Bliss', meaning: 'Perfect happiness, a feeling of joy' },
+      { emoji: '🌫️', word: 'Humid', meaning: 'Warm and moist air, before rain' },
+      { emoji: '😢', word: 'Melancholy', meaning: 'A feeling of gentle, quiet sadness' },
+      { emoji: '🛌', word: 'Cottage', meaning: 'A small, cozy house in the countryside' }
+    ],
+    grammar: {
+      topic: 'Adjectives — Describing Words',
+      rule: 'An <b>adjective</b> describes a noun. It tells us what something looks like, feels like, or how many. Adjectives make sentences more interesting and clear!',
+      examples: ['Humid', 'Starry', 'Melancholy', 'Soft', 'Rainy', 'Small', 'Big', 'Happy']
+    },
+    game: { type: 'sentence', title: '🧩 Build the Sentence!',
+      sentences: [
+        { words: ['The', 'soft', 'rain', 'falls', 'quietly'], answer: 'The soft rain falls quietly' },
+        { words: ['I', 'love', 'rainy', 'days'], answer: 'I love rainy days' },
+        { words: ['Birds', 'hide', 'during', 'the', 'storm'], answer: 'Birds hide during the storm' }
+      ]
+    },
+    quiz: [
+      { q: 'What sound is heard in this poem?', opts: ['Wind', 'Thunder', 'Rain on roof', 'Birds'], ans: 2, icon: '👂' },
+      { q: 'Where is the person lying while listening to rain?', opts: ['On the floor', 'In a cottage bed', 'Under a tree', 'In a garden'], ans: 1, icon: '🛌' },
+      { q: '"Soft" is an example of which part of speech?', opts: ['Noun', 'Verb', 'Adjective', 'Pronoun'], ans: 2, icon: '📝' },
+      { q: 'What does "bliss" mean?', opts: ['Sadness', 'Perfect happiness', 'Loneliness', 'Tiredness'], ans: 1, icon: '😊' },
+      { q: 'What does "patter" describe?', opts: ['Thunder sound', 'Quick light tapping of rain', 'Bird song', 'Wind noise'], ans: 1, icon: '🌧️' }
+    ],
+    writing: { prompt: 'Describe how you feel on a rainy day. What sounds do you hear?', hint: 'Think about the sound of rain, how it smells, and what you like to do.' }
+  },
+  {
+    id: 4, icon: '🦋', type: 'Story',
+    name: 'The Caterpillar',
+    color: '#26de81',
+    story: {
+      title: 'The Caterpillar',
+      text: `A tiny <span class="hw" onclick="popWord('caterpillar','A tiny worm-like creature that turns into a butterfly')">caterpillar</span> lived on a green leaf.
+Every day it ate and ate to grow big and <span class="hw" onclick="popWord('strong','Having great power and energy')">strong</span>.
+One day, the caterpillar wrapped itself in a <span class="hw" onclick="popWord('cocoon','A silky case made by a caterpillar for its transformation')">cocoon</span>.
+Inside, something <span class="hw" onclick="popWord('magical','Something wonderful and hard to explain')">magical</span> was happening.
+Days passed. The cocoon began to <span class="hw" onclick="popWord('tremble','To shake or move with small, quick movements')">tremble</span>.
+Slowly, out came a beautiful <span class="hw" onclick="popWord('butterfly','A colourful flying insect with large wings')">butterfly</span>!
+Its wings were colourful and bright.
+It <span class="hw" onclick="popWord('soared','To fly high up in the sky smoothly')">soared</span> high into the sky.
+The caterpillar had become the most beautiful butterfly!
+<b>Message:</b> <i>Be patient. Change brings beauty.</i>`
+    },
+    explain: 'This story is about how a caterpillar changes into a butterfly — this is called metamorphosis. The caterpillar was patient and waited inside the cocoon. When it came out, it had become something beautiful. The story teaches us that change can be wonderful and we must be patient.',
+    vocab: [
+      { emoji: '🐛', word: 'Caterpillar', meaning: 'A small worm-like creature that becomes a butterfly' },
+      { emoji: '🏠', word: 'Cocoon', meaning: 'A silky covering made by a caterpillar for its change' },
+      { emoji: '🦋', word: 'Butterfly', meaning: 'A beautiful flying insect with colourful wings' },
+      { emoji: '✈️', word: 'Soared', meaning: 'Flew high and smoothly in the sky' },
+      { emoji: '🪄', word: 'Magical', meaning: 'Something wonderful and mysterious' }
+    ],
+    grammar: {
+      topic: 'Pronouns — He, She, It, They, I, We',
+      rule: 'A <b>pronoun</b> is a word used in place of a noun. Instead of repeating a name, we use pronouns like He, She, It, They, I, We, You. This avoids repetition!',
+      examples: ['He (for a boy)', 'She (for a girl)', 'It (for a thing)', 'They (for many)', 'I (for yourself)']
+    },
+    game: { type: 'match', title: '🎯 Match: Word to Meaning!',
+      pairs: [
+        { word: 'Caterpillar', meaning: 'Worm → butterfly 🐛' },
+        { word: 'Cocoon', meaning: 'Silky shelter 🏠' },
+        { word: 'Soared', meaning: 'Flew high ✈️' },
+        { word: 'Magical', meaning: 'Wonderful 🪄' },
+        { word: 'Patient', meaning: 'Can wait calmly ⏳' }
+      ]
+    },
+    quiz: [
+      { q: 'What did the caterpillar make around itself?', opts: ['A nest', 'A cocoon', 'A hole', 'A web'], ans: 1, icon: '🐛' },
+      { q: 'What did the caterpillar become?', opts: ['A moth', 'A bee', 'A butterfly', 'A spider'], ans: 2, icon: '🦋' },
+      { q: '"It soared high" — what does "it" replace?', opts: ['The leaf', 'The butterfly', 'The cocoon', 'The tree'], ans: 1, icon: '📝' },
+      { q: 'What is the message of the story?', opts: ['Eat a lot', 'Be fast', 'Be patient, change brings beauty', 'Don\'t hide'], ans: 2, icon: '💡' },
+      { q: 'What does "soared" mean?', opts: ['Fell down', 'Walked slowly', 'Flew high', 'Swam fast'], ans: 2, icon: '✈️' }
+    ],
+    writing: { prompt: 'Imagine you are a caterpillar. Write what you feel inside the cocoon.', hint: 'Think about the darkness, waiting, changing, and coming out as a butterfly.' }
+  },
+  {
+    id: 5, icon: '🏔️', type: 'Story',
+    name: 'Noses',
+    color: '#a55eea',
+    story: {
+      title: 'Noses — A Fun Poem!',
+      text: `I looked in the mirror
+And what did I see?
+A <span class="hw" onclick="popWord('funny','Something that makes you laugh or smile')">funny</span> little nose
+Looking back at me!
+
+Noses are <span class="hw" onclick="popWord('useful','Helpful and serving a good purpose')">useful</span>,
+They let us <span class="hw" onclick="popWord('smell','To sense the scent of something through the nose')">smell</span>,
+The <span class="hw" onclick="popWord('flowers','Beautiful colourful plants that bloom')">flowers</span> and the cookies
+And the cookies as well!
+
+<span class="hw" onclick="popWord('Elephants','Very large animals with long trunks')">Elephants</span> have long ones,
+And <span class="hw" onclick="popWord('pigs','Pink farm animals that say oink')">pigs</span> have flat,
+I'm quite happy with my nose,
+I'm perfectly fine with that!`
+    },
+    explain: 'This funny poem is about noses! The poet looks in the mirror and notices their nose. The poem tells us that noses are useful — they help us smell flowers, food, and everything around us. Different animals have different kinds of noses. The poem encourages us to be happy with ourselves.',
+    vocab: [
+      { emoji: '👃', word: 'Nose', meaning: 'The part of the face we use to breathe and smell' },
+      { emoji: '🌹', word: 'Flowers', meaning: 'Beautiful colourful blooms that have sweet smells' },
+      { emoji: '🐘', word: 'Elephant', meaning: 'A huge animal with a long trunk-like nose' },
+      { emoji: '😄', word: 'Funny', meaning: 'Amusing, making you laugh or smile' },
+      { emoji: '👍', word: 'Useful', meaning: 'Good and helpful, serving a purpose' }
+    ],
+    grammar: {
+      topic: 'Plural Nouns — Making Nouns into Many',
+      rule: 'When we talk about <b>more than one</b>, we add <b>-s</b> or <b>-es</b> to make a noun plural. Nouns with special plurals must be memorised!',
+      examples: ['nose → noses', 'flower → flowers', 'box → boxes', 'child → children', 'mouse → mice']
+    },
+    game: { type: 'spelling', title: '🔤 Spell It Right!',
+      words: [
+        { word: 'NOSE', emoji: '👃', hint: 'On your face, you smell with it' },
+        { word: 'SMELL', emoji: '🌸', hint: 'Sense through your nose' },
+        { word: 'HAPPY', emoji: '😊', hint: 'Feeling of joy and delight' },
+        { word: 'FLAT', emoji: '📄', hint: 'Even and level surface' }
+      ]
+    },
+    quiz: [
+      { q: 'What did the poet see in the mirror?', opts: ['A big eye', 'A funny nose', 'A long ear', 'A wide mouth'], ans: 1, icon: '🪞' },
+      { q: 'What are noses useful for?', opts: ['Smelling and breathing', 'Seeing', 'Hearing', 'Tasting'], ans: 0, icon: '👃' },
+      { q: 'What plural of "nose" is?', opts: ['Nosees', 'Nozes', 'Noses', 'Nosies'], ans: 2, icon: '📝' },
+      { q: 'Which animal has a long nose?', opts: ['Dog', 'Pig', 'Elephant', 'Cat'], ans: 2, icon: '🐘' },
+      { q: 'How does the poet feel about their nose?', opts: ['Unhappy', 'Scared', 'Perfectly fine', 'Embarrassed'], ans: 2, icon: '😊' }
+    ],
+    writing: { prompt: 'Write about 3 different animals and their special body parts.', hint: 'Think about elephant trunk, giraffe neck, dog ears, bird wings...' }
+  },
+  {
+    id: 6, icon: '🌲', type: 'Story',
+    name: 'The Giving Tree',
+    color: '#26de81',
+    story: {
+      title: 'The Giving Tree',
+      text: `There was once a little boy who loved a big apple <span class="hw" onclick="popWord('tree','A tall plant with a trunk, branches and leaves')">tree</span>.
+Every day he would come and eat her <span class="hw" onclick="popWord('apples','Round juicy fruit that can be red or green')">apples</span>, swing from her branches.
+The tree was very <span class="hw" onclick="popWord('happy','Feeling great joy and contentment')">happy</span>.
+As the boy grew older, he needed <span class="hw" onclick="popWord('money','Coins and notes used to buy things')">money</span>.
+The tree said, "Take my <span class="hw" onclick="popWord('fruit','Sweet food that grows on trees')">fruit</span> and sell them."
+Later the boy needed a house. The tree gave its <span class="hw" onclick="popWord('branches','Parts of a tree that grow from the trunk')">branches</span>.
+Then the boy was old and needed a boat. The tree gave its <span class="hw" onclick="popWord('trunk','The thick main part of a tree')">trunk</span>.
+"I have nothing left," said the tree.
+"I don't need much," said the old man. "Just a quiet place to rest."
+And the tree was happy.`
+    },
+    explain: 'This story teaches us about love, giving, and nature. The tree gave everything it had to help the boy — fruit, branches, and trunk. This shows how nature gives us so much. We should be grateful for nature and also give back by planting trees and protecting the environment.',
+    vocab: [
+      { emoji: '🌳', word: 'Tree', meaning: 'A tall woody plant with roots, trunk, and branches' },
+      { emoji: '🍎', word: 'Apple', meaning: 'A round, juicy fruit that grows on trees' },
+      { emoji: '🪵', word: 'Trunk', meaning: 'The thick, main stem of a tree' },
+      { emoji: '🌿', word: 'Branches', meaning: 'Parts that grow out from the trunk of a tree' },
+      { emoji: '💰', word: 'Generous', meaning: 'Happy to give and share with others' }
+    ],
+    grammar: {
+      topic: 'Tenses — Present, Past, Future',
+      rule: '<b>Tenses</b> tell us WHEN an action happens: <b>Present</b> = now (He runs), <b>Past</b> = already done (He ran), <b>Future</b> = will happen (He will run).',
+      examples: ['I eat → I ate → I will eat', 'She runs → She ran → She will run', 'They play → They played → They will play']
+    },
+    game: { type: 'match', title: '🎯 Match Tense Forms!',
+      pairs: [
+        { word: 'Give (Present)', meaning: 'Gave (Past) ✅' },
+        { word: 'Run (Present)', meaning: 'Ran (Past) 🏃' },
+        { word: 'Eat (Present)', meaning: 'Ate (Past) 🍎' },
+        { word: 'Come (Present)', meaning: 'Came (Past) 👣' },
+        { word: 'See (Present)', meaning: 'Saw (Past) 👁️' }
+      ]
+    },
+    quiz: [
+      { q: 'What did the tree give to the boy for money?', opts: ['Branches', 'Fruit', 'Trunk', 'Leaves'], ans: 1, icon: '🍎' },
+      { q: 'What did the tree give for a boat?', opts: ['Branches', 'Fruit', 'Trunk', 'Roots'], ans: 2, icon: '⛵' },
+      { q: '"Gave" is which tense of "give"?', opts: ['Present', 'Past', 'Future', 'None'], ans: 1, icon: '📝' },
+      { q: 'What did the old man finally need?', opts: ['Money', 'A house', 'A quiet place to rest', 'More apples'], ans: 2, icon: '🛌' },
+      { q: 'What is the lesson of this story?', opts: ['Trees are tall', 'Nature is generous and giving', 'Boys are selfish', 'Apples are tasty'], ans: 1, icon: '💡' }
+    ],
+    writing: { prompt: 'How can we take care of trees and plants? Write 3 ways.', hint: 'Think about watering, not cutting, planting new trees...' }
+  },
+  {
+    id: 7, icon: '⭐', type: 'Poem',
+    name: 'A Smile',
+    color: '#FECA57',
+    story: {
+      title: 'A Smile',
+      text: `A smile costs <span class="hw" onclick="popWord('nothing','Not anything; zero cost')">nothing</span>, but gives much.
+It <span class="hw" onclick="popWord('enriches','To make richer or better')">enriches</span> those who receive it,
+Without making <span class="hw" onclick="popWord('poorer','Having less than before')">poorer</span> those who give.
+
+It takes but a <span class="hw" onclick="popWord('moment','A very short period of time')">moment</span>,
+But the memory of it sometimes lasts <span class="hw" onclick="popWord('forever','For all time; without end')">forever</span>.
+
+None is so rich or mighty
+That he can get along without it.
+A smile creates <span class="hw" onclick="popWord('happiness','A feeling of joy and contentment')">happiness</span> in the home,
+Fosters <span class="hw" onclick="popWord('goodwill','Friendly and kind feelings')">goodwill</span> in business,
+And is the <span class="hw" onclick="popWord('countersign','A secret sign or symbol')">countersign</span> of friendship.`
+    },
+    explain: 'This poem tells us about the power of a smile. A smile is free — it costs nothing to give, yet it makes others very happy. A smile can make friends, spread happiness, and bring people together. The poem teaches us that small, kind gestures like smiling can have a very big impact on the world.',
+    vocab: [
+      { emoji: '😊', word: 'Smile', meaning: 'A happy expression that costs nothing but gives so much' },
+      { emoji: '💎', word: 'Enriches', meaning: 'Makes something better, richer, or more valuable' },
+      { emoji: '⏱️', word: 'Moment', meaning: 'A very short period of time' },
+      { emoji: '♾️', word: 'Forever', meaning: 'For all time, without any end' },
+      { emoji: '🤗', word: 'Goodwill', meaning: 'Kind and friendly feelings towards others' }
+    ],
+    grammar: {
+      topic: 'Antonyms — Opposite Words',
+      rule: '<b>Antonyms</b> are words that have opposite meanings. Learning antonyms helps us understand words better and express contrasts clearly!',
+      examples: ['Rich ↔ Poor', 'Happy ↔ Sad', 'Give ↔ Take', 'Smile ↔ Frown', 'Day ↔ Night']
+    },
+    game: { type: 'match', title: '🎯 Match the Opposites!',
+      pairs: [
+        { word: 'Rich 💰', meaning: 'Poor 😢' },
+        { word: 'Happy 😊', meaning: 'Sad 😞' },
+        { word: 'Day ☀️', meaning: 'Night 🌙' },
+        { word: 'Give 🎁', meaning: 'Take 🫳' },
+        { word: 'Smile 😊', meaning: 'Frown 😠' }
+      ]
+    },
+    quiz: [
+      { q: 'How much does a smile cost?', opts: ['A lot of money', 'Some effort', 'Nothing', 'Just a little'], ans: 2, icon: '💰' },
+      { q: 'What does a smile create according to the poem?', opts: ['Problems', 'Happiness', 'Arguments', 'Noise'], ans: 1, icon: '😊' },
+      { q: 'What is the antonym of "rich"?', opts: ['Happy', 'Poor', 'Smart', 'Sad'], ans: 1, icon: '📝' },
+      { q: 'What does "forever" mean?', opts: ['For a moment', 'For one day', 'For all time', 'For a year'], ans: 2, icon: '♾️' },
+      { q: '"Fosters goodwill" means:', opts: ['Creates problems', 'Builds friendly feelings', 'Makes enemies', 'Creates noise'], ans: 1, icon: '🤝' }
+    ],
+    writing: { prompt: 'Write about a time when someone\'s smile made you happy.', hint: 'Who smiled at you? Where were you? How did it make you feel?' }
+  },
+  {
+    id: 8, icon: '🌙', type: 'Story',
+    name: 'The Deserted Ship',
+    color: '#4361EE',
+    story: {
+      title: 'The Deserted Village',
+      text: `Sweet <span class="hw" onclick="popWord('Auburn','The name of a beautiful village in the poem')">Auburn</span>! loveliest <span class="hw" onclick="popWord('village','A small community of houses in the countryside')">village</span> of the plain,
+Where health and <span class="hw" onclick="popWord('plenty','More than enough of something good')">plenty</span> cheered the labouring swain.
+How often have I loitered o'er thy green,
+Where humble happiness endeared each <span class="hw" onclick="popWord('scene','A view or picture of a place')">scene</span>!
+
+Dear lovely bowers of innocence and <span class="hw" onclick="popWord('ease','Comfort and freedom from worry')">ease</span>,
+Seats of my youth, when every sport could please,
+How often have I <span class="hw" onclick="popWord('paused','Stopped for a moment to think or look')">paused</span> on every charm,
+The sheltered cot, the cultivated farm.`
+    },
+    explain: 'This is an excerpt from Oliver Goldsmith\'s famous poem "The Deserted Village." The poet lovingly remembers his childhood village of Auburn. He describes its green fields, happy people, and simple life. The poem shows us how much we value our homes and communities, and how sad it is when they change or disappear.',
+    vocab: [
+      { emoji: '🏘️', word: 'Village', meaning: 'A small community of houses and people in the countryside' },
+      { emoji: '🌿', word: 'Plenty', meaning: 'More than enough; abundance of good things' },
+      { emoji: '☮️', word: 'Ease', meaning: 'Comfort and freedom from worry or pain' },
+      { emoji: '⏸️', word: 'Paused', meaning: 'To stop for a short moment to look or think' },
+      { emoji: '🌾', word: 'Cultivated', meaning: 'Land that has been prepared and farmed for growing crops' }
+    ],
+    grammar: {
+      topic: 'Question Words — What, Where, When, Why, How, Who',
+      rule: 'We use special <b>question words</b> at the beginning of questions. Each word asks about something different. These are very important in English!',
+      examples: ['What is this?', 'Where do you live?', 'When is your birthday?', 'Why are you late?', 'How are you?', 'Who is your teacher?']
+    },
+    game: { type: 'sentence', title: '🧩 Build the Question!',
+      sentences: [
+        { words: ['Where', 'do', 'you', 'live?'], answer: 'Where do you live?' },
+        { words: ['What', 'is', 'your', 'name?'], answer: 'What is your name?' },
+        { words: ['Why', 'are', 'you', 'happy?'], answer: 'Why are you happy?' }
+      ]
+    },
+    quiz: [
+      { q: 'What is Auburn described as?', opts: ['A busy city', 'The loveliest village of the plain', 'A deserted forest', 'A mountain town'], ans: 1, icon: '🏘️' },
+      { q: '"Plenty" means:', opts: ['A little', 'Nothing', 'More than enough', 'Exactly right'], ans: 2, icon: '💎' },
+      { q: 'Which question word asks about a PLACE?', opts: ['What', 'Who', 'When', 'Where'], ans: 3, icon: '📝' },
+      { q: 'What does "paused" mean?', opts: ['Ran fast', 'Stopped for a moment', 'Jumped high', 'Fell down'], ans: 1, icon: '⏸️' },
+      { q: 'The poem is mainly about:', opts: ['A farm', 'Remembering a loved village', 'A city trip', 'Playing games'], ans: 1, icon: '💭' }
+    ],
+    writing: { prompt: 'Describe your favourite place using beautiful words.', hint: 'Think of sounds, colours, smells, and feelings you notice there.' }
+  },
+  {
+    id: 9, icon: '🎶', type: 'Poem',
+    name: 'The Donkey',
+    color: '#2bcbba',
+    story: {
+      title: 'The Donkey',
+      text: `When fishes flew and forests <span class="hw" onclick="popWord('walked','Moved forward on legs step by step')">walked</span>
+And figs grew upon thorn,
+Some moment when the moon was <span class="hw" onclick="popWord('blood','Deep red coloured liquid inside living things')">blood</span>,
+Then surely I was born.
+
+With <span class="hw" onclick="popWord('monstrous','Unusually large or strange-looking')">monstrous</span> head and sickening cry
+And ears like errant wings,
+The devil's walking parody
+On all four-footed things.
+
+The tattered outlaw of the earth,
+Of ancient crooked will;
+<span class="hw" onclick="popWord('Starve','To suffer or die from lack of food')">Starve</span>, scourge, deride me: I am dumb,
+I keep my <span class="hw" onclick="popWord('secret','Something known only to a few people')">secret</span> still.`
+    },
+    explain: 'This poem is by G.K. Chesterton, narrated by a donkey. The donkey describes itself as ugly and strange, mocked and mistreated. But the donkey keeps a secret — it was the animal that carried Jesus into Jerusalem on Palm Sunday. The poem teaches us that even the most overlooked creature can have a special purpose and dignity.',
+    vocab: [
+      { emoji: '🫏', word: 'Donkey', meaning: 'A sturdy animal related to the horse, used for carrying things' },
+      { emoji: '😲', word: 'Monstrous', meaning: 'Very large, ugly, or frightening in appearance' },
+      { emoji: '🤫', word: 'Secret', meaning: 'Something kept hidden and known only to a few' },
+      { emoji: '🌿', word: 'Tattered', meaning: 'Old and torn, in poor condition' },
+      { emoji: '😅', word: 'Parody', meaning: 'An imitation that exaggerates for comic effect' }
+    ],
+    grammar: {
+      topic: 'Synonyms — Words with Similar Meanings',
+      rule: '<b>Synonyms</b> are words that have similar or the same meaning. Using synonyms makes your writing more interesting and avoids repeating the same words!',
+      examples: ['Big = Large = Huge', 'Happy = Glad = Joyful', 'Walk = Stroll = March', 'Good = Fine = Great']
+    },
+    game: { type: 'match', title: '🎯 Match the Synonyms!',
+      pairs: [
+        { word: 'Big 🔵', meaning: 'Large ⭕' },
+        { word: 'Happy 😊', meaning: 'Joyful 🎉' },
+        { word: 'Walk 🚶', meaning: 'Stroll 🌿' },
+        { word: 'Look 👀', meaning: 'See 🔍' },
+        { word: 'Start 🚀', meaning: 'Begin ▶️' }
+      ]
+    },
+    quiz: [
+      { q: 'Who is speaking in "The Donkey" poem?', opts: ['A horse', 'The donkey itself', 'The poet', 'A child'], ans: 1, icon: '🫏' },
+      { q: '"Monstrous" is a synonym for:', opts: ['Tiny', 'Beautiful', 'Huge and strange', 'Quiet'], ans: 2, icon: '📝' },
+      { q: 'What does the donkey keep?', opts: ['A secret', 'A friend', 'A treasure', 'A garden'], ans: 0, icon: '🤫' },
+      { q: '"Joyful" is a synonym for:', opts: ['Sad', 'Angry', 'Happy', 'Tired'], ans: 2, icon: '📝' },
+      { q: 'What does "tattered" mean?', opts: ['New and shiny', 'Old and torn', 'Large and heavy', 'Soft and smooth'], ans: 1, icon: '👕' }
+    ],
+    writing: { prompt: 'Write 4 sentences about any animal using interesting words.', hint: 'Describe how it looks, what it eats, where it lives, and what it does.' }
+  },
+  {
+    id: 10, icon: '🏃', type: 'Story',
+    name: 'The Great Race',
+    color: '#FF6B6B',
+    story: {
+      title: 'The Great Race',
+      text: `In a <span class="hw" onclick="popWord('forest','A large area with many trees and wild animals')">forest</span> there lived a fast rabbit and a slow <span class="hw" onclick="popWord('tortoise','A reptile with a hard shell that moves very slowly')">tortoise</span>.
+One day the rabbit <span class="hw" onclick="popWord('challenged','Dared someone to compete or do something difficult')">challenged</span> the tortoise to a race.
+"I will win easily!" said the rabbit proudly.
+The tortoise <span class="hw" onclick="popWord('accepted','Agreed to do or receive something offered')">accepted</span> the challenge.
+The race began. The rabbit ran far ahead and then sat down for a <span class="hw" onclick="popWord('nap','A short sleep, especially during the day')">nap</span>.
+"I have plenty of time," he thought.
+But the tortoise kept walking <span class="hw" onclick="popWord('steadily','In a firm, regular, uninterrupted manner')">steadily</span>, never stopping.
+When the rabbit woke up, the tortoise had almost reached the finish line!
+The rabbit ran with all his might, but it was too late.
+The tortoise had won!
+<b>Moral:</b> <i>Slow and steady wins the race.</i>`
+    },
+    explain: 'This is the famous Aesop\'s fable "The Tortoise and the Hare." The rabbit was overconfident and stopped to rest, while the tortoise kept going without stopping. The tortoise won because of steady, patient effort. The story teaches us that hard work and persistence are more important than natural ability or speed.',
+    vocab: [
+      { emoji: '🐢', word: 'Tortoise', meaning: 'A slow-moving reptile with a hard shell on its back' },
+      { emoji: '💪', word: 'Challenged', meaning: 'Invited or dared someone to a competition' },
+      { emoji: '😴', word: 'Nap', meaning: 'A short sleep taken during the day' },
+      { emoji: '🚶', word: 'Steadily', meaning: 'Moving at a constant, regular pace without stopping' },
+      { emoji: '🏆', word: 'Accepted', meaning: 'Agreed to do or take something that was offered' }
+    ],
+    grammar: {
+      topic: 'Conjunctions — Joining Words (and, but, or, so, because)',
+      rule: '<b>Conjunctions</b> are joining words that connect two ideas, sentences or clauses. They help make longer, more meaningful sentences!',
+      examples: ['I like tea AND coffee.', 'She is fast BUT he is steady.', 'I ran BUT fell.', 'She sings BECAUSE she is happy.']
+    },
+    game: { type: 'sentence', title: '🧩 Join the Sentences!',
+      sentences: [
+        { words: ['The', 'rabbit', 'ran', 'but', 'the', 'tortoise', 'won'], answer: 'The rabbit ran but the tortoise won' },
+        { words: ['She', 'worked', 'hard', 'and', 'won'], answer: 'She worked hard and won' },
+        { words: ['He', 'slept', 'because', 'he', 'was', 'tired'], answer: 'He slept because he was tired' }
+      ]
+    },
+    quiz: [
+      { q: 'Why did the rabbit stop during the race?', opts: ['He was hurt', 'To eat some food', 'He took a nap', 'He lost the path'], ans: 2, icon: '😴' },
+      { q: 'Who won the race?', opts: ['The rabbit', 'The tortoise', 'Both together', 'Nobody'], ans: 1, icon: '🏆' },
+      { q: '"She worked hard AND won" — AND is a:', opts: ['Noun', 'Verb', 'Conjunction', 'Pronoun'], ans: 2, icon: '📝' },
+      { q: 'What does "steadily" mean?', opts: ['Very fast', 'At a constant regular pace', 'Running wildly', 'Jumping high'], ans: 1, icon: '🐢' },
+      { q: 'What is the moral of the story?', opts: ['Be the fastest', 'Never trust anyone', 'Slow and steady wins the race', 'Always sleep in a race'], ans: 2, icon: '💡' }
+    ],
+    writing: { prompt: 'Write about your favourite game or sport. How do you play it? Why do you like it?', hint: 'Name the game, how to play, who you play with, and why you enjoy it.' }
+  },
+  {
+    id: 11, icon: '💧', type: 'Story',
+    name: 'The Little Bully',
+    color: '#FF6B6B',
+    story: {
+      title: 'The Little Bully',
+      text: `Hari was a <span class="hw" onclick="popWord('bully','A person who uses strength to frighten weaker people')">bully</span>.
+He would pinch everyone he met — the girls, the boys, even the school <span class="hw" onclick="popWord('peon','A person who does small tasks in a school or office')">peon</span>.
+One day his teacher took the class on a <span class="hw" onclick="popWord('picnic','An outdoor meal eaten in nature, often in a park')">picnic</span>.
+At the seashore, Hari ran ahead and put his feet in the water.
+A crab bit his toe!
+"Ouch!" he <span class="hw" onclick="popWord('screamed','Gave a loud, high-pitched cry of fear or pain')">screamed</span>.
+The other children came running.
+Hari was <span class="hw" onclick="popWord('ashamed','Feeling embarrassed and sorry about something')">ashamed</span>.
+He realised how it felt to be hurt by a bully.
+From that day, Hari never bullied anyone again.
+<b>Lesson:</b> <i>Treat others the way you want to be treated.</i>`
+    },
+    explain: 'This story teaches us about bullying and empathy. Hari bullied everyone around him, but when he got pinched by a crab, he understood how painful it felt. This experience made him change his behaviour. The story encourages us to be kind and to think about how our actions affect others.',
+    vocab: [
+      { emoji: '😡', word: 'Bully', meaning: 'Someone who uses strength or power to harm or scare weaker people' },
+      { emoji: '🦀', word: 'Crab', meaning: 'A sea creature with claws that lives in shallow water' },
+      { emoji: '🏖️', word: 'Picnic', meaning: 'A fun outdoor meal eaten in a park or by the sea' },
+      { emoji: '😳', word: 'Ashamed', meaning: 'Feeling embarrassed and sorry about something wrong you did' },
+      { emoji: '😮', word: 'Screamed', meaning: 'Made a loud sharp cry of pain or fright' }
+    ],
+    grammar: {
+      topic: 'Prepositions — at, in, on, under, by, with',
+      rule: '<b>Prepositions</b> tell us WHERE something is or WHEN it happens. They show the relationship between words in a sentence.',
+      examples: ['The crab is IN the water.', 'He sat ON the beach.', 'She stood BY the sea.', 'The ball is UNDER the table.', 'Come AT noon.']
+    },
+    game: { type: 'match', title: '🎯 Match Preposition to Sentence!',
+      pairs: [
+        { word: 'IN the water 💧', meaning: 'The fish is inside' },
+        { word: 'ON the table 🪑', meaning: 'The book is placed' },
+        { word: 'UNDER the tree 🌳', meaning: 'The cat rests below' },
+        { word: 'BY the sea 🌊', meaning: 'Standing near it' },
+        { word: 'AT school 🏫', meaning: 'The place where learning' }
+      ]
+    },
+    quiz: [
+      { q: 'What did Hari do to others?', opts: ['He helped them', 'He pinched them', 'He ignored them', 'He gave gifts'], ans: 1, icon: '😡' },
+      { q: 'What bit Hari\'s toe?', opts: ['A fish', 'A snake', 'A crab', 'A shell'], ans: 2, icon: '🦀' },
+      { q: '"He sat ON the beach" — ON is a:', opts: ['Noun', 'Verb', 'Preposition', 'Adjective'], ans: 2, icon: '📝' },
+      { q: 'What did Hari feel after being bitten?', opts: ['Happy', 'Proud', 'Ashamed', 'Excited'], ans: 2, icon: '😳' },
+      { q: 'What did Hari decide after this incident?', opts: ['To bully more', 'To run away', 'To never bully again', 'To go home'], ans: 2, icon: '💡' }
+    ],
+    writing: { prompt: 'Write about a time when you were kind to someone. How did it feel?', hint: 'Who did you help? What did you do? How did it make you and the other person feel?' }
+  },
+  {
+    id: 12, icon: '🚀', type: 'Story',
+    name: 'Going to Buy a Book',
+    color: '#a55eea',
+    story: {
+      title: 'Going to Buy a Book',
+      text: `"I am going to the bookshop," said Meena.
+"Wait for me!" said her brother Raju. "I want to buy a <span class="hw" onclick="popWord('storybook','A book that contains stories and tales')">storybook</span> too."
+They walked down the street to the <span class="hw" onclick="popWord('bookshop','A shop where books are sold')">bookshop</span>.
+Inside, there were rows and rows of books.
+"Look at all these books!" <span class="hw" onclick="popWord('exclaimed','Said something suddenly with strong feeling')">exclaimed</span> Raju.
+There were picture books, <span class="hw" onclick="popWord('novels','Long books that tell fictional stories')">novels</span>, books on science, history, and <span class="hw" onclick="popWord('poetry','Writing in verse that expresses feelings and ideas')">poetry</span>.
+Meena chose a book about animals.
+Raju chose a funny story book.
+"Books are like <span class="hw" onclick="popWord('treasures','Things that are highly valuable and precious')">treasures</span>," said Meena.
+"Yes," agreed Raju, "they take us to new worlds!"
+They paid for their books and went home happily.`
+    },
+    explain: 'This story is about the joy of reading and books. Meena and Raju visit a bookshop and find many different types of books. Meena\'s comment that "books are like treasures" shows us how valuable books are. Books take us to new worlds, teach us new things, and make us smarter and more creative.',
+    vocab: [
+      { emoji: '📚', word: 'Bookshop', meaning: 'A shop where you can buy different kinds of books' },
+      { emoji: '😲', word: 'Exclaimed', meaning: 'Said something suddenly with great excitement or surprise' },
+      { emoji: '📖', word: 'Novel', meaning: 'A long book that tells an invented (fictional) story' },
+      { emoji: '🎭', word: 'Poetry', meaning: 'Writing arranged in lines with rhythm and often rhyme' },
+      { emoji: '💎', word: 'Treasure', meaning: 'Something very valuable and precious' }
+    ],
+    grammar: {
+      topic: 'Dialogue Writing and Speech Marks',
+      rule: 'When we write what someone says, we use <b>speech marks ("...") / inverted commas</b>. The spoken words go INSIDE the marks. A new speaker = a new line.',
+      examples: ['"Come here," said Meena.', '"What is your name?" he asked.', '"I love reading!" exclaimed Raju.']
+    },
+    game: { type: 'spelling', title: '🔤 Spell the Book Word!',
+      words: [
+        { word: 'BOOK', emoji: '📚', hint: 'Pages you read' },
+        { word: 'READ', emoji: '👁️', hint: 'Looking at words to understand' },
+        { word: 'NOVEL', emoji: '📖', hint: 'A long story book' },
+        { word: 'PAGE', emoji: '📄', hint: 'A leaf inside a book' }
+      ]
+    },
+    quiz: [
+      { q: 'Where did Meena and Raju go?', opts: ['To the park', 'To the bookshop', 'To school', 'To the market'], ans: 1, icon: '🏪' },
+      { q: 'What did Meena choose?', opts: ['A novel', 'A history book', 'A book about animals', 'A poetry book'], ans: 2, icon: '📚' },
+      { q: '"I love books!" exclaimed Raju. What are the speech marks called?', opts: ['Commas', 'Inverted commas', 'Full stops', 'Question marks'], ans: 1, icon: '📝' },
+      { q: 'What does Meena compare books to?', opts: ['Fruits', 'Stars', 'Treasures', 'Friends'], ans: 2, icon: '💎' },
+      { q: '"Exclaimed" means:', opts: ['Whispered', 'Said suddenly with feeling', 'Wrote on paper', 'Listened quietly'], ans: 1, icon: '😲' }
+    ],
+    writing: { prompt: 'Write about your favourite book. What is it about? Why do you like it?', hint: 'Name the book, the main character, the story, and your favourite part.' }
+  },
+  {
+    id: 13, icon: '🌈', type: 'Poem',
+    name: 'The Road Not Taken',
+    color: '#45aaf2',
+    story: {
+      title: 'The Road Not Taken (simplified)',
+      text: `Two roads <span class="hw" onclick="popWord('diverged','Split into two separate paths going different ways')">diverged</span> in a yellow wood,
+And sorry I could not travel both
+And be one traveller, long I stood
+And looked down one as far as I could
+To where it bent in the <span class="hw" onclick="popWord('undergrowth','Low-growing plants and bushes in a forest')">undergrowth</span>.
+
+Then took the other, as just as fair,
+And having perhaps the better claim,
+Because it was <span class="hw" onclick="popWord('grassy','Covered with green grass')">grassy</span> and wanted <span class="hw" onclick="popWord('wear','To be walked upon; to show signs of use')">wear</span>;
+Though as for that the passing there
+Had worn them really about the same.`
+    },
+    explain: 'This famous poem by Robert Frost is about making choices in life. The poet stands at a fork in the road and must choose one path. The poem teaches us that the choices we make shape who we become. We must think carefully about our decisions because every choice leads to a different life experience.',
+    vocab: [
+      { emoji: '🍂', word: 'Diverged', meaning: 'Split into two separate paths or directions' },
+      { emoji: '🌿', word: 'Undergrowth', meaning: 'Low plants and bushes growing at the base of forest trees' },
+      { emoji: '🌱', word: 'Grassy', meaning: 'Covered with fresh, soft green grass' },
+      { emoji: '👣', word: 'Wear', meaning: 'Being walked upon so much it shows signs of use' },
+      { emoji: '🤔', word: 'Choice', meaning: 'A decision between two or more options' }
+    ],
+    grammar: {
+      topic: 'Adverbs — Words that Describe Verbs',
+      rule: 'An <b>adverb</b> tells us HOW, WHEN, or WHERE an action happens. Most adverbs end in -ly, but not all! They make descriptions more precise.',
+      examples: ['She ran quickly.', 'He spoke softly.', 'They arrived early.', 'She sings beautifully.', 'He works hard.']
+    },
+    game: { type: 'match', title: '🎯 Match Verb to Adverb!',
+      pairs: [
+        { word: 'Run 🏃', meaning: 'Quickly ⚡' },
+        { word: 'Speak 💬', meaning: 'Softly 🤫' },
+        { word: 'Sing 🎵', meaning: 'Beautifully 🌸' },
+        { word: 'Work 💪', meaning: 'Hardily 🔨' },
+        { word: 'Walk 🚶', meaning: 'Slowly 🐢' }
+      ]
+    },
+    quiz: [
+      { q: 'What does "diverged" mean?', opts: ['Joined together', 'Split into two paths', 'Disappeared', 'Moved forward'], ans: 1, icon: '🍂' },
+      { q: 'How many roads did the poet see?', opts: ['One', 'Three', 'Two', 'Four'], ans: 2, icon: '🛤️' },
+      { q: '"She ran quickly" — quickly is an:', opts: ['Noun', 'Verb', 'Adjective', 'Adverb'], ans: 3, icon: '📝' },
+      { q: 'What covered the less-travelled road?', opts: ['Snow', 'Stones', 'Grass', 'Mud'], ans: 2, icon: '🌿' },
+      { q: 'What is the poem about?', opts: ['A forest walk', 'Making important choices in life', 'Two friends', 'A journey by car'], ans: 1, icon: '💡' }
+    ],
+    writing: { prompt: 'Write about a difficult choice you had to make. What did you choose and why?', hint: 'Describe the two options, what you thought about, and what you chose.' }
+  },
+  {
+    id: 14, icon: '🎭', type: 'Story',
+    name: 'A Homage to Our Brave Soldiers',
+    color: '#FF9F43',
+    story: {
+      title: 'A Homage to Our Brave Soldiers',
+      text: `Our <span class="hw" onclick="popWord('soldiers','People trained to fight and defend their country')">soldiers</span> stand at the <span class="hw" onclick="popWord('border','The boundary line between two countries')">border</span>,
+Day and night, in cold and heat.
+They <span class="hw" onclick="popWord('sacrifice','To give up something important for a greater cause')">sacrifice</span> their comfort and family,
+So that we may live in peace and sleep.
+
+They climb the <span class="hw" onclick="popWord('mountains','Very high rocky hills covered with snow')">mountains</span>, cross the rivers,
+Through snow and storm they march ahead.
+<span class="hw" onclick="popWord('Salute','A formal gesture of respect, especially to soldiers')">Salute</span> to every <span class="hw" onclick="popWord('brave','Having courage to face danger without fear')">brave</span> heart,
+Who fights so others may sleep in bed.
+
+We owe them our <span class="hw" onclick="popWord('gratitude','A feeling of thankfulness and appreciation')">gratitude</span>,
+Our safety is because of their care.
+Let us remember their <span class="hw" onclick="popWord('courage','The ability to do something frightening without fear')">courage</span>,
+In our hearts, let us always be fair.`
+    },
+    explain: 'This poem pays tribute to the brave soldiers who protect our country. They work in extreme conditions — cold mountains, hot deserts — far from their families. The poet asks us to be grateful for their sacrifice and courage. We should respect and honour those who keep our country safe.',
+    vocab: [
+      { emoji: '🪖', word: 'Soldier', meaning: 'A person trained to fight and defend their country' },
+      { emoji: '🏔️', word: 'Border', meaning: 'The line that separates one country from another' },
+      { emoji: '🙏', word: 'Salute', meaning: 'A gesture of deep respect shown to soldiers or the flag' },
+      { emoji: '💪', word: 'Brave', meaning: 'Having courage to face danger without being afraid' },
+      { emoji: '❤️', word: 'Gratitude', meaning: 'A warm feeling of thankfulness towards someone' }
+    ],
+    grammar: {
+      topic: 'Revision — All Parts of Speech',
+      rule: 'Let\'s revise all the <b>parts of speech</b> we have learned! Every word in English belongs to a category: Noun, Pronoun, Verb, Adjective, Adverb, Preposition, Conjunction.',
+      examples: ['Noun: soldier', 'Verb: fights', 'Adjective: brave', 'Adverb: bravely', 'Pronoun: they', 'Preposition: at the border', 'Conjunction: and, but']
+    },
+    game: { type: 'match', title: '🎯 Match Word to Part of Speech!',
+      pairs: [
+        { word: 'Soldier 🪖', meaning: 'Noun (name)' },
+        { word: 'Brave 💪', meaning: 'Adjective (describes)' },
+        { word: 'Fight ⚔️', meaning: 'Verb (action)' },
+        { word: 'Bravely 🌟', meaning: 'Adverb (how?)' },
+        { word: 'They 👥', meaning: 'Pronoun (replaces)' }
+      ]
+    },
+    quiz: [
+      { q: 'Where do soldiers stand?', opts: ['In cities', 'At the border', 'In schools', 'In hospitals'], ans: 1, icon: '🪖' },
+      { q: 'What do soldiers sacrifice?', opts: ['Money only', 'Comfort and family', 'Their studies', 'Their food'], ans: 1, icon: '💔' },
+      { q: '"Brave" is which part of speech?', opts: ['Noun', 'Verb', 'Adjective', 'Adverb'], ans: 2, icon: '📝' },
+      { q: 'What does "gratitude" mean?', opts: ['Anger', 'Sadness', 'Thankfulness', 'Jealousy'], ans: 2, icon: '🙏' },
+      { q: 'Why should we respect soldiers?', opts: ['Because they are strong', 'They keep our country safe with great sacrifice', 'They have weapons', 'They wear uniforms'], ans: 1, icon: '🏆' }
+    ],
+    writing: { prompt: 'Write a letter of thanks to a soldier protecting our country.', hint: 'Address them respectfully, thank them for their sacrifice, and wish them well.' }
+  }
+];
+
+/* Badges */
+const BADGES = [
+  { id: 'first_step', icon: '🌱', name: 'First Step' },
+  { id: 'story_star', icon: '📖', name: 'Story Star' },
+  { id: 'quiz_champ', icon: '🏆', name: 'Quiz Champ' },
+  { id: 'half_done',  icon: '🌟', name: 'Half Done!' },
+  { id: 'bookworm',   icon: '🐛', name: 'Book Worm' },
+  { id: 'champion',   icon: '🎓', name: 'Champion!' }
+];
+
+/* ============================================================
+   STATE
+   ============================================================ */
+let CUR = 0;      // current chapter index
+let FS  = { idx: 0, flipped: false };
+let QS  = { q: 0, score: 0, answered: false };
+let SpS = { wordIdx: 0, ans: [] };
+let SenS = { idx: 0, built: [] };
+let RQ  = { qs: [], q: 0, score: 0, answered: false };
+let darkMode = false;
+
+function loadProg()     { try { return JSON.parse(localStorage.getItem('cl4eng')) || {}; } catch { return {}; } }
+function saveProg(d)    { localStorage.setItem('cl4eng', JSON.stringify(d)); }
+let P = loadProg();
+
+function getCP(id)      { return P[`c${id}`] || { stars: 0, done: false, quizDone: false }; }
+function setCP(id, obj) { P[`c${id}`] = { ...getCP(id), ...obj }; saveProg(P); updateHome(); }
+function totalStars()   { return CHAPTERS.reduce((s, c) => s + (getCP(c.id).stars || 0), 0); }
+function getBookmarks() { return P.bm || []; }
+
+function toggleBMch(id) {
+  let bm = getBookmarks();
+  const i = bm.indexOf(id);
+  i > -1 ? bm.splice(i, 1) : bm.push(id);
+  P.bm = bm; saveProg(P);
+}
+
+/* ============================================================
+   SCREEN / TAB NAVIGATION
+   ============================================================ */
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+  if (id === 'home-screen') updateHome();
+}
+
+function showTab(tab) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.t-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(`tab-${tab}`).classList.add('active');
+  document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+}
+
+function updateHome() {
+  const stars = totalStars();
+  const done  = CHAPTERS.filter(c => getCP(c.id).done).length;
+  const quiz  = CHAPTERS.filter(c => getCP(c.id).quizDone).length;
+  const pct   = Math.round((done / CHAPTERS.length) * 100);
+
+  ['home-stars', 'ch-stars'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = stars; });
+  const ob = document.getElementById('overall-bar'); if (ob) ob.style.width = pct + '%';
+  const ot = document.getElementById('overall-txt'); if (ot) ot.textContent = `${pct}% Complete (${done}/${CHAPTERS.length} chapters)`;
+  const sd = document.getElementById('st-done');  if (sd) sd.textContent = done;
+  const ss = document.getElementById('st-stars'); if (ss) ss.textContent = stars;
+  const sq = document.getElementById('st-quiz');  if (sq) sq.textContent = quiz;
+
+  const rc = document.getElementById('recent-list');
+  if (rc) {
+    rc.innerHTML = CHAPTERS.slice(0, 4).map(c => {
+      const cp = getCP(c.id);
+      return `<div style="background:var(--white);border-radius:14px;padding:12px 14px;margin-bottom:10px;display:flex;align-items:center;gap:12px;box-shadow:0 3px 12px rgba(0,0,0,0.08);cursor:pointer;border-left:4px solid ${c.color}" onclick="openChapter(${c.id - 1})">
+        <span style="font-size:1.7rem">${c.icon}</span>
+        <div style="flex:1">
+          <div style="font-weight:800;font-size:0.9rem;color:var(--dark)">${c.name}</div>
+          <div style="font-size:0.72rem;color:var(--grey);margin-top:2px">${c.type} · ${cp.done ? '✅ Done' : '📖 Not started'}</div>
+        </div>
+        <div style="color:var(--yellow);font-size:0.85rem">${'⭐'.repeat(cp.stars || 0)}</div>
+      </div>`;
+    }).join('');
+  }
+}
+
+/* ============================================================
+   TITLE SCREEN ANIMATION
+   ============================================================ */
+function initTitle() {
+  // Already done with CSS — just ensure author image fallback
+}
+
+/* ============================================================
+   RENDER CHAPTERS
+   ============================================================ */
+function renderChapters() {
+  document.getElementById('ch-stars').textContent = totalStars();
+  const grid = document.getElementById('ch-grid');
+  if (!grid) return;
+  grid.innerHTML = CHAPTERS.map((c, i) => {
+    const cp = getCP(c.id);
+    return `<div class="ch-card ${cp.done ? 'done' : ''}" onclick="openChapter(${i})">
+      ${cp.done ? '<div class="cc-badge">✅ Done</div>' : ''}
+      <span class="cc-icon">${c.icon}</span>
+      <div class="cc-num">${c.type} · Chapter ${c.id}</div>
+      <div class="cc-name">${c.name}</div>
+      <div class="cc-stars">${'⭐'.repeat(cp.stars || 0)}${'☆'.repeat(Math.max(0, 3 - (cp.stars || 0)))}</div>
+    </div>`;
+  }).join('');
+}
+
+/* ============================================================
+   OPEN CHAPTER
+   ============================================================ */
+function openChapter(idx) {
+  CUR = idx;
+  const c = CHAPTERS[idx];
+  document.getElementById('ch-screen-title').textContent = c.name;
+  document.getElementById('bm-btn').textContent = getBookmarks().includes(c.id) ? '🌟' : '🔖';
+  setCP(c.id, { done: true });
+
+  renderStoryTab(c);
+  renderVocabTab(c);
+  renderGrammarTab(c);
+  renderGameTab(c);
+  renderFlashTab(c);
+  renderQuizTab(c);
+  renderWriteTab(c);
+  showTab('story');
+  showScreen('chapter-screen');
+}
+
+function toggleBM() {
+  const c = CHAPTERS[CUR];
+  toggleBMch(c.id);
+  document.getElementById('bm-btn').textContent = getBookmarks().includes(c.id) ? '🌟' : '🔖';
+}
+
+/* ── STORY TAB ── */
+function renderStoryTab(c) {
+  const el = document.getElementById('tab-story');
+  el.innerHTML = `
+    <div class="story-card">
+      <div class="story-title">${c.icon} ${c.story.title}</div>
+      <div class="story-body">${c.story.text}</div>
+    </div>
+    <div class="explain-box">
+      <h4>📌 What Does This Mean?</h4>
+      <p>${c.explain}</p>
+    </div>
+    <div style="text-align:center;padding:4px 0 16px">
+      <button class="btn btn-blue" onclick="showTab('vocab')">Next: Vocabulary →</button>
+    </div>`;
+}
+
+function popWord(word, meaning) {
+  showModal(`<div style="font-size:1.6rem;font-weight:900;color:var(--coral);margin-bottom:8px">${word}</div>
+    <p style="font-size:0.95rem;color:var(--dark);line-height:1.6">${meaning}</p>
+    <button class="btn btn-coral" style="margin-top:14px;padding:10px 22px;font-size:0.85rem" onclick="closeModal()">Got it! 👍</button>`);
+}
+
+/* ── VOCAB TAB ── */
+function renderVocabTab(c) {
+  const el = document.getElementById('tab-vocab');
+  el.innerHTML = `
+    <div style="background:var(--white);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);margin-bottom:14px">
+      <div style="font-size:0.9rem;font-weight:900;color:var(--coral);margin-bottom:12px">🔤 Key Vocabulary</div>
+      ${c.vocab.map(v => `
+        <div style="display:flex;align-items:center;gap:12px;padding:10px;background:#f8f9fa;border-radius:12px;margin-bottom:8px">
+          <span style="font-size:1.8rem">${v.emoji}</span>
+          <div>
+            <div style="font-weight:900;font-size:0.95rem;color:var(--dark)">${v.word}</div>
+            <div style="font-size:0.82rem;color:var(--grey);margin-top:2px">${v.meaning}</div>
+          </div>
+        </div>`).join('')}
+    </div>
+    <div style="text-align:center;padding:4px 0 16px">
+      <button class="btn btn-coral" onclick="showTab('grammar')">Next: Grammar →</button>
+    </div>`;
+}
+
+/* ── GRAMMAR TAB ── */
+function renderGrammarTab(c) {
+  const el = document.getElementById('tab-grammar');
+  el.innerHTML = `
+    <div class="grammar-card">
+      <h3>📝 ${c.grammar.topic}</h3>
+      <p>${c.grammar.rule}</p>
+      <div class="ex-chips">
+        ${c.grammar.examples.map(e => `<span class="ex-chip">${e}</span>`).join('')}
+      </div>
+    </div>
+    <div style="text-align:center;padding:4px 0 16px">
+      <button class="btn btn-blue" onclick="showTab('game')">Next: Play Game →</button>
+    </div>`;
+}
+
+/* ── GAME TAB ── */
+function renderGameTab(c) {
+  const el = document.getElementById('tab-game');
+  if (c.game.type === 'match')    renderMatchGame(c, el);
+  else if (c.game.type === 'spelling') renderSpellingGame(c, el);
+  else if (c.game.type === 'sentence') renderSentenceGame(c, el);
+}
+
+/* Match Game */
+function renderMatchGame(c, el) {
+  const pairs = c.game.pairs;
+  const words   = [...pairs.map(p => p.word)].sort(() => Math.random() - 0.5);
+  const meanings= [...pairs.map(p => p.meaning)].sort(() => Math.random() - 0.5);
+  let selWord = null, selMean = null, matched = 0;
+
+  el.innerHTML = `
+    <div class="game-box">
+      <div class="game-title">${c.game.title}</div>
+      <div style="font-size:0.75rem;color:var(--grey);text-align:center;margin-bottom:10px">Tap a word, then tap its meaning!</div>
+      <div class="match-area">
+        <div class="match-col" id="wc">
+          ${words.map((w, i) => `<div class="match-item" id="w${i}" data-val="${w}" onclick="handleMatch(this,'word')">${w}</div>`).join('')}
+        </div>
+        <div class="match-col" id="mc">
+          ${meanings.map((m, i) => `<div class="match-item" id="m${i}" data-val="${m}" onclick="handleMatch(this,'mean')">${m}</div>`).join('')}
+        </div>
+      </div>
+      <div id="match-score" style="text-align:center;margin-top:14px;font-weight:900;font-size:1rem;color:var(--lime)"></div>
+    </div>
+    <div style="text-align:center;padding:14px 0 10px;display:flex;gap:8px;justify-content:center">
+      <button class="btn btn-ghost" onclick="renderGameTab(CHAPTERS[${CUR}])">🔄 Restart</button>
+      <button class="btn btn-coral" onclick="showTab('flash')">Flash Cards →</button>
+    </div>`;
+
+  let localSelW = null, localSelM = null, localMatched = 0;
+
+  el.querySelectorAll('.match-item').forEach(item => {
+    item.addEventListener('click', function() {
+      if (this.classList.contains('matched')) return;
+      const type = this.id.startsWith('w') ? 'word' : 'mean';
+
+      if (type === 'word') {
+        el.querySelectorAll('[id^="w"]').forEach(e => e.classList.remove('selected'));
+        this.classList.add('selected');
+        localSelW = this;
+      } else {
+        el.querySelectorAll('[id^="m"]').forEach(e => e.classList.remove('selected'));
+        this.classList.add('selected');
+        localSelM = this;
+      }
+
+      if (localSelW && localSelM) {
+        const wVal = localSelW.dataset.val;
+        const mVal = localSelM.dataset.val;
+        const isMatch = pairs.some(p => p.word === wVal && p.meaning === mVal);
+
+        if (isMatch) {
+          localSelW.classList.remove('selected'); localSelW.classList.add('matched');
+          localSelM.classList.remove('selected'); localSelM.classList.add('matched');
+          localMatched++;
+          const sc = document.getElementById('match-score');
+          if (sc) {
+            if (localMatched === pairs.length) { sc.textContent = '🎉 All matched! Great job!'; celebrate(); addStar(); }
+            else sc.textContent = `✅ ${localMatched}/${pairs.length} matched`;
+          }
+        } else {
+          localSelW.classList.add('wrong'); localSelM.classList.add('wrong');
+          setTimeout(() => {
+            localSelW.classList.remove('wrong', 'selected');
+            localSelM.classList.remove('wrong', 'selected');
+          }, 600);
+        }
+        localSelW = null; localSelM = null;
+      }
+    });
+  });
+}
+
+/* Spelling Game */
+function renderSpellingGame(c, el) {
+  SpS = { wordIdx: 0, ans: [] };
+  updateSpelling(c, el);
+}
+
+function updateSpelling(c, el) {
+  const w = c.game.words[SpS.wordIdx];
+  const letters = w.word.split('').sort(() => Math.random() - 0.5);
+  SpS.ans = [];
+
+  el.innerHTML = `
+    <div class="game-box">
+      <div class="game-title">${c.game.title}</div>
+      <div style="text-align:center;font-size:2.5rem;margin:8px 0">${w.emoji}</div>
+      <div style="text-align:center;font-size:0.82rem;color:var(--grey);margin-bottom:4px">Word ${SpS.wordIdx + 1}/${c.game.words.length}: <b>${w.hint}</b></div>
+      <div class="spell-answer" id="spell-ans"></div>
+      <div class="letter-rack" id="letter-rack">
+        ${letters.map((l, i) => `<button class="letter-tile" data-i="${i}" onclick="addLetter(this,'${l}',${i})">${l}</button>`).join('')}
+      </div>
+      <div style="display:flex;gap:8px;justify-content:center;margin-top:10px">
+        <button class="btn btn-ghost" onclick="clearSpell()">🗑️ Clear</button>
+        <button class="btn btn-coral" onclick="checkSpell('${w.word}')">✅ Check</button>
+      </div>
+      <div id="spell-fb" style="margin-top:10px"></div>
+    </div>
+    <div style="text-align:center;padding:14px 0 10px">
+      <button class="btn btn-coral" onclick="showTab('flash')">Flash Cards →</button>
+    </div>`;
+}
+
+function addLetter(btn, letter, idx) {
+  if (btn.classList.contains('used')) return;
+  btn.classList.add('used');
+  SpS.ans.push({ letter, idx });
+  const ans = document.getElementById('spell-ans');
+  if (ans) {
+    const tile = document.createElement('div');
+    tile.className = 'ans-tile';
+    tile.textContent = letter;
+    tile.onclick = () => removeLetter(tile, idx);
+    ans.appendChild(tile);
+  }
+}
+
+function removeLetter(tile, idx) {
+  tile.remove();
+  const i = SpS.ans.findIndex(a => a.idx === idx);
+  if (i > -1) SpS.ans.splice(i, 1);
+  const btn = document.querySelector(`.letter-tile[data-i="${idx}"]`);
+  if (btn) btn.classList.remove('used');
+}
+
+function clearSpell() {
+  SpS.ans = [];
+  const ans = document.getElementById('spell-ans'); if (ans) ans.innerHTML = '';
+  document.querySelectorAll('.letter-tile').forEach(b => b.classList.remove('used'));
+}
+
+function checkSpell(word) {
+  const built = SpS.ans.map(a => a.letter).join('');
+  const fb = document.getElementById('spell-fb'); if (!fb) return;
+  if (built === word) {
+    fb.innerHTML = `<div class="quiz-fb fb-good">🎉 Correct! <b>${word}</b> ✅</div>`;
+    celebrate(); addStar();
+    const c = CHAPTERS[CUR];
+    setTimeout(() => {
+      if (SpS.wordIdx < c.game.words.length - 1) { SpS.wordIdx++; updateSpelling(c, document.getElementById('tab-game')); }
+    }, 1500);
+  } else {
+    fb.innerHTML = `<div class="quiz-fb fb-bad">❌ Try again! Hint: ${word.length} letters</div>`;
+  }
+}
+
+/* Sentence Game */
+function renderSentenceGame(c, el) {
+  SenS = { idx: 0, built: [] };
+  updateSentence(c, el);
+}
+
+function updateSentence(c, el) {
+  const s = c.game.sentences[SenS.idx];
+  const shuffled = [...s.words].sort(() => Math.random() - 0.5);
+  SenS.built = [];
+
+  el.innerHTML = `
+    <div class="game-box">
+      <div class="game-title">${c.game.title}</div>
+      <div style="font-size:0.78rem;color:var(--grey);text-align:center;margin-bottom:8px">Sentence ${SenS.idx + 1}/${c.game.sentences.length} — Tap words to build the sentence!</div>
+      <div class="sentence-display" id="sen-built"></div>
+      <div class="word-bank" id="word-bank">
+        ${shuffled.map((w, i) => `<button class="word-chip" data-w="${w}" data-i="${i}" onclick="addWord(this,'${w}')">${w}</button>`).join('')}
+      </div>
+      <div style="display:flex;gap:8px;justify-content:center">
+        <button class="btn btn-ghost" onclick="clearSen()">🗑️ Clear</button>
+        <button class="btn btn-coral" onclick="checkSen('${s.answer}')">✅ Check</button>
+      </div>
+      <div id="sen-fb" style="margin-top:10px"></div>
+    </div>
+    <div style="text-align:center;padding:14px 0 10px">
+      <button class="btn btn-coral" onclick="showTab('flash')">Flash Cards →</button>
+    </div>`;
+}
+
+function addWord(btn, word) {
+  if (btn.classList.contains('used')) return;
+  btn.classList.add('used');
+  SenS.built.push(word);
+  const disp = document.getElementById('sen-built');
+  if (disp) {
+    const chip = document.createElement('span');
+    chip.className = 'slot-chip';
+    chip.textContent = word;
+    chip.onclick = () => { chip.remove(); const i = SenS.built.lastIndexOf(word); if (i > -1) SenS.built.splice(i, 1); btn.classList.remove('used'); };
+    disp.appendChild(chip);
+  }
+}
+
+function clearSen() {
+  SenS.built = [];
+  const d = document.getElementById('sen-built'); if (d) d.innerHTML = '';
+  document.querySelectorAll('.word-chip').forEach(b => b.classList.remove('used'));
+}
+
+function checkSen(answer) {
+  const built = SenS.built.join(' ');
+  const fb = document.getElementById('sen-fb'); if (!fb) return;
+  if (built.toLowerCase() === answer.toLowerCase()) {
+    fb.innerHTML = `<div class="quiz-fb fb-good">🎉 Perfect! "${answer}"</div>`;
+    celebrate(); addStar();
+    const c = CHAPTERS[CUR];
+    setTimeout(() => {
+      if (SenS.idx < c.game.sentences.length - 1) { SenS.idx++; updateSentence(c, document.getElementById('tab-game')); }
+    }, 1600);
+  } else {
+    fb.innerHTML = `<div class="quiz-fb fb-bad">❌ Try again! Look at the words carefully.</div>`;
+  }
+}
+
+/* ── FLASHCARD TAB ── */
+function renderFlashTab(c) {
+  FS = { idx: 0, flipped: false };
+  updateFC(c);
+}
+
+function updateFC(c) {
+  const el = document.getElementById('tab-flash');
+  const v  = c.vocab[FS.idx];
+  const dots = c.vocab.map((_, i) => `<div class="fc-dot ${i === FS.idx ? 'on' : ''}"></div>`).join('');
+
+  el.innerHTML = `
+    <div style="text-align:center;font-size:0.75rem;color:var(--grey);margin-bottom:4px">Tap card to see the meaning!</div>
+    <div class="fc-scene" onclick="flipFC()">
+      <div class="fc-card ${FS.flipped ? 'flipped' : ''}">
+        <div class="fc-face fc-front">
+          <span class="fc-emoji">${v.emoji}</span>
+          <div class="fc-word">${v.word}</div>
+          <div class="fc-hint">Tap to flip →</div>
+        </div>
+        <div class="fc-face fc-back">
+          <span class="fc-emoji">${v.emoji}</span>
+          <div class="fc-mean">${v.meaning}</div>
+        </div>
+      </div>
+    </div>
+    <div class="fc-dots">${dots}</div>
+    <div class="fc-nav">
+      <button class="fc-nav-btn" onclick="prevFC()">◀</button>
+      <span class="fc-counter">${FS.idx + 1} / ${c.vocab.length}</span>
+      <button class="fc-nav-btn" onclick="nextFC()">▶</button>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:12px 0">
+      ${c.vocab.map((v, i) => `<span style="background:${i === FS.idx ? 'var(--coral)' : '#f0f0f0'};color:${i === FS.idx ? 'white' : 'var(--dark)'};border-radius:20px;padding:5px 12px;font-size:0.75rem;font-weight:800;cursor:pointer" onclick="jumpFC(${i})">${v.word}</span>`).join('')}
+    </div>
+    <div style="text-align:center;padding:0 0 16px">
+      <button class="btn btn-coral btn-full" onclick="showTab('quiz')">Take the Quiz! →</button>
+    </div>`;
+}
+
+function flipFC() { FS.flipped = !FS.flipped; const c = document.querySelector('.fc-card'); if (c) c.classList.toggle('flipped'); }
+function prevFC() { const c = CHAPTERS[CUR]; FS.idx = (FS.idx - 1 + c.vocab.length) % c.vocab.length; FS.flipped = false; updateFC(c); }
+function nextFC() { const c = CHAPTERS[CUR]; FS.idx = (FS.idx + 1) % c.vocab.length; FS.flipped = false; updateFC(c); }
+function jumpFC(i) { FS.idx = i; FS.flipped = false; updateFC(CHAPTERS[CUR]); }
+
+/* ── QUIZ TAB ── */
+function renderQuizTab(c) { QS = { q: 0, score: 0, answered: false }; updateQuiz(c); }
+
+function updateQuiz(c) {
+  const el = document.getElementById('tab-quiz');
+  if (QS.q >= c.quiz.length) { showScore(c); return; }
+  const q = c.quiz[QS.q];
+  const pct = (QS.q / c.quiz.length) * 100;
+  const letters = ['A', 'B', 'C', 'D'];
+
+  el.innerHTML = `
+    <div class="quiz-prog-wrap"><div class="quiz-prog-fill" style="width:${pct}%"></div></div>
+    <div class="quiz-meta"><span>Question ${QS.q + 1} / ${c.quiz.length}</span><span>Score: ${QS.score}/${QS.q}</span></div>
+    <div class="quiz-q-box">
+      <span class="quiz-q-icon">${q.icon}</span>
+      ${q.q}
+    </div>
+    <div class="quiz-opts">
+      ${q.opts.map((o, i) => `<button class="quiz-opt" onclick="answerQ(${i},${q.ans},this)">${letters[i]}. ${o}</button>`).join('')}
+    </div>
+    <div id="qfb"></div>`;
+}
+
+function answerQ(chosen, correct, btn) {
+  if (QS.answered) return;
+  QS.answered = true;
+  document.querySelectorAll('.quiz-opt').forEach(b => b.disabled = true);
+  const c = CHAPTERS[CUR];
+  const fb = document.getElementById('qfb');
+  if (chosen === correct) {
+    btn.classList.add('correct'); QS.score++;
+    if (fb) fb.innerHTML = `<div class="quiz-fb fb-good">⭐ Correct! Excellent!</div>`;
+  } else {
+    btn.classList.add('wrong');
+    document.querySelectorAll('.quiz-opt')[correct].classList.add('correct');
+    if (fb) fb.innerHTML = `<div class="quiz-fb fb-bad">❌ The correct answer is: <b>${c.quiz[QS.q].opts[correct]}</b></div>`;
+  }
+  setTimeout(() => { QS.q++; QS.answered = false; updateQuiz(CHAPTERS[CUR]); }, 1900);
+}
+
+function showScore(c) {
+  const pct   = (QS.score / c.quiz.length) * 100;
+  const stars = pct === 100 ? 3 : pct >= 60 ? 2 : pct >= 40 ? 1 : 0;
+  const emoji = pct === 100 ? '🏆' : pct >= 80 ? '🌟' : pct >= 60 ? '😊' : '📚';
+  const msg   = pct === 100 ? 'Perfect Score! Amazing!' : pct >= 80 ? 'Excellent Work!' : pct >= 60 ? 'Good Job!' : 'Keep Practising!';
+
+  setCP(c.id, { stars, quizDone: true });
+  if (stars >= 2) celebrate();
+
+  document.getElementById('tab-quiz').innerHTML = `
+    <div class="score-wrap">
+      <span class="score-trophy">${emoji}</span>
+      <div class="score-num">${QS.score}/${c.quiz.length}</div>
+      <div class="score-msg">${msg}</div>
+      <div class="score-stars">${'⭐'.repeat(stars)}${'☆'.repeat(3 - stars)}</div>
+      <button class="btn btn-coral btn-full" onclick="renderQuizTab(CHAPTERS[${CUR}])">🔄 Try Again</button>
+      <button class="btn btn-green btn-full" onclick="showTab('write')">Next: Writing Practice →</button>
+      <button class="btn btn-ghost btn-full" onclick="showScreen('chapters-screen');renderChapters()">📚 Back to Chapters</button>
+    </div>`;
+}
+
+/* ── WRITING TAB ── */
+function renderWriteTab(c) {
+  const el   = document.getElementById('tab-write');
+  const saved = P[`wr_${c.id}`] || '';
+  el.innerHTML = `
+    <div class="writing-prompt">
+      <div class="wp-title">✍️ Writing Practice</div>
+      <div>📌 ${c.writing.prompt}</div>
+      <div class="wp-hint">💡 ${c.writing.hint}</div>
+    </div>
+    <div class="lined-area">
+      <textarea placeholder="Start writing here... ✏️" oninput="saveWrite(${c.id},this.value)">${saved}</textarea>
+    </div>
+    <div style="display:flex;gap:8px;padding:12px 0 16px">
+      <button class="btn btn-green" style="flex:1" onclick="saveWriteNow(${c.id})">💾 Save</button>
+      <button class="btn btn-coral" style="flex:1" onclick="clearWrite(${c.id})">🗑️ Clear</button>
+    </div>
+    <div style="background:#e8f5e9;border-radius:12px;padding:13px;margin-bottom:16px">
+      <div style="font-weight:900;color:var(--lime);margin-bottom:6px;font-size:0.9rem">📝 Writing Tips:</div>
+      <div style="font-size:0.82rem;color:var(--dark);line-height:1.7">
+        • Start every sentence with a capital letter<br>
+        • End with a full stop (.)<br>
+        • Use describing words (adjectives)<br>
+        • Write at least 3 sentences
+      </div>
+    </div>`;
+}
+
+function saveWrite(id, val)     { P[`wr_${id}`] = val; saveProg(P); }
+function saveWriteNow(id)       { const v = document.querySelector('.lined-area textarea')?.value; if (v !== undefined) { saveWrite(id, v); showModal(`<div style="font-size:2rem">💾</div><h3>Saved!</h3><p>Your writing is saved.</p><button class="btn btn-coral" style="margin-top:12px" onclick="closeModal()">OK</button>`); } }
+function clearWrite(id)         { const t = document.querySelector('.lined-area textarea'); if (t) t.value = ''; saveWrite(id, ''); }
+
+/* ── PROGRESS ── */
+function renderProgress() {
+  const stars = totalStars();
+  document.getElementById('prog-stars').textContent = `${stars} ⭐`;
+
+  const done   = CHAPTERS.filter(c => getCP(c.id).done).length;
+  const quizD  = CHAPTERS.filter(c => getCP(c.id).quizDone).length;
+
+  const bg = document.getElementById('badge-grid');
+  if (bg) {
+    bg.innerHTML = BADGES.map(b => {
+      let earned = false;
+      if (b.id === 'first_step') earned = done >= 1;
+      else if (b.id === 'story_star') earned = done >= 3;
+      else if (b.id === 'quiz_champ') earned = quizD >= 3;
+      else if (b.id === 'half_done')  earned = done >= 7;
+      else if (b.id === 'bookworm')   earned = done >= 10;
+      else if (b.id === 'champion')   earned = done >= 14;
+      return `<div class="badge-card ${earned ? 'earned' : ''}">
+        <div class="b-icon">${b.icon}</div>
+        <div class="b-name">${b.name}</div>
+      </div>`;
+    }).join('');
+  }
+
+  const list = document.getElementById('prog-ch-list');
+  if (list) {
+    list.innerHTML = CHAPTERS.map(c => {
+      const cp = getCP(c.id);
+      return `<div class="ch-prog-item">
+        <span class="ch-prog-icon">${c.icon}</span>
+        <div class="ch-prog-name">${c.name}</div>
+        <div class="ch-prog-score">${'⭐'.repeat(cp.stars || 0) || (cp.done ? '✅' : '○')}</div>
+      </div>`;
+    }).join('');
+  }
+}
+
+/* ── BOOKMARKS ── */
+function renderBookmarks() {
+  const bm   = getBookmarks();
+  const body = document.getElementById('bm-body');
+  if (!body) return;
+  if (!bm.length) {
+    body.innerHTML = `<div class="bm-empty">🔖<br><br>No bookmarks yet!<br><span style="font-size:0.85rem">Tap 🔖 in any chapter to bookmark it.</span></div>`;
+    return;
+  }
+  body.innerHTML = bm.map(id => {
+    const c = CHAPTERS.find(ch => ch.id === id);
+    if (!c) return '';
+    return `<div class="bm-item" onclick="openChapter(${c.id - 1})">
+      <span style="font-size:1.8rem">${c.icon}</span>
+      <div style="flex:1">
+        <div style="font-weight:800;font-size:0.92rem;color:var(--dark)">${c.name}</div>
+        <div style="font-size:0.75rem;color:var(--grey);margin-top:2px">${c.type} · Tap to open</div>
+      </div>
+      <span style="color:var(--yellow)">${'⭐'.repeat(getCP(id).stars || 0) || '☆'}</span>
+    </div>`;
+  }).join('');
+}
+
+/* ── RANDOM QUIZ ── */
+function startRandomQuiz() {
+  const allQ = CHAPTERS.flatMap(c => c.quiz.map(q => ({ ...q, chName: c.name })));
+  const shuffled = allQ.sort(() => Math.random() - 0.5).slice(0, 10);
+  RQ = { qs: shuffled, q: 0, score: 0, answered: false };
+  showScreen('rquiz-screen');
+  updateRQ();
+}
+
+function updateRQ() {
+  const el = document.getElementById('rquiz-body');
+  if (!el) return;
+  if (RQ.q >= RQ.qs.length) {
+    const pct = Math.round((RQ.score / RQ.qs.length) * 100);
+    el.innerHTML = `
+      <div class="score-wrap">
+        <span class="score-trophy">${pct >= 80 ? '🏆' : '📚'}</span>
+        <div class="score-num">${RQ.score}/${RQ.qs.length}</div>
+        <div class="score-msg">${pct >= 80 ? 'Excellent!' : pct >= 60 ? 'Good Work!' : 'Keep Practising!'}</div>
+        <button class="btn btn-coral btn-full" onclick="startRandomQuiz()">🔄 New Quiz</button>
+        <button class="btn btn-ghost btn-full" onclick="showScreen('home-screen')">🏠 Home</button>
+      </div>`;
+    return;
+  }
+  const q = RQ.qs[RQ.q];
+  const pct = (RQ.q / RQ.qs.length) * 100;
+  const letters = ['A', 'B', 'C', 'D'];
+  el.innerHTML = `
+    <div class="quiz-prog-wrap"><div class="quiz-prog-fill" style="width:${pct}%"></div></div>
+    <div class="quiz-meta"><span>Q ${RQ.q + 1}/${RQ.qs.length}</span><span style="font-size:0.68rem;color:var(--grey)">${q.chName}</span></div>
+    <div class="quiz-q-box">
+      <span class="quiz-q-icon">${q.icon}</span>${q.q}
+    </div>
+    <div class="quiz-opts">
+      ${q.opts.map((o, i) => `<button class="quiz-opt" onclick="answerRQ(${i},${q.ans},this)">${letters[i]}. ${o}</button>`).join('')}
+    </div>
+    <div id="rqfb"></div>`;
+}
+
+function answerRQ(chosen, correct, btn) {
+  if (RQ.answered) return;
+  RQ.answered = true;
+  document.querySelectorAll('.quiz-opt').forEach(b => b.disabled = true);
+  const fb = document.getElementById('rqfb');
+  if (chosen === correct) {
+    btn.classList.add('correct'); RQ.score++;
+    if (fb) fb.innerHTML = `<div class="quiz-fb fb-good">✅ Correct!</div>`;
+  } else {
+    btn.classList.add('wrong');
+    document.querySelectorAll('.quiz-opt')[correct].classList.add('correct');
+    if (fb) fb.innerHTML = `<div class="quiz-fb fb-bad">❌ Answer: <b>${RQ.qs[RQ.q].opts[correct]}</b></div>`;
+  }
+  setTimeout(() => { RQ.q++; RQ.answered = false; updateRQ(); }, 1900);
+}
+
+/* ── UTILITIES ── */
+function addStar() {
+  const c = CHAPTERS[CUR];
+  const cp = getCP(c.id);
+  if ((cp.stars || 0) < 3) setCP(c.id, { stars: Math.min(3, (cp.stars || 0) + 1) });
+}
+
+function celebrate() {
+  const layer = document.getElementById('confetti-layer');
+  layer.innerHTML = '';
+  const colors = ['#FF6B6B','#FF9F43','#FECA57','#26de81','#45aaf2','#a55eea','#fd79a8'];
+  for (let i = 0; i < 55; i++) {
+    const d = document.createElement('div');
+    d.className = 'conf-dot';
+    d.style.cssText = `
+      left:${Math.random() * 100}%; top:-12px;
+      background:${colors[Math.floor(Math.random() * colors.length)]};
+      width:${5 + Math.random() * 9}px; height:${5 + Math.random() * 9}px;
+      border-radius:${Math.random() > 0.5 ? '50%' : '2px'};
+      animation-duration:${1.5 + Math.random() * 2}s;
+      animation-delay:${Math.random() * 0.6}s;
+    `;
+    layer.appendChild(d);
+  }
+  setTimeout(() => layer.innerHTML = '', 3500);
+}
+
+function showModal(html) {
+  document.getElementById('modal-inner').innerHTML = html;
+  document.getElementById('overlay').classList.add('on');
+}
+
+function closeModal() {
+  document.getElementById('overlay').classList.remove('on');
+}
+
+document.getElementById('overlay').addEventListener('click', e => {
+  if (e.target.id === 'overlay') closeModal();
+});
+
+function toggleDark() {
+  darkMode = !darkMode;
+  document.body.classList.toggle('dark', darkMode);
+  document.getElementById('dark-btn').textContent = darkMode ? '☀️' : '🌙';
+}
+
+function confirmReset() {
+  showModal(`<div style="font-size:2rem">⚠️</div>
+    <h3>Reset All Progress?</h3>
+    <p>All stars, badges, notes and bookmarks will be deleted. This cannot be undone!</p>
+    <div style="display:flex;gap:8px;margin-top:14px">
+      <button class="btn btn-coral" style="flex:1" onclick="doReset()">Reset</button>
+      <button class="btn btn-ghost" style="flex:1" onclick="closeModal()">Cancel</button>
+    </div>`);
+}
+
+function doReset() {
+  localStorage.removeItem('cl4eng');
+  P = {};
+  closeModal();
+  showScreen('home-screen');
+  showModal(`<div style="font-size:2rem">✅</div><h3>Reset Done!</h3><p>All progress cleared. Start fresh!</p><button class="btn btn-coral" style="margin-top:12px" onclick="closeModal()">OK</button>`);
+}
+
+/* ── PWA ── */
+if ('serviceWorker' in navigator) {
+  try {
+    const swCode = `
+      const C='cl4eng-v1';
+      self.addEventListener('install',()=>self.skipWaiting());
+      self.addEventListener('activate',()=>self.clients.claim());
+      self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).catch(()=>new Response('Offline')))));
+    `;
+    navigator.serviceWorker.register(URL.createObjectURL(new Blob([swCode], { type: 'application/javascript' })))
+      .then(() => console.log('✅ Offline ready')).catch(() => {});
+  } catch(e) {}
+}
+
+(function() {
+  try {
+    const m = { name:'JKBOSE Class 4 English App', short_name:'Class 4 English', start_url:'./', display:'standalone', background_color:'#FF6B6B', theme_color:'#4361EE', orientation:'portrait', icons:[{ src:"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='32' fill='%234361EE'/><text x='96' y='130' font-size='100' text-anchor='middle'>📚</text></svg>", sizes:'192x192', type:'image/svg+xml' }] };
+    const l = document.createElement('link'); l.rel = 'manifest';
+    l.href = URL.createObjectURL(new Blob([JSON.stringify(m)], { type: 'application/manifest+json' }));
+    document.head.appendChild(l);
+  } catch(e) {}
+})();
+
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault(); deferredPrompt = e;
+  document.getElementById('install-banner').classList.add('show');
+});
+document.getElementById('install-btn').addEventListener('click', async () => {
+  if (deferredPrompt) { deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt = null; document.getElementById('install-banner').classList.remove('show'); }
+});
+
+/* ── INIT ── */
+document.addEventListener('DOMContentLoaded', () => {
+  updateHome();
+  console.log('📚 JKBOSE Class 4 English App — Mateen Yousuf, SED J&K');
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#2ecc71">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="کلاس 4 اردو">
+<meta name="description" content="JKBOSE Class 4 Urdu Interactive Learning App by Mateen Yousuf">
+<title>کلاس 4 اردو لرننگ ایپ</title>
+
+<style>
+/* ============================================================
+   DESIGN SYSTEM — Warm Emerald & Gold — Urdu-First Layout
+   RTL-native, large script, child-friendly, joyful
+   ============================================================ */
+:root {
+  --emerald:  #27ae60;
+  --emerald2: #2ecc71;
+  --gold:     #f39c12;
+  --gold2:    #f1c40f;
+  --teal:     #16a085;
+  --blue:     #2980b9;
+  --purple:   #8e44ad;
+  --rose:     #e74c3c;
+  --orange:   #e67e22;
+  --white:    #ffffff;
+  --dark:     #2c3e50;
+  --grey:     #7f8c8d;
+  --bg:       #f0fdf4;
+  --card:     #ffffff;
+  --shadow:   0 8px 32px rgba(0,0,0,0.13);
+  --radius:   20px;
+  --rsm:      12px;
+  --urdu:     'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', 'Mehr Nastaliq Web', 'Traditional Arabic', serif;
+  --ui:       'Segoe UI', Arial, sans-serif;
+}
+
+body.dark-mode {
+  --bg:   #1a2e1a;
+  --card: #1e3a1e;
+  --dark: #ecf0f1;
+  --grey: #bdc3c7;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+body {
+  font-family: var(--urdu);
+  background: var(--bg);
+  color: var(--dark);
+  min-height: 100vh;
+  overflow-x: hidden;
+  direction: rtl;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* Urdu text styling */
+.urdu-text {
+  font-family: var(--urdu);
+  direction: rtl;
+  line-height: 2.4;
+  font-size: 1.15rem;
+}
+
+.urdu-lg {
+  font-family: var(--urdu);
+  direction: rtl;
+  font-size: 1.4rem;
+  line-height: 2.6;
+}
+
+/* UI elements use Latin font */
+.ui-font { font-family: var(--ui); }
+
+/* ── SCREENS ── */
+.screen { display: none; min-height: 100vh; animation: fadeUp 0.4s ease; }
+.screen.active { display: block; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── TITLE SCREEN ── */
+#title-screen {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 30%, #f39c12 65%, #8e44ad 100%);
+  background-size: 400% 400%;
+  animation: gradShift 8s ease infinite;
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 24px 20px; text-align: center;
+  position: relative; overflow: hidden;
+}
+
+@keyframes gradShift {
+  0%,100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+/* Floating Urdu letters */
+.fl-urdu {
+  position: absolute; font-family: var(--urdu);
+  font-size: clamp(2rem, 7vw, 3.5rem);
+  color: rgba(255,255,255,0.2);
+  animation: floatU linear infinite;
+  pointer-events: none; user-select: none;
+  direction: rtl;
+}
+
+@keyframes floatU {
+  0%   { transform: translateY(0) rotate(-5deg); opacity: 0.15; }
+  50%  { transform: translateY(-35px) rotate(5deg); opacity: 0.4; }
+  100% { transform: translateY(0) rotate(-5deg); opacity: 0.15; }
+}
+
+.title-chip {
+  background: rgba(255,255,255,0.22);
+  border: 2px solid rgba(255,255,255,0.5);
+  border-radius: 50px; padding: 6px 22px;
+  font-size: 0.72rem; font-weight: 800; color: white;
+  letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px;
+  font-family: var(--ui);
+}
+
+.title-h1 {
+  font-family: var(--urdu);
+  font-size: clamp(1.8rem, 8vw, 3rem);
+  color: white;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  line-height: 2;
+  margin-bottom: 4px;
+  direction: rtl;
+}
+
+.title-sub {
+  font-size: 0.82rem; color: rgba(255,255,255,0.88);
+  letter-spacing: 1px; margin-bottom: 22px;
+  font-family: var(--ui);
+}
+
+/* Author photo ring */
+.ap-wrap { position: relative; width: 118px; height: 118px; margin: 0 auto 14px; }
+.ap-ring {
+  position: absolute; inset: -5px; border-radius: 50%;
+  background: conic-gradient(#f1c40f, #27ae60, #8e44ad, #e74c3c, #2980b9, #f1c40f);
+  animation: spin 3.5s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.ap-inner { position: absolute; inset: 3px; border-radius: 50%; border: 3px solid white; overflow: hidden; background: #ddd; z-index: 1; }
+.ap-inner img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+
+.ap-name  { font-family: var(--ui); font-size: 1.2rem; font-weight: 900; color: white; text-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+.ap-desig { font-family: var(--ui); font-size: 0.78rem; color: rgba(255,255,255,0.88); margin-top: 4px; line-height: 1.6; }
+
+.emoji-bounce { display: flex; gap: 10px; justify-content: center; margin: 14px 0; font-size: 1.5rem; }
+.emoji-bounce span { animation: eb 1.5s ease infinite; }
+.emoji-bounce span:nth-child(2) { animation-delay: .2s; }
+.emoji-bounce span:nth-child(3) { animation-delay: .4s; }
+.emoji-bounce span:nth-child(4) { animation-delay: .6s; }
+@keyframes eb { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+
+.start-btn {
+  background: white; color: var(--emerald); border: none; border-radius: 50px;
+  padding: 15px 44px; font-size: 1.1rem; font-weight: 900;
+  cursor: pointer; box-shadow: 0 8px 30px rgba(0,0,0,0.22);
+  font-family: var(--urdu); direction: rtl;
+  animation: pBtn 2.5s ease infinite; transition: transform 0.2s;
+  display: flex; align-items: center; gap: 10px; margin: 0 auto;
+}
+@keyframes pBtn { 0%,100% { box-shadow: 0 8px 30px rgba(0,0,0,0.22); } 50% { box-shadow: 0 14px 50px rgba(255,255,255,0.45); } }
+.start-btn:hover { transform: scale(1.06); }
+
+/* ── TOP BAR ── */
+.top-bar {
+  background: var(--card); padding: 11px 16px;
+  display: flex; align-items: center; gap: 10px;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 3px 14px rgba(0,0,0,0.08);
+  direction: rtl;
+}
+
+.back-btn {
+  background: #e8f8f0; border: none; border-radius: 11px;
+  width: 38px; height: 38px; font-size: 1.1rem; cursor: pointer;
+  color: var(--emerald); display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s; flex-shrink: 0;
+}
+.back-btn:hover { background: #c8f0d8; }
+
+.tb-title { flex: 1; font-size: 1rem; font-weight: 800; color: var(--dark); font-family: var(--urdu); direction: rtl; }
+.tb-stars { background: #fef9e7; border: 2px solid var(--gold2); border-radius: 20px; padding: 4px 12px; font-size: 0.8rem; font-weight: 800; color: #9a7d0a; font-family: var(--ui); }
+.mode-btn { background: none; border: none; font-size: 1.2rem; cursor: pointer; padding: 4px; }
+
+/* ── HOME SCREEN ── */
+#home-screen { background: var(--bg); }
+
+.home-hero {
+  background: linear-gradient(135deg, var(--emerald), var(--teal));
+  padding: 22px 20px 30px; border-radius: 0 0 36px 36px;
+  color: white; text-align: center;
+  box-shadow: 0 6px 24px rgba(39,174,96,0.35);
+  direction: rtl;
+}
+
+.hero-greet { font-size: 0.88rem; opacity: 0.88; margin-bottom: 3px; font-family: var(--urdu); }
+.hero-title { font-size: 1.4rem; font-weight: 900; margin-bottom: 12px; font-family: var(--urdu); direction: rtl; }
+.hero-title span { color: var(--gold2); }
+
+.prog-wrap { background: rgba(255,255,255,0.28); border-radius: 20px; height: 10px; overflow: hidden; }
+.prog-bar  { background: var(--gold2); height: 100%; border-radius: 20px; transition: width 0.8s ease; }
+.prog-txt  { font-size: 0.75rem; opacity: 0.88; margin-top: 5px; font-family: var(--ui); }
+
+.sec-hd { font-size: 0.68rem; font-weight: 900; color: var(--grey); letter-spacing: 2px; text-transform: uppercase; padding: 18px 16px 10px; font-family: var(--ui); }
+
+.nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 14px; }
+
+.nav-card {
+  border-radius: var(--radius); padding: 18px 12px;
+  cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 8px;
+  transition: transform 0.2s, box-shadow 0.2s; box-shadow: var(--shadow); border: none; text-align: center;
+}
+.nav-card:hover  { transform: translateY(-4px); }
+.nav-card:active { transform: scale(0.97); }
+.nav-card .nc-icon  { font-size: 2.3rem; }
+.nav-card .nc-label { font-size: 0.9rem; font-weight: 900; color: white; font-family: var(--urdu); direction: rtl; }
+.nav-card .nc-sub   { font-size: 0.7rem; color: rgba(255,255,255,0.88); font-family: var(--ui); }
+
+.stat-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; padding: 0 14px 24px; }
+.stat-box { background: var(--card); border-radius: var(--rsm); padding: 14px 8px; text-align: center; box-shadow: 0 3px 12px rgba(0,0,0,0.07); }
+.stat-num { font-size: 1.5rem; font-weight: 900; color: var(--emerald); display: block; font-family: var(--ui); }
+.stat-lbl { font-size: 0.65rem; color: var(--grey); margin-top: 2px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-family: var(--ui); }
+
+/* ── CHAPTERS ── */
+#chapters-screen { background: var(--bg); }
+
+.ch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 14px; }
+
+.ch-card {
+  background: var(--card); border-radius: var(--radius); padding: 16px 12px;
+  text-align: center; cursor: pointer; box-shadow: var(--shadow);
+  transition: transform 0.2s; border: 3px solid transparent; position: relative; overflow: hidden;
+}
+.ch-card:hover { transform: translateY(-4px); }
+.ch-card.done  { border-color: var(--emerald2); }
+.ch-card .cc-icon { font-size: 2.2rem; display: block; margin-bottom: 6px; }
+.ch-card .cc-num  { font-size: 0.62rem; font-weight: 800; color: var(--grey); text-transform: uppercase; font-family: var(--ui); }
+.ch-card .cc-name { font-size: 0.95rem; font-weight: 800; color: var(--dark); margin-top: 4px; line-height: 2; font-family: var(--urdu); direction: rtl; }
+.ch-card .cc-type { font-size: 0.7rem; color: var(--grey); margin-top: 3px; font-family: var(--urdu); }
+.ch-card .cc-stars{ color: var(--gold); font-size: 0.85rem; margin-top: 5px; }
+.ch-card .cc-badge { position: absolute; top: 8px; left: 8px; background: var(--emerald); color: white; font-size: 0.6rem; font-weight: 800; padding: 2px 7px; border-radius: 10px; font-family: var(--ui); }
+
+/* ── CHAPTER DETAIL ── */
+#chapter-screen { background: var(--bg); }
+
+.tab-scroll {
+  display: flex; gap: 0; overflow-x: auto; scrollbar-width: none;
+  background: var(--card); border-bottom: 2px solid #e8f5e0;
+  direction: rtl;
+}
+.tab-scroll::-webkit-scrollbar { display: none; }
+
+.t-btn {
+  background: none; border: none; border-bottom: 3px solid transparent;
+  padding: 11px 15px; font-size: 0.72rem; font-weight: 800; color: var(--grey);
+  cursor: pointer; white-space: nowrap; transition: all 0.2s;
+  font-family: var(--ui); letter-spacing: 0.5px;
+}
+.t-btn.active { color: var(--emerald); border-bottom-color: var(--emerald); }
+
+.tab-panel { display: none; padding: 14px; animation: fadeUp 0.3s ease; }
+.tab-panel.active { display: block; }
+
+/* Story card */
+.story-card {
+  background: var(--card); border-radius: var(--radius); padding: 20px;
+  box-shadow: var(--shadow); margin-bottom: 14px;
+}
+.story-title { font-size: 1.2rem; font-weight: 900; color: var(--emerald); margin-bottom: 14px; font-family: var(--urdu); direction: rtl; }
+.story-body  { font-family: var(--urdu); direction: rtl; line-height: 2.8; font-size: 1.2rem; color: var(--dark); }
+.story-body .hw {
+  background: linear-gradient(135deg, #fef9c3, #fde68a);
+  border-radius: 6px; padding: 1px 6px;
+  font-weight: 700; color: #92400e; cursor: pointer; transition: background 0.2s;
+}
+.story-body .hw:hover { background: #f59e0b; color: white; }
+
+.explain-box {
+  background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+  border-right: 4px solid var(--emerald);
+  border-radius: var(--rsm) 0 0 var(--rsm); padding: 14px; margin: 12px 0;
+  direction: rtl;
+}
+.explain-box h4 { color: var(--emerald); font-size: 0.92rem; font-weight: 900; margin-bottom: 7px; font-family: var(--urdu); direction: rtl; }
+.explain-box p  { font-size: 1rem; line-height: 2.4; color: var(--dark); font-family: var(--urdu); direction: rtl; }
+
+/* Word meanings table */
+.meanings-table { width: 100%; border-collapse: collapse; margin: 10px 0; direction: rtl; }
+.meanings-table th { background: var(--emerald); color: white; padding: 10px 12px; font-family: var(--urdu); font-size: 0.95rem; text-align: right; }
+.meanings-table td { border-bottom: 1px solid #e8f5e0; padding: 10px 12px; font-family: var(--urdu); font-size: 0.95rem; line-height: 2; text-align: right; background: var(--card); }
+.meanings-table tr:nth-child(even) td { background: #f0fdf4; }
+
+/* Grammar card */
+.grammar-card { background: var(--card); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); margin-bottom: 14px; direction: rtl; }
+.grammar-card h3 { font-size: 1.05rem; font-weight: 900; color: var(--purple); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-family: var(--urdu); direction: rtl; }
+.grammar-card p  { font-size: 1rem; line-height: 2.4; color: var(--dark); font-family: var(--urdu); direction: rtl; }
+.ex-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; direction: rtl; }
+.ex-chip  { background: linear-gradient(135deg, var(--purple), var(--blue)); color: white; border-radius: 20px; padding: 6px 16px; font-size: 1rem; font-weight: 800; font-family: var(--urdu); }
+
+/* Flashcard */
+.fc-scene { perspective: 1000px; width: 100%; max-width: 310px; height: 200px; margin: 14px auto; cursor: pointer; }
+.fc-card  { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.65s cubic-bezier(0.4,0,0.2,1); }
+.fc-card.flipped { transform: rotateY(180deg); }
+.fc-face  { position: absolute; inset: 0; backface-visibility: hidden; border-radius: var(--radius); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px; text-align: center; direction: rtl; }
+.fc-front { background: linear-gradient(135deg, var(--emerald), var(--teal)); }
+.fc-back  { background: linear-gradient(135deg, var(--gold), var(--orange)); transform: rotateY(180deg); }
+.fc-emoji { font-size: 2.8rem; margin-bottom: 8px; display: block; }
+.fc-word  { font-size: 1.4rem; font-weight: 900; color: white; font-family: var(--urdu); direction: rtl; }
+.fc-hint  { font-size: 0.72rem; color: rgba(255,255,255,0.82); margin-top: 4px; font-family: var(--ui); }
+.fc-mean  { font-size: 1rem; font-weight: 700; color: white; line-height: 2; text-align: center; font-family: var(--urdu); direction: rtl; }
+
+.fc-nav     { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 8px; direction: ltr; }
+.fc-nav-btn { background: var(--emerald); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.15s; }
+.fc-nav-btn:hover { transform: scale(1.1); }
+.fc-counter { font-size: 0.9rem; font-weight: 700; color: var(--dark); min-width: 48px; text-align: center; font-family: var(--ui); }
+
+.fc-dots { display: flex; gap: 6px; justify-content: center; margin-top: 8px; direction: ltr; }
+.fc-dot  { width: 8px; height: 8px; border-radius: 50%; background: #ddd; transition: background 0.2s; }
+.fc-dot.on { background: var(--emerald); }
+
+/* Quiz */
+.quiz-prog-wrap { background: #e8e8e8; border-radius: 10px; height: 7px; overflow: hidden; margin-bottom: 12px; }
+.quiz-prog-fill { background: linear-gradient(90deg, var(--emerald2), var(--gold2)); height: 100%; border-radius: 10px; transition: width 0.4s; }
+.quiz-meta { display: flex; justify-content: space-between; font-size: 0.72rem; font-weight: 700; color: var(--grey); margin-bottom: 14px; font-family: var(--ui); direction: ltr; }
+
+.quiz-q-box { background: var(--card); border-radius: var(--radius); padding: 18px; text-align: center; font-size: 1.1rem; font-weight: 700; color: var(--dark); box-shadow: var(--shadow); margin-bottom: 14px; line-height: 2.2; font-family: var(--urdu); direction: rtl; }
+.quiz-q-icon { font-size: 2.3rem; display: block; margin-bottom: 8px; }
+
+.quiz-opts { display: flex; flex-direction: column; gap: 8px; direction: rtl; }
+.quiz-opt  { background: var(--card); border: 3px solid #e0e8e4; border-radius: var(--rsm); padding: 13px 14px; font-size: 1rem; font-weight: 700; color: var(--dark); cursor: pointer; transition: all 0.2s; text-align: right; font-family: var(--urdu); direction: rtl; }
+.quiz-opt:hover   { border-color: var(--emerald); background: #f0fdf4; transform: translateX(-4px); }
+.quiz-opt.correct { background: #d4edda; border-color: var(--emerald2); color: #155724; }
+.quiz-opt.wrong   { background: #fde8e8; border-color: var(--rose); color: #721c24; }
+.quiz-opt:disabled { cursor: not-allowed; }
+
+.quiz-fb { border-radius: var(--rsm); padding: 12px 14px; font-size: 0.95rem; font-weight: 800; margin-top: 10px; text-align: center; animation: bounceIn 0.3s ease; font-family: var(--urdu); direction: rtl; }
+@keyframes bounceIn { from { transform: scale(0.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.fb-good { background: #d4edda; color: #155724; border: 2px solid var(--emerald2); }
+.fb-bad  { background: #fde8e8; color: #721c24; border: 2px solid var(--rose); }
+
+/* Score */
+.score-wrap { text-align: center; padding: 28px 16px; }
+.score-trophy { font-size: 5rem; display: block; animation: tBounce 1s ease infinite; }
+@keyframes tBounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+.score-num   { font-size: 2.8rem; font-weight: 900; color: var(--emerald); font-family: var(--ui); }
+.score-msg   { font-size: 1.1rem; font-weight: 800; color: var(--dark); margin: 8px 0 16px; font-family: var(--urdu); direction: rtl; }
+.score-stars { font-size: 1.8rem; margin-bottom: 16px; }
+
+/* Match Game */
+.game-box { background: var(--card); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); }
+.game-title { font-size: 1rem; font-weight: 900; color: var(--dark); margin-bottom: 8px; text-align: center; font-family: var(--urdu); direction: rtl; }
+.match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; direction: rtl; }
+.match-col  { display: flex; flex-direction: column; gap: 8px; }
+.match-item { background: #f0fdf4; border: 3px solid #bbf7d0; border-radius: 12px; padding: 10px; font-size: 0.98rem; font-weight: 700; cursor: pointer; text-align: center; transition: all 0.2s; font-family: var(--urdu); direction: rtl; }
+.match-item:hover   { border-color: var(--emerald); background: #dcfce7; }
+.match-item.selected{ border-color: var(--emerald); background: var(--emerald); color: white; }
+.match-item.matched { border-color: var(--emerald2); background: #d4edda; color: #155724; cursor: default; }
+.match-item.wrong-m { border-color: var(--rose); background: #fde8e8; animation: shake 0.3s ease; }
+@keyframes shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+
+/* Writing */
+.writing-prompt { background: linear-gradient(135deg, #fef9c3, #fde68a); border-radius: var(--rsm); padding: 14px; margin-bottom: 12px; text-align: center; direction: rtl; }
+.writing-prompt .wp-t { font-size: 1rem; font-weight: 900; color: #92400e; margin-bottom: 6px; font-family: var(--urdu); direction: rtl; }
+.writing-prompt .wp-h { font-size: 0.9rem; color: #78350f; font-family: var(--urdu); direction: rtl; }
+
+.lined-area { background: var(--card); border-radius: var(--radius); padding: 14px; background-image: repeating-linear-gradient(transparent, transparent 31px, #d1fae5 31px, #d1fae5 32px); box-shadow: var(--shadow); }
+.lined-area textarea { width: 100%; min-height: 145px; border: none; outline: none; font-size: 1.1rem; line-height: 2; font-family: var(--urdu); background: transparent; resize: none; color: var(--dark); direction: rtl; }
+
+/* Notes */
+.notes-area { width: 100%; min-height: 180px; background: rgba(255,255,255,0.06); border: 2px solid #bbf7d0; border-radius: var(--radius); padding: 14px; font-size: 1.1rem; color: var(--dark); font-family: var(--urdu); resize: none; outline: none; direction: rtl; line-height: 2.2; transition: border-color 0.2s; }
+.notes-area:focus { border-color: var(--emerald); }
+
+/* Progress */
+#progress-screen { background: var(--bg); padding: 14px; }
+.prog-hero { background: linear-gradient(135deg, var(--emerald), var(--teal)); border-radius: var(--radius); padding: 22px; text-align: center; margin-bottom: 18px; box-shadow: var(--shadow); }
+.prog-big-s { font-size: 2.5rem; font-weight: 900; color: white; display: block; font-family: var(--ui); }
+.prog-big-l { font-size: 0.78rem; color: rgba(255,255,255,0.9); margin-top: 3px; font-family: var(--ui); }
+
+.badge-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 18px; }
+.badge-card { background: var(--card); border-radius: var(--rsm); padding: 14px 8px; text-align: center; box-shadow: 0 3px 12px rgba(0,0,0,0.07); opacity: 0.35; transition: opacity 0.3s; }
+.badge-card.earned { opacity: 1; }
+.badge-card .b-ico  { font-size: 1.8rem; }
+.badge-card .b-nm   { font-size: 0.62rem; font-weight: 800; color: var(--dark); margin-top: 4px; font-family: var(--urdu); direction: rtl; }
+
+.ch-prog-item { background: var(--card); border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; gap: 12px; margin-bottom: 8px; box-shadow: 0 3px 10px rgba(0,0,0,0.07); direction: rtl; }
+.ch-prog-ico  { font-size: 1.5rem; }
+.ch-prog-nm   { flex: 1; font-size: 0.95rem; font-weight: 800; color: var(--dark); font-family: var(--urdu); direction: rtl; }
+.ch-prog-sc   { color: var(--gold); font-size: 0.88rem; font-family: var(--ui); }
+
+/* Bookmarks */
+#bookmarks-screen { background: var(--bg); padding: 14px; }
+.bm-empty { text-align: center; padding: 40px 20px; font-size: 0.95rem; color: var(--grey); font-family: var(--urdu); direction: rtl; }
+.bm-item  { background: var(--card); border-radius: var(--rsm); padding: 14px 16px; display: flex; align-items: center; gap: 12px; cursor: pointer; margin-bottom: 8px; box-shadow: 0 3px 10px rgba(0,0,0,0.07); transition: transform 0.2s; direction: rtl; }
+.bm-item:hover { transform: translateX(-4px); }
+
+/* Confetti */
+.conf-layer { position: fixed; inset: 0; pointer-events: none; z-index: 9000; overflow: hidden; }
+.conf-dot   { position: absolute; border-radius: 2px; animation: confFall linear forwards; }
+@keyframes confFall { from { transform: translateY(-15px) rotate(0deg); opacity: 1; } to { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+
+/* Modal */
+.overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); backdrop-filter: blur(6px); z-index: 500; align-items: center; justify-content: center; padding: 20px; }
+.overlay.on { display: flex; }
+.modal-box { background: var(--card); border-radius: var(--radius); padding: 24px; max-width: 340px; width: 100%; text-align: center; animation: bounceIn 0.3s ease; direction: rtl; }
+.modal-box h3 { font-size: 1.1rem; color: var(--dark); margin-bottom: 8px; font-family: var(--urdu); direction: rtl; }
+.modal-box p  { font-size: 0.92rem; color: var(--grey); margin-bottom: 16px; line-height: 2; font-family: var(--urdu); direction: rtl; }
+
+/* Buttons */
+.btn { border: none; border-radius: 50px; padding: 12px 22px; font-size: 0.95rem; font-weight: 900; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; transition: transform 0.15s, box-shadow 0.15s; font-family: var(--urdu); direction: rtl; }
+.btn:hover  { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(0,0,0,0.18); }
+.btn:active { transform: scale(0.97); }
+.btn-green  { background: linear-gradient(135deg, var(--emerald), var(--teal)); color: white; }
+.btn-gold   { background: linear-gradient(135deg, var(--gold), var(--orange)); color: white; }
+.btn-purple { background: linear-gradient(135deg, var(--purple), var(--blue)); color: white; }
+.btn-rose   { background: linear-gradient(135deg, var(--rose), #c0392b); color: white; }
+.btn-ghost  { background: rgba(0,0,0,0.06); border: 2px solid rgba(0,0,0,0.1); color: var(--dark); }
+.btn-full   { width: 100%; justify-content: center; margin-bottom: 8px; }
+
+/* Install banner */
+.ib { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: linear-gradient(90deg, var(--emerald), var(--teal)); padding: 12px 16px; align-items: center; gap: 10px; z-index: 300; animation: sUp 0.4s ease; }
+@keyframes sUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+.ib.show { display: flex; }
+.ib-txt { flex: 1; font-size: 0.8rem; color: white; font-weight: 700; font-family: var(--urdu); direction: rtl; }
+.ib-btn { background: white; color: var(--emerald); border: none; border-radius: 20px; padding: 7px 16px; font-weight: 900; font-size: 0.8rem; cursor: pointer; font-family: var(--ui); }
+.ib-x   { background: none; border: none; color: rgba(255,255,255,0.75); font-size: 1.2rem; cursor: pointer; }
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     TITLE SCREEN
+═══════════════════════════════════════ -->
+<div id="title-screen" class="screen active">
+  <!-- Floating Urdu letters -->
+  <span class="fl-urdu" style="top:4%;right:5%;animation-duration:4.5s">ا</span>
+  <span class="fl-urdu" style="top:7%;left:6%;animation-duration:5.5s;animation-delay:.5s">ب</span>
+  <span class="fl-urdu" style="top:15%;right:12%;animation-duration:4s;animation-delay:1s">پ</span>
+  <span class="fl-urdu" style="top:20%;left:8%;animation-duration:6s;animation-delay:.3s">ت</span>
+  <span class="fl-urdu" style="bottom:22%;right:4%;animation-duration:4.2s;animation-delay:.8s">ج</span>
+  <span class="fl-urdu" style="bottom:28%;left:6%;animation-duration:5s;animation-delay:1.2s">د</span>
+  <span class="fl-urdu" style="top:40%;right:2%;animation-duration:5.5s;animation-delay:.6s">📚</span>
+  <span class="fl-urdu" style="top:52%;left:3%;animation-duration:4s;animation-delay:.2s">✏️</span>
+  <span class="fl-urdu" style="bottom:14%;right:9%;animation-duration:5s;animation-delay:1s">🌟</span>
+
+  <div style="position:relative;z-index:2;width:100%;max-width:420px">
+    <div class="title-chip">📖 JKBOSE · Class 4 · Urdu</div>
+    <h1 class="title-h1">کلاس ۴ اردو<br>لرننگ ایپ</h1>
+    <p class="title-sub" style="font-family:var(--ui)">کہانیاں · شاعری · قواعد · کھیل</p>
+
+    <!-- Author photo -->
+    <div class="ap-wrap">
+      <div class="ap-ring"></div>
+      <div class="ap-inner">
+        <img src="author.jpg" alt="Mateen Yousuf"
+          onerror="this.style.display='none';this.parentElement.innerHTML='<div style=\'width:100%;height:100%;background:linear-gradient(135deg,#27ae60,#8e44ad);display:flex;align-items:center;justify-content:center;font-size:2.5rem\'>👨‍🏫</div>'">
+      </div>
+    </div>
+
+    <div class="ap-name">Mateen Yousuf</div>
+    <div class="ap-desig">Teacher<br>School Education Department<br>Jammu and Kashmir</div>
+
+    <div class="emoji-bounce"><span>📚</span><span>✏️</span><span>🌟</span><span>🎉</span></div>
+
+    <button class="start-btn" onclick="showScreen('home-screen')">
+      🚀 &nbsp; سیکھنا شروع کریں!
+    </button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     HOME SCREEN
+═══════════════════════════════════════ -->
+<div id="home-screen" class="screen">
+  <div class="top-bar">
+    <div class="tb-title">📚 کلاس ۴ اردو</div>
+    <div style="display:flex;gap:8px;align-items:center;direction:ltr">
+      <div class="tb-stars">⭐ <span id="home-stars">0</span></div>
+      <button class="mode-btn" onclick="toggleDark()" id="dark-btn">🌙</button>
+    </div>
+  </div>
+
+  <div class="home-hero">
+    <div class="hero-greet">👋 السلام علیکم، پیارے طالب علم!</div>
+    <div class="hero-title">کلاس ۴ <span>اردو</span> میں خوش آمدید!</div>
+    <div class="prog-wrap"><div class="prog-bar" id="overall-bar" style="width:0%"></div></div>
+    <div class="prog-txt ui-font" id="overall-txt">0% مکمل</div>
+  </div>
+
+  <div class="sec-hd">⚡ Quick Access</div>
+  <div class="nav-grid" style="margin-bottom:10px">
+    <button class="nav-card" style="background:linear-gradient(135deg,#27ae60,#16a085)" onclick="showScreen('chapters-screen');renderChapters()">
+      <span class="nc-icon">📖</span>
+      <span class="nc-label">تمام اسباق</span>
+      <span class="nc-sub">12 Chapters</span>
+    </button>
+    <button class="nav-card" style="background:linear-gradient(135deg,#8e44ad,#2980b9)" onclick="showScreen('progress-screen');renderProgress()">
+      <span class="nc-icon">🏆</span>
+      <span class="nc-label">میری ترقی</span>
+      <span class="nc-sub">Stars & Badges</span>
+    </button>
+    <button class="nav-card" style="background:linear-gradient(135deg,#f39c12,#e67e22)" onclick="showScreen('bookmarks-screen');renderBookmarks()">
+      <span class="nc-icon">🔖</span>
+      <span class="nc-label">بُک مارکس</span>
+      <span class="nc-sub">Saved Lessons</span>
+    </button>
+    <button class="nav-card" style="background:linear-gradient(135deg,#e74c3c,#c0392b)" onclick="startRandomQuiz()">
+      <span class="nc-icon">🎲</span>
+      <span class="nc-label">مشق سوالات</span>
+      <span class="nc-sub">Random Quiz</span>
+    </button>
+  </div>
+
+  <div class="sec-hd">📊 My Stats</div>
+  <div class="stat-row">
+    <div class="stat-box"><span class="stat-num" id="st-done">0</span><span class="stat-lbl">Done</span></div>
+    <div class="stat-box"><span class="stat-num" id="st-stars">0</span><span class="stat-lbl">Stars</span></div>
+    <div class="stat-box"><span class="stat-num" id="st-quiz">0</span><span class="stat-lbl">Quizzes</span></div>
+  </div>
+
+  <div class="sec-hd">📖 حالیہ اسباق</div>
+  <div id="recent-list" style="padding:0 14px 24px"></div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     CHAPTERS SCREEN
+═══════════════════════════════════════ -->
+<div id="chapters-screen" class="screen">
+  <div class="top-bar">
+    <button class="back-btn" onclick="showScreen('home-screen')">→</button>
+    <div class="tb-title">📖 تمام اسباق</div>
+    <div class="tb-stars">⭐ <span id="ch-stars">0</span></div>
+  </div>
+  <div class="ch-grid" id="ch-grid"></div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     CHAPTER DETAIL
+═══════════════════════════════════════ -->
+<div id="chapter-screen" class="screen">
+  <div class="top-bar">
+    <button class="back-btn" onclick="showScreen('chapters-screen');renderChapters()">→</button>
+    <div class="tb-title" id="ch-screen-title">سبق</div>
+    <button style="background:none;border:none;font-size:1.3rem;cursor:pointer" onclick="toggleBM()" id="bm-btn">🔖</button>
+  </div>
+
+  <div class="tab-scroll">
+    <button class="t-btn active" onclick="showTab('story')"   data-tab="story">📖 متن</button>
+    <button class="t-btn"        onclick="showTab('words')"   data-tab="words">📝 الفاظ</button>
+    <button class="t-btn"        onclick="showTab('grammar')" data-tab="grammar">🔤 قواعد</button>
+    <button class="t-btn"        onclick="showTab('game')"    data-tab="game">🎮 کھیل</button>
+    <button class="t-btn"        onclick="showTab('flash')"   data-tab="flash">🃏 کارڈ</button>
+    <button class="t-btn"        onclick="showTab('quiz')"    data-tab="quiz">❓ سوال</button>
+    <button class="t-btn"        onclick="showTab('write')"   data-tab="write">✍️ لکھائی</button>
+    <button class="t-btn"        onclick="showTab('notes')"   data-tab="notes">📔 نوٹس</button>
+  </div>
+
+  <div id="tab-story"   class="tab-panel active"></div>
+  <div id="tab-words"   class="tab-panel"></div>
+  <div id="tab-grammar" class="tab-panel"></div>
+  <div id="tab-game"    class="tab-panel"></div>
+  <div id="tab-flash"   class="tab-panel"></div>
+  <div id="tab-quiz"    class="tab-panel"></div>
+  <div id="tab-write"   class="tab-panel"></div>
+  <div id="tab-notes"   class="tab-panel"></div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PROGRESS / BOOKMARKS / RANDOM QUIZ
+═══════════════════════════════════════ -->
+<div id="progress-screen" class="screen">
+  <div class="top-bar">
+    <button class="back-btn" onclick="showScreen('home-screen')">→</button>
+    <div class="tb-title">🏆 میری ترقی</div>
+  </div>
+  <div style="padding:14px">
+    <div class="prog-hero">
+      <span class="prog-big-s" id="prog-stars">0 ⭐</span>
+      <span class="prog-big-l">کُل ستارے</span>
+    </div>
+    <div class="sec-hd" style="padding:0 0 10px">🥇 بیجز</div>
+    <div class="badge-grid" id="badge-grid"></div>
+    <div class="sec-hd" style="padding:0 0 10px">📖 اسباق کی ترقی</div>
+    <div id="prog-ch-list"></div>
+    <div style="text-align:center;margin-top:20px">
+      <button class="btn btn-rose" onclick="confirmReset()">🔄 ترقی ری سیٹ کریں</button>
+    </div>
+  </div>
+</div>
+
+<div id="bookmarks-screen" class="screen">
+  <div class="top-bar">
+    <button class="back-btn" onclick="showScreen('home-screen')">→</button>
+    <div class="tb-title">🔖 بُک مارکس</div>
+  </div>
+  <div id="bm-body" style="padding:14px"></div>
+</div>
+
+<div id="rquiz-screen" class="screen">
+  <div class="top-bar">
+    <button class="back-btn" onclick="showScreen('home-screen')">→</button>
+    <div class="tb-title">🎲 مشق سوالات</div>
+  </div>
+  <div id="rquiz-body" style="padding:14px"></div>
+</div>
+
+<!-- Modal & Confetti & Install Banner -->
+<div class="overlay" id="overlay">
+  <div class="modal-box" id="modal-inner"></div>
+</div>
+<div class="conf-layer" id="conf-layer"></div>
+<div class="ib" id="ib">
+  <span class="ib-txt">📲 کلاس ۴ اردو ایپ انسٹال کریں!</span>
+  <button class="ib-btn" id="ib-install">Install</button>
+  <button class="ib-x" onclick="document.getElementById('ib').classList.remove('show')">✕</button>
+</div>
+
+<script>
+/* ============================================================
+   JKBOSE CLASS 4 URDU — CURRICULUM DATA
+   Based on standard JKBOSE Class 4 Urdu syllabus
+   ============================================================ */
+const CHAPTERS = [
+  {
+    id: 1, icon: '🌸', type: 'نظم',
+    name: 'صبح کا وقت',
+    color: '#27ae60',
+    story: {
+      title: 'صبح کا وقت',
+      text: `<span class="hw" onclick="popWord('صبح','دن کا ابتدائی حصہ، جب سورج نکلتا ہے')">صبح</span> ہوئی، اجالا چھایا،
+<span class="hw" onclick="popWord('پرندے','وہ جانور جو اُڑتے ہیں')">پرندے</span> نے میٹھا گایا۔
+<span class="hw" onclick="popWord('کلی','پھول کی ابتدائی حالت')">کلی</span> کلی نے آنکھ کھولی،
+<span class="hw" onclick="popWord('شبنم','رات کو پتوں پر جمع ہونے والے پانی کے قطرے')">شبنم</span> نے موتی رولی۔
+
+اُٹھو بچو، پڑھنے جاؤ،
+<span class="hw" onclick="popWord('علم','جاننے اور سمجھنے کی قابلیت')">علم</span> کی شمع جلاؤ۔
+ماں نے پیار سے جگایا،
+اللہ کا نام لو، آگے بڑھو۔`
+    },
+    explain: 'یہ نظم صبح کے خوبصورت وقت کے بارے میں ہے۔ صبح سویرے سورج نکلتا ہے، پرندے چہچہاتے ہیں اور پھول کھلتے ہیں۔ شاعر بچوں کو تلقین کرتا ہے کہ وہ جلدی اُٹھیں، اللہ کا نام لیں اور پڑھنے جائیں تاکہ علم حاصل کر سکیں۔',
+    words: [
+      { urdu: 'صبح', meaning: 'دن کا ابتدائی وقت', emoji: '🌅' },
+      { urdu: 'پرندے', meaning: 'اُڑنے والے جاندار، چڑیاں وغیرہ', emoji: '🐦' },
+      { urdu: 'شبنم', meaning: 'رات کو پتوں پر گرنے والے پانی کے قطرے', emoji: '💧' },
+      { urdu: 'علم', meaning: 'جاننے اور سمجھنے کی قابلیت', emoji: '📚' },
+      { urdu: 'کلی', meaning: 'کھلنے سے پہلے کی پھول کی حالت', emoji: '🌱' }
+    ],
+    grammar: {
+      topic: 'اسم — چیزوں، لوگوں اور جگہوں کے نام',
+      rule: '<b>اسم</b> وہ لفظ ہے جو کسی شخص، جگہ، جانور یا چیز کا نام ہو۔ جیسے: لڑکا، لاہور، گھوڑا، کتاب۔',
+      examples: ['صبح', 'پرندہ', 'پھول', 'ماں', 'اسکول', 'پاکستان']
+    },
+    game: {
+      title: '🎯 لفظ اور معنی ملائیں!',
+      pairs: [
+        { word: 'صبح', meaning: 'سورج نکلنے کا وقت ☀️' },
+        { word: 'شبنم', meaning: 'پانی کے چھوٹے قطرے 💧' },
+        { word: 'علم', meaning: 'پڑھنے سے حاصل ہونا 📚' },
+        { word: 'پرندہ', meaning: 'آسمان میں اُڑنے والا 🐦' },
+        { word: 'کلی', meaning: 'ننھا پھول 🌸' }
+      ]
+    },
+    quiz: [
+      { q: 'نظم میں صبح کون گاتا ہے؟', opts: ['بچہ', 'پرندہ', 'ماں', 'ہوا'], ans: 1, icon: '🐦' },
+      { q: 'شبنم کیا ہوتی ہے؟', opts: ['پھول', 'پانی کے قطرے', 'ہوا', 'رات'], ans: 1, icon: '💧' },
+      { q: '"صبح" کون سا اسم ہے؟', opts: ['شخص کا نام', 'وقت کا نام', 'جگہ کا نام', 'جانور کا نام'], ans: 1, icon: '📝' },
+      { q: 'شاعر بچوں کو کیا کرنے کو کہتا ہے؟', opts: ['سونے کو', 'کھیلنے کو', 'پڑھنے جانے کو', 'کھانے کو'], ans: 2, icon: '✏️' },
+      { q: 'کلی کیا ہوتی ہے؟', opts: ['ایک پرندہ', 'کھلنے سے پہلے کا پھول', 'ایک دریا', 'ایک پہاڑ'], ans: 1, icon: '🌸' }
+    ],
+    writing: { prompt: 'تین جملوں میں صبح کے وقت کے بارے میں لکھیں۔', hint: 'آپ صبح کیا کرتے ہیں؟ صبح کیسی لگتی ہے؟' }
+  },
+  {
+    id: 2, icon: '🦁', type: 'کہانی',
+    name: 'بہادر شیر',
+    color: '#e67e22',
+    story: {
+      title: 'بہادر شیر',
+      text: `ایک گھنے <span class="hw" onclick="popWord('جنگل','گھنے درختوں کی جگہ جہاں جانور رہتے ہیں')">جنگل</span> میں ایک <span class="hw" onclick="popWord('شیر','جانوروں کا بادشاہ، بڑا طاقتور جانور')">شیر</span> رہتا تھا۔
+وہ بہت <span class="hw" onclick="popWord('بہادر','بے خوف، جو ڈرے نہیں')">بہادر</span> اور <span class="hw" onclick="popWord('طاقتور','جس میں بہت قوت ہو')">طاقتور</span> تھا۔
+ایک دن جنگل میں آگ لگ گئی۔
+تمام جانور <span class="hw" onclick="popWord('بھاگے','دوڑ کر فرار ہوئے')">بھاگے</span>، مگر شیر رُکا۔
+اُس نے دریا کا پانی اپنی پیٹھ پر لا کر آگ بجھانے میں مدد کی۔
+تمام جانوروں نے شیر کا <span class="hw" onclick="popWord('شکریہ','کسی کی مدد پر ممنونیت ظاہر کرنا')">شکریہ</span> ادا کیا۔
+<b>سبق:</b> <i>بہادری اور مدد کرنا اچھی صفات ہیں۔</i>`
+    },
+    explain: 'اس کہانی میں بہادری کا سبق دیا گیا ہے۔ جب جنگل میں آگ لگی تو تمام جانور ڈر کر بھاگ گئے۔ لیکن شیر نے ہمت سے کام لیا اور آگ بجھانے میں مدد کی۔ یہ کہانی ہمیں سکھاتی ہے کہ مشکل وقت میں ہمت رکھنی چاہیے اور دوسروں کی مدد کرنی چاہیے۔',
+    words: [
+      { urdu: 'جنگل', meaning: 'گھنے درختوں والی جگہ', emoji: '🌲' },
+      { urdu: 'بہادر', meaning: 'جو خطرے سے نہ ڈرے', emoji: '💪' },
+      { urdu: 'طاقتور', meaning: 'جس میں بہت قوت ہو', emoji: '🦁' },
+      { urdu: 'شکریہ', meaning: 'ممنونیت کا اظہار کرنا', emoji: '🙏' },
+      { urdu: 'مدد', meaning: 'کسی کے کام آنا', emoji: '🤝' }
+    ],
+    grammar: {
+      topic: 'فعل — کام کا لفظ',
+      rule: '<b>فعل</b> وہ لفظ ہے جو کسی کام یا حالت کو ظاہر کرے۔ جیسے: کھانا، پینا، بھاگنا، پڑھنا، جانا۔',
+      examples: ['بھاگا', 'رُکا', 'مدد کی', 'پڑھا', 'کھایا', 'سویا']
+    },
+    game: {
+      title: '🎯 لفظ اور معنی ملائیں!',
+      pairs: [
+        { word: 'جنگل', meaning: 'گھنے درخت 🌲' },
+        { word: 'بہادر', meaning: 'ڈرتا نہیں 💪' },
+        { word: 'آگ', meaning: 'جلانے والی چیز 🔥' },
+        { word: 'شکریہ', meaning: 'ممنونیت 🙏' },
+        { word: 'مدد', meaning: 'کام آنا 🤝' }
+      ]
+    },
+    quiz: [
+      { q: 'شیر کہاں رہتا تھا؟', opts: ['گاؤں میں', 'جنگل میں', 'پہاڑ پر', 'دریا میں'], ans: 1, icon: '🌲' },
+      { q: 'جنگل میں کیا ہوا؟', opts: ['سیلاب آیا', 'آگ لگی', 'طوفان آیا', 'بارش ہوئی'], ans: 1, icon: '🔥' },
+      { q: '"بھاگا" کون سا لفظ ہے؟', opts: ['اسم', 'فعل', 'صفت', 'ضمیر'], ans: 1, icon: '📝' },
+      { q: 'شیر نے کیا کیا؟', opts: ['بھاگ گیا', 'سو گیا', 'آگ بجھانے میں مدد کی', 'رویا'], ans: 2, icon: '🦁' },
+      { q: 'کہانی کا سبق کیا ہے؟', opts: ['ڈرنا چاہیے', 'بہادری اور مدد کرنا اچھا ہے', 'جنگل خطرناک ہے', 'شیر اکیلا ہوتا ہے'], ans: 1, icon: '💡' }
+    ],
+    writing: { prompt: 'کوئی ایک کام لکھیں جو آپ نے کسی کی مدد کے لیے کیا۔', hint: 'آپ نے کس کی مدد کی؟ کیسے مدد کی؟ کیا ہوا؟' }
+  },
+  {
+    id: 3, icon: '🌧️', type: 'نظم',
+    name: 'بارش',
+    color: '#2980b9',
+    story: {
+      title: 'بارش',
+      text: `<span class="hw" onclick="popWord('بادل','آسمان میں پانی کی بھاپ سے بنی چیز')">بادل</span> آیا، <span class="hw" onclick="popWord('برسا','پانی گرنا')">برسا</span>، خوش ہوئے سب،
+<span class="hw" onclick="popWord('کسان','کھیت میں فصل اگانے والا')">کسان</span> نے کہا، آئی رحمت رب۔
+<span class="hw" onclick="popWord('ندی','چھوٹی دریا جو بہتی ہے')">ندی</span> نالے بھر گئے،
+کھیت <span class="hw" onclick="popWord('ہرے بھرے','جہاں سبزہ اور فصل اچھی ہو')">ہرے بھرے</span> ہو گئے۔
+
+بچوں نے <span class="hw" onclick="popWord('کاغذی','کاغذ سے بنی')">کاغذی</span> کشتیاں چلائیں،
+گانے گائے، خوشیاں منائیں۔
+اللہ کی نعمت ہے پانی،
+<span class="hw" onclick="popWord('قدر','اہمیت اور احترام')">قدر</span> کرو اس کی، ہر بانی۔`
+    },
+    explain: 'یہ نظم بارش کے بارے میں ہے۔ بارش اللہ کی بڑی نعمت ہے۔ اس سے کسانوں کے کھیت ہرے بھرے ہوتے ہیں، دریا اور نالے بھرتے ہیں۔ بچے بارش میں خوش ہوکر کاغذی کشتیاں چلاتے ہیں۔ ہمیں پانی کی قدر کرنی چاہیے۔',
+    words: [
+      { urdu: 'بادل', meaning: 'آسمان میں بھاپ سے بنی چیز جو بارش لاتی ہے', emoji: '☁️' },
+      { urdu: 'کسان', meaning: 'فصل اگانے والا شخص', emoji: '👨‍🌾' },
+      { urdu: 'ندی', meaning: 'چھوٹی بہتی ہوئی ندیا', emoji: '💧' },
+      { urdu: 'قدر', meaning: 'اہمیت اور احترام کرنا', emoji: '❤️' },
+      { urdu: 'کشتی', meaning: 'پانی میں چلنے والی چیز', emoji: '⛵' }
+    ],
+    grammar: {
+      topic: 'صفت — چیزوں کو بیان کرنے والا لفظ',
+      rule: '<b>صفت</b> وہ لفظ ہے جو اسم کی کوئی خاصیت بتائے۔ جیسے: اچھا لڑکا، سبز کھیت، بڑا درخت۔',
+      examples: ['ہرے بھرے کھیت', 'کاغذی کشتی', 'بڑا بادل', 'میٹھا پانی', 'خوشحال کسان']
+    },
+    game: {
+      title: '🎯 لفظ اور معنی ملائیں!',
+      pairs: [
+        { word: 'بادل', meaning: 'بارش لاتا ہے ☁️' },
+        { word: 'کسان', meaning: 'کھیت میں کام 👨‍🌾' },
+        { word: 'ندی', meaning: 'بہتا پانی 🌊' },
+        { word: 'قدر', meaning: 'اہمیت دینا ❤️' },
+        { word: 'کشتی', meaning: 'پانی پر چلنا ⛵' }
+      ]
+    },
+    quiz: [
+      { q: 'بارش دیکھ کر کسان نے کیا کہا؟', opts: ['آئی مصیبت', 'آئی رحمت رب', 'آئی آندھی', 'آئی سردی'], ans: 1, icon: '👨‍🌾' },
+      { q: 'بارش سے کھیت کیسے ہوتے ہیں؟', opts: ['سوکھے', 'سخت', 'ہرے بھرے', 'بنجر'], ans: 2, icon: '🌿' },
+      { q: '"بڑا بادل" میں "بڑا" کون سا لفظ ہے؟', opts: ['اسم', 'فعل', 'صفت', 'ضمیر'], ans: 2, icon: '📝' },
+      { q: 'بچوں نے بارش میں کیا چلائیں؟', opts: ['پتنگیں', 'کاغذی کشتیاں', 'گیندیں', 'کھلونے'], ans: 1, icon: '⛵' },
+      { q: 'پانی کے بارے میں شاعر کیا کہتا ہے؟', opts: ['نقصاندہ ہے', 'اللہ کی نعمت ہے', 'گندہ ہوتا ہے', 'کم ہوتا ہے'], ans: 1, icon: '💧' }
+    ],
+    writing: { prompt: 'بارش کے بارے میں تین جملے لکھیں۔', hint: 'بارش کب آتی ہے؟ اس سے کیا فائدہ ہوتا ہے؟' }
+  },
+  {
+    id: 4, icon: '🏫', type: 'کہانی',
+    name: 'ہمارا اسکول',
+    color: '#8e44ad',
+    story: {
+      title: 'ہمارا اسکول',
+      text: `ہمارا <span class="hw" onclick="popWord('اسکول','تعلیم کا ادارہ جہاں بچے پڑھتے ہیں')">اسکول</span> بہت پیارا ہے۔
+وہاں ہم <span class="hw" onclick="popWord('استاد','وہ شخص جو پڑھاتا ہے')">استاد</span> کی باتیں سنتے ہیں اور <span class="hw" onclick="popWord('علم','جاننے اور سمجھنے کی قابلیت')">علم</span> حاصل کرتے ہیں۔
+اسکول میں ایک بڑا <span class="hw" onclick="popWord('میدان','کھلی جگہ، کھیلنے کی جگہ')">میدان</span> ہے۔
+ہم کھیلتے ہیں اور ہنستے ہیں۔
+<span class="hw" onclick="popWord('لائبریری','وہ جگہ جہاں بہت سی کتابیں ہوتی ہیں')">لائبریری</span> میں ہزاروں کتابیں ہیں۔
+میرے <span class="hw" onclick="popWord('دوست','ملنے جلنے کا ساتھی')">دوست</span> سب پیارے ہیں۔
+اسکول ہماری دوسری ماں کی طرح ہے۔`
+    },
+    explain: 'یہ کہانی ہمارے اسکول کے بارے میں ہے۔ اسکول وہ جگہ ہے جہاں ہم علم حاصل کرتے ہیں، دوست بناتے ہیں اور کھیلتے ہیں۔ استاد ہمیں پڑھاتے ہیں اور ہماری رہنمائی کرتے ہیں۔ لائبریری میں ہم کتابیں پڑھ سکتے ہیں۔',
+    words: [
+      { urdu: 'اسکول', meaning: 'تعلیم کا ادارہ', emoji: '🏫' },
+      { urdu: 'استاد', meaning: 'پڑھانے والا شخص', emoji: '👨‍🏫' },
+      { urdu: 'میدان', meaning: 'کھلی جگہ کھیلنے کے لیے', emoji: '⛽' },
+      { urdu: 'لائبریری', meaning: 'کتابوں کا خزانہ', emoji: '📚' },
+      { urdu: 'دوست', meaning: 'ساتھ رہنے والا پیارا', emoji: '🤝' }
+    ],
+    grammar: {
+      topic: 'واحد اور جمع — ایک اور بہت سے',
+      rule: 'جب ایک چیز ہو تو <b>واحد</b> اور جب ایک سے زیادہ ہو تو <b>جمع</b> کہتے ہیں۔ جیسے: لڑکا → لڑکے، کتاب → کتابیں، درخت → درخت۔',
+      examples: ['استاد → اساتذہ', 'دوست → دوست', 'کتاب → کتابیں', 'لڑکا → لڑکے', 'پھول → پھول']
+    },
+    game: {
+      title: '🎯 لفظ اور معنی ملائیں!',
+      pairs: [
+        { word: 'اسکول', meaning: 'پڑھنے کی جگہ 🏫' },
+        { word: 'استاد', meaning: 'پڑھانے والا 👨‍🏫' },
+        { word: 'میدان', meaning: 'کھیل کی جگہ 🏃' },
+        { word: 'لائبریری', meaning: 'کتابوں کا گھر 📚' },
+        { word: 'دوست', meaning: 'پیارا ساتھی 🤝' }
+      ]
+    },
+    quiz: [
+      { q: 'اسکول میں کیا ہوتا ہے؟', opts: ['کھانا بنتا ہے', 'علم ملتا ہے', 'دکان ہے', 'مسجد ہے'], ans: 1, icon: '📚' },
+      { q: 'لائبریری میں کیا ہوتا ہے؟', opts: ['کھلونے', 'کتابیں', 'کھانا', 'بستر'], ans: 1, icon: '📖' },
+      { q: '"کتاب" کی جمع کیا ہے؟', opts: ['کتابہ', 'کتابی', 'کتابیں', 'کتابوں'], ans: 2, icon: '📝' },
+      { q: 'اسکول کو شاعر کس سے تشبیہ دیتا ہے؟', opts: ['باپ سے', 'ماں سے', 'دوست سے', 'کتاب سے'], ans: 1, icon: '🏫' },
+      { q: 'اسکول میں کھیلنے کی جگہ کو کیا کہتے ہیں؟', opts: ['لائبریری', 'کمرہ', 'میدان', 'باغ'], ans: 2, icon: '⚽' }
+    ],
+    writing: { prompt: 'اپنے اسکول کے بارے میں تین جملے لکھیں۔', hint: 'اسکول کا نام، استاد کا نام، اسکول میں کیا ہوتا ہے؟' }
+  },
+  {
+    id: 5, icon: '🌿', type: 'کہانی',
+    name: 'درخت ہمارے دوست',
+    color: '#27ae60',
+    story: {
+      title: 'درخت ہمارے دوست',
+      text: `<span class="hw" onclick="popWord('درخت','زمین میں اگنے والا بڑا پودا')">درخت</span> ہمارے سچے دوست ہیں۔
+وہ ہمیں <span class="hw" onclick="popWord('پھل','درخت پر اگنے والا میٹھا خوراک')">پھل</span>، <span class="hw" onclick="popWord('پھول','درخت یا پودے کا خوبصورت حصہ')">پھول</span> اور <span class="hw" onclick="popWord('سایہ','دھوپ سے بچانے والی ٹھنڈی جگہ')">سایہ</span> دیتے ہیں۔
+درختوں سے ہوا <span class="hw" onclick="popWord('صاف','گندگی سے پاک')">صاف</span> ہوتی ہے۔
+پرندے درختوں پر <span class="hw" onclick="popWord('گھونسلے','پرندوں کا گھر')">گھونسلے</span> بناتے ہیں۔
+ہمیں درخت کاٹنے نہیں چاہیے۔
+بلکہ زیادہ سے زیادہ درخت <span class="hw" onclick="popWord('لگانے','زمین میں پودا ڈالنا')">لگانے</span> چاہیے۔
+درخت لگائیں، ماحول بچائیں!`
+    },
+    explain: 'اس کہانی میں درختوں کی اہمیت بتائی گئی ہے۔ درخت ہمیں پھل، پھول، سایہ اور صاف ہوا دیتے ہیں۔ پرندے درختوں میں رہتے ہیں۔ ہمیں درخت کاٹنے کی بجائے نئے درخت لگانے چاہیے تاکہ ماحول صاف اور خوبصورت رہے۔',
+    words: [
+      { urdu: 'درخت', meaning: 'زمین میں جڑیں رکھنے والا بڑا پودا', emoji: '🌳' },
+      { urdu: 'سایہ', meaning: 'دھوپ سے بچانے والی ٹھنڈی جگہ', emoji: '☂️' },
+      { urdu: 'گھونسلہ', meaning: 'پرندوں کا گھر جو تنکوں سے بنا ہو', emoji: '🪹' },
+      { urdu: 'ماحول', meaning: 'ہمارے چاروں طرف کی فضا', emoji: '🌍' },
+      { urdu: 'صاف', meaning: 'گندگی سے پاک، ستھرا', emoji: '✨' }
+    ],
+    grammar: {
+      topic: 'ضمیر — اسم کی جگہ استعمال ہونے والا لفظ',
+      rule: '<b>ضمیر</b> وہ لفظ ہے جو اسم کی جگہ استعمال ہو۔ جیسے: وہ، میں، تم، ہم، یہ، آپ۔',
+      examples: ['میں پڑھتا ہوں', 'وہ کھاتا ہے', 'ہم جاتے ہیں', 'تم لکھو', 'آپ آئیں']
+    },
+    game: {
+      title: '🎯 لفظ اور معنی ملائیں!',
+      pairs: [
+        { word: 'درخت', meaning: 'پودا جو بڑا ہو 🌳' },
+        { word: 'سایہ', meaning: 'دھوپ سے بچائے ☂️' },
+        { word: 'گھونسلہ', meaning: 'پرندے کا گھر 🪹' },
+        { word: 'ماحول', meaning: 'چاروں طرف کی فضا 🌍' },
+        { word: 'صاف', meaning: 'گندگی سے پاک ✨' }
+      ]
+    },
+    quiz: [
+      { q: 'درخت ہمیں کیا دیتے ہیں؟', opts: ['صرف لکڑی', 'پھل، سایہ اور صاف ہوا', 'صرف پھول', 'پانی'], ans: 1, icon: '🌳' },
+      { q: 'پرندے کہاں گھونسلے بناتے ہیں؟', opts: ['پانی میں', 'درختوں پر', 'پہاڑ پر', 'گھر میں'], ans: 1, icon: '🐦' },
+      { q: '"وہ درخت لگاتا ہے" میں "وہ" کون سا لفظ ہے؟', opts: ['اسم', 'فعل', 'ضمیر', 'صفت'], ans: 2, icon: '📝' },
+      { q: 'ہمیں کیا کرنا چاہیے؟', opts: ['درخت کاٹنے چاہیے', 'زیادہ درخت لگانے چاہیے', 'درخت نہ لگائیں', 'درختوں سے دور رہیں'], ans: 1, icon: '💡' },
+      { q: 'درختوں سے ہوا کیسی ہوتی ہے؟', opts: ['گرم', 'گندی', 'صاف', 'بدبودار'], ans: 2, icon: '💨' }
+    ],
+    writing: { prompt: 'آپ نے کبھی کوئی پودا لگایا؟ لکھیں۔', hint: 'کس جگہ لگایا، کیسے لگایا، وہ اب کیسا ہے؟' }
+  },
+  {
+    id: 6, icon: '🕌', type: 'نظم',
+    name: 'ہمارا ملک پاکستان',
+    color: '#27ae60',
+    story: {
+      title: 'ہمارا ملک پاکستان',
+      text: `پیارا ملک <span class="hw" onclick="popWord('پاکستان','ہمارا پیارا وطن، اسلامی جمہوریہ پاکستان')">پاکستان</span>،
+<span class="hw" onclick="popWord('اسلام','اللہ کا دین، ہمارا مذہب')">اسلام</span> کا خوبصورت جہاں۔
+<span class="hw" onclick="popWord('پرچم','ملک کا جھنڈا')">پرچم</span> سبز و سفید ہمارا،
+چاند ستارہ نور کا اشارہ۔
+
+<span class="hw" onclick="popWord('قائداعظم','پاکستان کے بانی، محمد علی جناح')">قائداعظم</span> نے بنایا اسے،
+<span class="hw" onclick="popWord('آزادی','غلامی سے نجات')">آزادی</span> کا تحفہ ملا۔
+ہم پاکستانی سب بھائی بھائی،
+مل کر بڑھائیں اس کی رونق۔`
+    },
+    explain: 'یہ نظم ہمارے پیارے وطن پاکستان کے بارے میں ہے۔ پاکستان ۱۴ اگست ۱۹۴۷ کو آزاد ہوا۔ قائداعظم محمد علی جناح نے اس کی بنیاد رکھی۔ ہمارا پرچم سبز اور سفید ہے جس پر چاند اور ستارہ ہے۔ ہم سب پاکستانی مل جل کر رہتے ہیں۔',
+    words: [
+      { urdu: 'پاکستان', meaning: 'ہمارا پیارا اسلامی ملک', emoji: '🇵🇰' },
+      { urdu: 'پرچم', meaning: 'ملک کا جھنڈا', emoji: '🚩' },
+      { urdu: 'آزادی', meaning: 'غلامی سے نجات، خودمختاری', emoji: '🕊️' },
+      { urdu: 'قائداعظم', meaning: 'پاکستان کے بانی، محمد علی جناح', emoji: '🎖️' },
+      { urdu: 'اسلام', meaning: 'ہمارا دین اور مذہب', emoji: '🕌' }
+    ],
+    grammar: {
+      topic: 'مذکر اور مؤنث — لڑکا اور لڑکی',
+      rule: 'اردو میں <b>مذکر</b> مردانہ (لڑکا، بھائی) اور <b>مؤنث</b> زنانہ (لڑکی، بہن) چیزوں کے لیے ہوتے ہیں۔',
+      examples: ['لڑکا (مذکر) ← لڑکی (مؤنث)', 'استاد (م) ← استانی (مؤ)', 'شیر (م) ← شیرنی (مؤ)', 'بادشاہ ← ملکہ']
+    },
+    game: {
+      title: '🎯 لفظ اور معنی ملائیں!',
+      pairs: [
+        { word: 'پاکستان', meaning: 'ہمارا ملک 🇵🇰' },
+        { word: 'پرچم', meaning: 'سبز جھنڈا 🚩' },
+        { word: 'آزادی', meaning: '۱۴ اگست 🕊️' },
+        { word: 'قائداعظم', meaning: 'بانی پاکستان 🎖️' },
+        { word: 'اسلام', meaning: 'ہمارا دین 🕌' }
+      ]
+    },
+    quiz: [
+      { q: 'ہمارے ملک کا نام کیا ہے؟', opts: ['ہندوستان', 'پاکستان', 'افغانستان', 'ایران'], ans: 1, icon: '🇵🇰' },
+      { q: 'پرچم کس رنگ کا ہے؟', opts: ['لال اور پیلا', 'سبز اور سفید', 'نیلا اور سبز', 'سرخ اور سفید'], ans: 1, icon: '🚩' },
+      { q: '"استاد" کا مؤنث کیا ہے؟', opts: ['استادی', 'استانی', 'استادہ', 'استادن'], ans: 1, icon: '📝' },
+      { q: 'پاکستان کس نے بنایا؟', opts: ['اقبال نے', 'قائداعظم نے', 'بھٹو نے', 'ضیاء نے'], ans: 1, icon: '🎖️' },
+      { q: 'پرچم پر کیا ہے؟', opts: ['صرف چاند', 'چاند اور ستارہ', 'صرف ستارہ', 'سورج'], ans: 1, icon: '🌙' }
+    ],
+    writing: { prompt: 'اپنے ملک پاکستان کے بارے میں تین جملے لکھیں۔', hint: 'پاکستان کب آزاد ہوا؟ کس نے بنایا؟ اس کا پرچم کیسا ہے؟' }
+  },
+  {
+    id: 7, icon: '🐫', type: 'کہانی',
+    name: 'اونٹ کی سواری',
+    color: '#f39c12',
+    story: {
+      title: 'اونٹ کی سواری',
+      text: `<span class="hw" onclick="popWord('اونٹ','ریگستان کا جانور جس کی پیٹھ پر کوہان ہوتا ہے')">اونٹ</span> کو صحرا کا جہاز کہتے ہیں۔
+احمد کبھی <span class="hw" onclick="popWord('صحرا','ریت کی وسیع زمین جہاں پانی کم ہو')">صحرا</span> نہیں گیا تھا۔
+ایک دن ابو اسے اونٹ کی <span class="hw" onclick="popWord('سواری','کسی جانور یا گاڑی پر بیٹھ کر چلنا')">سواری</span> کروانے لے گئے۔
+احمد پہلے <span class="hw" onclick="popWord('ڈرا','خوف محسوس کیا')">ڈرا</span>، پھر ہمت کی۔
+اونٹ آہستہ آہستہ چلا۔
+احمد کو بہت مزہ آیا اور وہ بہت خوش ہوا۔
+گھر آکر اس نے اپنی ماں کو سارا <span class="hw" onclick="popWord('قصہ','واقعہ، کہانی')">قصہ</span> سنایا۔`
+    },
+    explain: 'یہ کہانی احمد کی اونٹ کی سواری کے بارے میں ہے۔ اونٹ صحرا میں چلنے والا مضبوط جانور ہے۔ احمد پہلے ڈرا لیکن پھر ہمت کر کے اونٹ پر بیٹھا اور اسے بہت مزہ آیا۔ یہ کہانی ہمیں سکھاتی ہے کہ نئی چیزیں آزمانے میں مزہ آتا ہے۔',
+    words: [
+      { urdu: 'اونٹ', meaning: 'ریگستان کا جانور، صحرا کا جہاز', emoji: '🐫' },
+      { urdu: 'صحرا', meaning: 'ریت کا وسیع میدان', emoji: '🏜️' },
+      { urdu: 'سواری', meaning: 'جانور یا گاڑی پر بیٹھ کر چلنا', emoji: '🎠' },
+      { urdu: 'ہمت', meaning: 'بے خوفی سے کام کرنا', emoji: '💪' },
+      { urdu: 'قصہ', meaning: 'کوئی واقعہ یا کہانی', emoji: '📖' }
+    ],
+    grammar: {
+      topic: 'زمانہ — ماضی، حال، مستقبل',
+      rule: 'فعل تین زمانوں میں ہوتا ہے: <b>ماضی</b> (جو ہو چکا)، <b>حال</b> (جو ہو رہا ہے)، <b>مستقبل</b> (جو ہوگا)۔',
+      examples: ['احمد گیا (ماضی)', 'احمد جاتا ہے (حال)', 'احمد جائے گا (مستقبل)']
+    },
+    game: {
+      title: '🎯 لفظ اور معنی ملائیں!',
+      pairs: [
+        { word: 'اونٹ', meaning: 'صحرا کا جہاز 🐫' },
+        { word: 'صحرا', meaning: 'ریتلی زمین 🏜️' },
+        { word: 'سواری', meaning: 'جانور پر بیٹھنا 🎠' },
+        { word: 'ہمت', meaning: 'بے خوف ہونا 💪' },
+        { word: 'قصہ', meaning: 'واقعہ یا کہانی 📖' }
+      ]
+    },
+    quiz: [
+      { q: 'اونٹ کو کیا کہتے ہیں؟', opts: ['دریا کا جہاز', 'صحرا کا جہاز', 'ہوا کا جہاز', 'پہاڑ کا جہاز'], ans: 1, icon: '🐫' },
+      { q: 'احمد کو کون لے گیا؟', opts: ['ماں', 'دوست', 'ابو', 'استاد'], ans: 2, icon: '👨' },
+      { q: '"گیا" کون سا زمانہ ہے؟', opts: ['مستقبل', 'حال', 'ماضی', 'فعل نہیں'], ans: 2, icon: '📝' },
+      { q: 'احمد پہلے کیسے ہوا؟', opts: ['خوش', 'ڈرا', 'سویا', 'بھاگا'], ans: 1, icon: '😮' },
+      { q: 'احمد نے گھر کر کیا کیا؟', opts: ['سو گیا', 'کھایا', 'ماں کو قصہ سنایا', 'کھیلا'], ans: 2, icon: '💬' }
+    ],
+    writing: { prompt: 'کسی جانور کے ساتھ آپ کا کوئی تجربہ لکھیں۔', hint: 'کون سا جانور تھا؟ کہاں ملا؟ آپ نے کیا کیا؟' }
+  },
+  {
+    id: 8, icon: '💧', type: 'نظم',
+    name: 'پانی کی قدر',
+    color: '#2980b9',
+    story: {
+      title: 'پانی کی قدر',
+      text: `<span class="hw" onclick="popWord('پانی','زندگی کی بنیادی ضرورت، پارا مائع')">پانی</span> ہے زندگی کا راز،
+بغیر پانی نہ کوئی آواز۔
+<span class="hw" onclick="popWord('فضول','بے کار، بغیر مقصد')">فضول</span> مت بہاؤ اسے،
+اپنے دل میں <span class="hw" onclick="popWord('بسائو','جگہ دو، محفوظ کرو')">بسائو</span> اسے۔
+
+<span class="hw" onclick="popWord('نل','پائپ کا وہ حصہ جہاں سے پانی نکلتا ہے')">نل</span> بند کرو جب نہ ہو کام،
+پانی <span class="hw" onclick="popWord('بچاؤ','محفوظ رکھو')">بچاؤ</span>، یہی ہے کلام۔
+ندی، دریا، کنواں سب،
+پانی کی <span class="hw" onclick="popWord('فراہمی','دستیابی، مل جانا')">فراہمی</span> کے سبب۔`
+    },
+    explain: 'یہ نظم پانی کی اہمیت پر ہے۔ پانی زندگی کے لیے بہت ضروری ہے۔ اس کے بغیر کوئی جانور، پودا یا انسان نہیں جی سکتا۔ ہمیں پانی فضول نہیں بہانا چاہیے۔ نل استعمال کے بعد بند کریں اور پانی بچائیں۔',
+    words: [
+      { urdu: 'پانی', meaning: 'زندگی کی بنیادی ضرورت', emoji: '💧' },
+      { urdu: 'فضول', meaning: 'بے کار، بغیر مقصد', emoji: '🚫' },
+      { urdu: 'نل', meaning: 'پانی نکالنے کا آلہ', emoji: '🚿' },
+      { urdu: 'بچاؤ', meaning: 'محفوظ رکھنا، ضائع نہ کرنا', emoji: '🌊' },
+      { urdu: 'فراہمی', meaning: 'دستیاب ہونا، ملنا', emoji: '✅' }
+    ],
+    grammar: {
+      topic: 'مصدر — فعل کی اصل شکل',
+      rule: '<b>مصدر</b> فعل کی وہ شکل ہے جو کام کو ظاہر کرے مگر زمانہ نہ بتائے۔ جیسے: کھانا، پینا، پڑھنا، لکھنا۔',
+      examples: ['کھانا', 'پینا', 'لکھنا', 'پڑھنا', 'جانا', 'آنا', 'بچانا']
+    },
+    game: {
+      title: '🎯 لفظ اور معنی ملائیں!',
+      pairs: [
+        { word: 'پانی', meaning: 'زندگی ضروری 💧' },
+        { word: 'فضول', meaning: 'بے کار بہانا 🚫' },
+        { word: 'نل', meaning: 'پانی کا ذریعہ 🚿' },
+        { word: 'بچاؤ', meaning: 'ضائع نہ کرو 🌊' },
+        { word: 'فراہمی', meaning: 'دستیابی ✅' }
+      ]
+    },
+    quiz: [
+      { q: 'پانی کو کیا کہا گیا ہے؟', opts: ['رنگ کا راز', 'زندگی کا راز', 'مٹی کا راز', 'ہوا کا راز'], ans: 1, icon: '💧' },
+      { q: 'نل استعمال کے بعد کیا کریں؟', opts: ['کھلا چھوڑیں', 'توڑیں', 'بند کریں', 'نظرانداز کریں'], ans: 2, icon: '🚿' },
+      { q: '"پانی بچانا" میں "بچانا" کون سا لفظ ہے؟', opts: ['اسم', 'صفت', 'مصدر', 'ضمیر'], ans: 2, icon: '📝' },
+      { q: 'پانی کے ذرائع کیا ہیں؟', opts: ['صرف بارش', 'ندی، دریا، کنواں', 'صرف نل', 'صرف سمندر'], ans: 1, icon: '🌊' },
+      { q: 'نظم کا مرکزی پیغام کیا ہے؟', opts: ['پانی پیو', 'پانی بچاؤ', 'پانی بیچو', 'پانی گندہ ہے'], ans: 1, icon: '💡' }
+    ],
+    writing: { prompt: 'پانی بچانے کے تین طریقے لکھیں۔', hint: 'نل بند، بارش کا پانی، برتن میں پانی...' }
+  },
+  {
+    id: 9, icon: '🍎', type: 'کہانی',
+    name: 'صحت مند خوراک',
+    color: '#e74c3c',
+    story: {
+      title: 'صحت مند خوراک',
+      text: `صائمہ کی ماں نے اسے سمجھایا:
+"بیٹا، <span class="hw" onclick="popWord('صحت','تندرستی، بیمار نہ ہونا')">صحت</span> اللہ کی بڑی <span class="hw" onclick="popWord('نعمت','اللہ کا عطا کیا ہوا اچھا شے')">نعمت</span> ہے۔
+روزانہ <span class="hw" onclick="popWord('سبزی','ہری پتیوں والی خوراک')">سبزی</span> اور <span class="hw" onclick="popWord('پھل','درخت کا میٹھا خوراک')">پھل</span> کھاؤ۔
+<span class="hw" onclick="popWord('دودھ','گائے یا بھینس کا سفید مائع خوراک')">دودھ</span> پیو تاکہ ہڈیاں مضبوط ہوں۔
+<span class="hw" onclick="popWord('جنک فوڈ','بے کار اور نقصاندہ کھانا')">جنک فوڈ</span> سے دور رہو۔"
+صائمہ نے ماں کی بات مانی۔
+وہ روزانہ اچھا کھانا کھاتی اور تندرست رہتی۔`
+    },
+    explain: 'یہ کہانی صحت مند خوراک کے بارے میں ہے۔ صائمہ کی ماں اسے سکھاتی ہے کہ اچھی صحت کے لیے سبزی، پھل اور دودھ کھانا پینا ضروری ہے۔ جنک فوڈ سے پرہیز کرنا چاہیے کیونکہ یہ صحت کے لیے نقصاندہ ہے۔',
+    words: [
+      { urdu: 'صحت', meaning: 'تندرستی، بیماری سے پاک ہونا', emoji: '💪' },
+      { urdu: 'نعمت', meaning: 'اللہ کا عطا کردہ تحفہ', emoji: '🎁' },
+      { urdu: 'سبزی', meaning: 'ہری اور غذائی سبزیاں', emoji: '🥦' },
+      { urdu: 'دودھ', meaning: 'سفید مائع خوراک، کیلشیم سے بھرپور', emoji: '🥛' },
+      { urdu: 'تندرست', meaning: 'صحت مند، بیمار نہ ہو', emoji: '😃' }
+    ],
+    grammar: {
+      topic: 'حروف عطف — اور، مگر، لیکن، یا',
+      rule: '<b>حروف عطف</b> دو جملوں یا لفظوں کو ملاتے ہیں۔ جیسے: اور، مگر، لیکن، یا، بلکہ۔',
+      examples: ['سبزی اور پھل کھاؤ', 'وہ آیا مگر رکا نہیں', 'تم یا میں جائیں', 'وہ روتا ہے لیکن بولتا نہیں']
+    },
+    game: {
+      title: '🎯 لفظ اور معنی ملائیں!',
+      pairs: [
+        { word: 'صحت', meaning: 'تندرستی 💪' },
+        { word: 'نعمت', meaning: 'اللہ کا تحفہ 🎁' },
+        { word: 'سبزی', meaning: 'ہری خوراک 🥦' },
+        { word: 'دودھ', meaning: 'ہڈیاں مضبوط 🥛' },
+        { word: 'تندرست', meaning: 'صحت مند 😃' }
+      ]
+    },
+    quiz: [
+      { q: 'صحت کے لیے کیا کھانا چاہیے؟', opts: ['جنک فوڈ', 'سبزی اور پھل', 'صرف مٹھائی', 'تلا ہوا کھانا'], ans: 1, icon: '🥦' },
+      { q: 'دودھ پینے سے کیا مضبوط ہوتی ہیں؟', opts: ['آنکھیں', 'ہڈیاں', 'بال', 'دانت'], ans: 1, icon: '🥛' },
+      { q: '"سبزی اور پھل" میں "اور" کیا ہے؟', opts: ['اسم', 'فعل', 'حرف عطف', 'صفت'], ans: 2, icon: '📝' },
+      { q: 'صائمہ کی ماں نے کیا سمجھایا؟', opts: ['کم پڑھو', 'صحت مند کھانا کھاؤ', 'سو جاؤ', 'کھیلو'], ans: 1, icon: '👩' },
+      { q: 'جنک فوڈ کیسا ہوتا ہے؟', opts: ['فائدے مند', 'صحت کے لیے ضروری', 'نقصاندہ', 'سستا'], ans: 2, icon: '❌' }
+    ],
+    writing: { prompt: 'صحت مند رہنے کے لیے آپ کیا کرتے ہیں؟ تین جملے لکھیں۔', hint: 'کھانا، ورزش، نیند، صفائی...' }
+  },
+  {
+    id: 10, icon: '🌙', type: 'نظم',
+    name: 'رات کی خاموشی',
+    color: '#2c3e50',
+    story: {
+      title: 'رات کی خاموشی',
+      text: `<span class="hw" onclick="popWord('رات','دن کے بعد اندھیرے کا وقت')">رات</span> آئی، <span class="hw" onclick="popWord('خاموشی','آوازوں کا نہ ہونا، سکوت')">خاموشی</span> چھائی،
+<span class="hw" onclick="popWord('چاند','رات کو آسمان میں چمکنے والا')">چاند</span> نے روشنی بکھرائی۔
+<span class="hw" onclick="popWord('ستارے','رات کو آسمان میں چمکنے والے')">ستارے</span> ٹمٹماتے نے،
+آسمان کو سجاتے ہیں۔
+
+بچے سوتے، <span class="hw" onclick="popWord('خواب','نیند میں دیکھی جانے والی باتیں')">خواب</span> دیکھتے،
+صبح اُٹھ کر پڑھتے رہتے۔
+اللہ کی حمد کرو ہر دم،
+رات دن، ہر لحظہ و ہر لمحہ۔`
+    },
+    explain: 'یہ نظم رات کے خاموش اور خوبصورت وقت کے بارے میں ہے۔ رات کو چاند اور ستارے آسمان کو روشن کرتے ہیں۔ بچے سو کر خواب دیکھتے ہیں اور صبح اُٹھ کر پھر سے پڑھائی شروع کرتے ہیں۔',
+    words: [
+      { urdu: 'رات', meaning: 'سورج ڈوبنے کے بعد کا اندھیرا وقت', emoji: '🌙' },
+      { urdu: 'چاند', meaning: 'رات کو آسمان میں روشنی دینے والا', emoji: '🌕' },
+      { urdu: 'ستارے', meaning: 'رات کو آسمان میں ٹمٹماتے نقطے', emoji: '⭐' },
+      { urdu: 'خواب', meaning: 'نیند میں دیکھی جانے والی تصویریں', emoji: '💭' },
+      { urdu: 'خاموشی', meaning: 'آوازوں کا نہ ہونا، سکوت', emoji: '🤫' }
+    ],
+    grammar: {
+      topic: 'تعریف و توصیف — صفت کا استعمال',
+      rule: 'جملوں میں <b>صفت</b> سے چیزوں کو خوبصورت طریقے سے بیان کیا جاتا ہے۔ صفت ہمیشہ اسم کے ساتھ آتی ہے۔',
+      examples: ['خاموش رات', 'چمکتا چاند', 'ٹمٹماتے ستارے', 'میٹھے خواب', 'صاف آسمان']
+    },
+    game: {
+      title: '🎯 لفظ اور معنی ملائیں!',
+      pairs: [
+        { word: 'رات', meaning: 'اندھیرے کا وقت 🌙' },
+        { word: 'چاند', meaning: 'رات کی روشنی 🌕' },
+        { word: 'ستارے', meaning: 'ٹمٹماتے نقطے ⭐' },
+        { word: 'خواب', meaning: 'نیند کی تصویریں 💭' },
+        { word: 'خاموشی', meaning: 'آواز نہ ہو 🤫' }
+      ]
+    },
+    quiz: [
+      { q: 'رات کو کیا ہوتی ہے؟', opts: ['دھوپ', 'خاموشی', 'شور', 'آندھی'], ans: 1, icon: '🌙' },
+      { q: 'رات کو کون روشنی دیتا ہے؟', opts: ['سورج', 'بجلی', 'چاند اور ستارے', 'آگ'], ans: 2, icon: '⭐' },
+      { q: '"خوبصورت رات" میں "خوبصورت" کیا ہے؟', opts: ['اسم', 'فعل', 'صفت', 'ضمیر'], ans: 2, icon: '📝' },
+      { q: 'بچے رات کو کیا کرتے ہیں؟', opts: ['پڑھتے ہیں', 'کھیلتے ہیں', 'سوتے ہیں', 'گانا گاتے ہیں'], ans: 2, icon: '😴' },
+      { q: 'رات کے بعد کیا آتا ہے؟', opts: ['شام', 'صبح', 'ظہر', 'عصر'], ans: 1, icon: '🌅' }
+    ],
+    writing: { prompt: 'رات کے آسمان کے بارے میں تین جملے لکھیں۔', hint: 'چاند، ستارے، خاموشی، خوبصورتی...' }
+  },
+  {
+    id: 11, icon: '👨‍👩‍👧', type: 'کہانی',
+    name: 'پیاری فیملی',
+    color: '#e74c3c',
+    story: {
+      title: 'پیاری فیملی',
+      text: `<span class="hw" onclick="popWord('خاندان','ایک گھر میں رہنے والے لوگ')">خاندان</span> اللہ کی ایک بڑی <span class="hw" onclick="popWord('نعمت','اللہ کا تحفہ')">نعمت</span> ہے۔
+ہمارے گھر میں ابو، امی، دادا، دادی، بھائی اور بہن ہیں۔
+ابو کام پر جاتے ہیں۔
+امی گھر سنبھالتی ہیں اور <span class="hw" onclick="popWord('کھانا','وہ چیز جو کھائی جائے')">کھانا</span> بناتی ہیں۔
+دادا <span class="hw" onclick="popWord('قصے','کہانیاں')">قصے</span> سناتے ہیں۔
+دادی نمازیں پڑھاتی ہیں۔
+مل جل کر رہنے میں بہت <span class="hw" onclick="popWord('خوشی','مسرت، خوش ہونے کا احساس')">خوشی</span> ہوتی ہے۔`
+    },
+    explain: 'یہ کہانی ایک پیاری فیملی کے بارے میں ہے۔ گھر میں سب کا اپنا کام ہوتا ہے۔ ابو کماتے ہیں، امی گھر چلاتی ہیں، دادا دادی تربیت کرتے ہیں۔ مل جل کر رہنا اور ایک دوسرے کی مدد کرنا خاندانی زندگی کی خوبصورتی ہے۔',
+    words: [
+      { urdu: 'خاندان', meaning: 'ایک گھر میں رہنے والے رشتے دار', emoji: '👨‍👩‍👧' },
+      { urdu: 'نعمت', meaning: 'اللہ کا عطا کردہ تحفہ', emoji: '🎁' },
+      { urdu: 'قصے', meaning: 'کہانیاں، واقعات', emoji: '📖' },
+      { urdu: 'خوشی', meaning: 'مسرت، خوش ہونے کا احساس', emoji: '😊' },
+      { urdu: 'تربیت', meaning: 'اچھی عادات سکھانا', emoji: '🌱' }
+    ],
+    grammar: {
+      topic: 'رشتوں کے نام — خاندانی الفاظ',
+      rule: 'اردو میں رشتوں کے خاص نام ہوتے ہیں۔ یہ الفاظ سیکھنا ضروری ہے۔',
+      examples: ['ابو (والد)', 'امی (والدہ)', 'دادا (باپ کے باپ)', 'نانا (ماں کے باپ)', 'بھائی', 'بہن']
+    },
+    game: {
+      title: '🎯 رشتے کا نام ملائیں!',
+      pairs: [
+        { word: 'ابو', meaning: 'والد، باپ 👨' },
+        { word: 'امی', meaning: 'والدہ، ماں 👩' },
+        { word: 'دادا', meaning: 'باپ کے باپ 👴' },
+        { word: 'دادی', meaning: 'باپ کی ماں 👵' },
+        { word: 'نانا', meaning: 'ماں کے باپ 👴' }
+      ]
+    },
+    quiz: [
+      { q: 'خاندان کس کی نعمت ہے؟', opts: ['حکومت کی', 'اللہ کی', 'ملک کی', 'استاد کی'], ans: 1, icon: '🎁' },
+      { q: 'گھر میں امی کیا کرتی ہیں؟', opts: ['کام پر جاتی ہیں', 'گھر سنبھالتی ہیں', 'پڑھاتی ہیں', 'کھیلتی ہیں'], ans: 1, icon: '👩' },
+      { q: 'دادا کیا کرتے ہیں؟', opts: ['کھانا بناتے ہیں', 'قصے سناتے ہیں', 'کام پر جاتے ہیں', 'سوتے رہتے ہیں'], ans: 1, icon: '👴' },
+      { q: '"باپ کے باپ" کو کیا کہتے ہیں؟', opts: ['نانا', 'دادا', 'ماموں', 'چچا'], ans: 1, icon: '📝' },
+      { q: 'مل جل کر رہنے سے کیا ہوتی ہے؟', opts: ['تھکاوٹ', 'خوشی', 'لڑائی', 'اداسی'], ans: 1, icon: '😊' }
+    ],
+    writing: { prompt: 'اپنی فیملی کے بارے میں تین جملے لکھیں۔', hint: 'کتنے افراد ہیں، کون کیا کرتا ہے؟' }
+  },
+  {
+    id: 12, icon: '🎓', type: 'نظم',
+    name: 'محنت کا پھل',
+    color: '#27ae60',
+    story: {
+      title: 'محنت کا پھل',
+      text: `<span class="hw" onclick="popWord('محنت','لگن سے کام کرنا')">محنت</span> کا پھل میٹھا ہوتا،
+جو کرے محنت وہ پاتا۔
+سست نہ بیٹھو، اُٹھو جاگو،
+<span class="hw" onclick="popWord('علم','جاننا اور سمجھنا')">علم</span> کی راہ پر تم بھاگو۔
+
+<span class="hw" onclick="popWord('قلم','لکھنے کا آلہ')">قلم</span> ہے تلوار سے تیز،
+<span class="hw" onclick="popWord('کتاب','علم کا خزانہ')">کتاب</span> ہے بہترین ہمراز۔
+پڑھو، لکھو، آگے بڑھو،
+<span class="hw" onclick="popWord('کامیابی','مقصد حاصل کرنا')">کامیابی</span> کی راہ پر چڑھو۔`
+    },
+    explain: 'یہ نظم محنت اور لگن کی تعریف میں ہے۔ شاعر کہتا ہے کہ محنت کا پھل ہمیشہ میٹھا ہوتا ہے۔ قلم تلوار سے زیادہ طاقتور ہوتی ہے اور کتاب سب سے اچھی دوست ہے۔ جو بچہ محنت سے پڑھتا ہے وہ زندگی میں کامیاب ہوتا ہے۔',
+    words: [
+      { urdu: 'محنت', meaning: 'لگن اور جاں فشانی سے کام کرنا', emoji: '💪' },
+      { urdu: 'علم', meaning: 'جاننے اور سمجھنے کی قوت', emoji: '📚' },
+      { urdu: 'قلم', meaning: 'لکھنے کا آلہ، پین', emoji: '✏️' },
+      { urdu: 'کتاب', meaning: 'علم کا خزانہ، پڑھنے کی چیز', emoji: '📖' },
+      { urdu: 'کامیابی', meaning: 'مقصد حاصل کرنا، فتح', emoji: '🏆' }
+    ],
+    grammar: {
+      topic: 'مراجعت — تمام قواعد کا دہرانا',
+      rule: 'آج ہم نے اردو قواعد کا دہرانا کیا: <b>اسم</b> (نام)، <b>فعل</b> (کام)، <b>صفت</b> (وصف)، <b>ضمیر</b> (اسم کی جگہ)، <b>واحد جمع</b>، <b>زمانہ</b>۔',
+      examples: ['اسم: کتاب، قلم', 'فعل: پڑھنا، لکھنا', 'صفت: میٹھا، تیز', 'ضمیر: وہ، میں', 'ماضی: پڑھا، حال: پڑھتا ہے']
+    },
+    game: {
+      title: '🎯 لفظ اور معنی ملائیں!',
+      pairs: [
+        { word: 'محنت', meaning: 'جاں فشانی سے کام 💪' },
+        { word: 'علم', meaning: 'جاننا اور سیکھنا 📚' },
+        { word: 'قلم', meaning: 'لکھنے کا آلہ ✏️' },
+        { word: 'کتاب', meaning: 'علم کا خزانہ 📖' },
+        { word: 'کامیابی', meaning: 'مقصد ملنا 🏆' }
+      ]
+    },
+    quiz: [
+      { q: 'محنت کا پھل کیسا ہوتا ہے؟', opts: ['کڑوا', 'بے ذائقہ', 'میٹھا', 'کھٹا'], ans: 2, icon: '🍎' },
+      { q: 'قلم کو کس سے تیز بتایا گیا؟', opts: ['چھری سے', 'تلوار سے', 'قینچی سے', 'باندھ سے'], ans: 1, icon: '✏️' },
+      { q: '"پڑھنا" کون سا لفظ ہے؟', opts: ['اسم', 'صفت', 'مصدر', 'ضمیر'], ans: 2, icon: '📝' },
+      { q: 'کامیابی کے لیے کیا کرنا چاہیے؟', opts: ['سونا', 'محنت سے پڑھنا', 'کھیلنا', 'ٹی وی دیکھنا'], ans: 1, icon: '🏆' },
+      { q: 'نظم کا مرکزی پیغام کیا ہے؟', opts: ['آرام کرو', 'محنت اور علم سے کامیابی', 'کھیلو', 'سو جاؤ'], ans: 1, icon: '💡' }
+    ],
+    writing: { prompt: 'محنت کے بارے میں اپنے الفاظ میں لکھیں۔', hint: 'محنت سے کیا ملتا ہے؟ آپ کیا محنت کرتے ہیں؟' }
+  }
+];
+
+const BADGES = [
+  { id: 'b1', icon: '🌱', name: 'پہلا قدم' },
+  { id: 'b2', icon: '📖', name: 'کہانی خواں' },
+  { id: 'b3', icon: '🏆', name: 'کوئز چیمپ' },
+  { id: 'b4', icon: '⭐', name: 'نصف راستہ' },
+  { id: 'b5', icon: '🎓', name: 'علم کا حصول' },
+  { id: 'b6', icon: '🥇', name: 'فاتح' }
+];
+
+/* ============================================================
+   STATE
+   ============================================================ */
+let CUR = 0;
+let FS  = { idx: 0, flipped: false };
+let QS  = { q: 0, score: 0, answered: false };
+let RQ  = { qs: [], q: 0, score: 0, answered: false };
+let darkMode = false;
+
+function loadP()   { try { return JSON.parse(localStorage.getItem('cl4urdu')) || {}; } catch { return {}; } }
+function saveP(d)  { localStorage.setItem('cl4urdu', JSON.stringify(d)); }
+let P = loadP();
+
+function getCP(id)      { return P[`c${id}`] || { stars: 0, done: false, quizDone: false }; }
+function setCP(id, obj) { P[`c${id}`] = { ...getCP(id), ...obj }; saveP(P); updateHome(); }
+function totalStars()   { return CHAPTERS.reduce((s, c) => s + (getCP(c.id).stars || 0), 0); }
+function getBM()        { return P.bm || []; }
+function toggleBMch(id) { let bm = getBM(); const i = bm.indexOf(id); i > -1 ? bm.splice(i, 1) : bm.push(id); P.bm = bm; saveP(P); }
+
+/* ── NAVIGATION ── */
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+  if (id === 'home-screen') updateHome();
+}
+
+function showTab(tab) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.t-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(`tab-${tab}`).classList.add('active');
+  document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+}
+
+function updateHome() {
+  const stars = totalStars();
+  const done  = CHAPTERS.filter(c => getCP(c.id).done).length;
+  const quiz  = CHAPTERS.filter(c => getCP(c.id).quizDone).length;
+  const pct   = Math.round((done / CHAPTERS.length) * 100);
+  ['home-stars','ch-stars'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = stars; });
+  const ob = document.getElementById('overall-bar'); if (ob) ob.style.width = pct + '%';
+  const ot = document.getElementById('overall-txt'); if (ot) ot.textContent = `${pct}% مکمل (${done}/${CHAPTERS.length})`;
+  ['st-done','st-stars','st-quiz'].forEach((id, i) => { const el = document.getElementById(id); if (el) el.textContent = [done, stars, quiz][i]; });
+
+  const rc = document.getElementById('recent-list');
+  if (rc) {
+    rc.innerHTML = CHAPTERS.slice(0, 4).map(c => {
+      const cp = getCP(c.id);
+      return `<div style="background:var(--card);border-radius:14px;padding:12px 14px;margin-bottom:10px;display:flex;align-items:center;gap:12px;box-shadow:0 3px 10px rgba(0,0,0,0.07);cursor:pointer;border-right:4px solid ${c.color};direction:rtl" onclick="openChapter(${c.id - 1})">
+        <span style="font-size:1.6rem">${c.icon}</span>
+        <div style="flex:1;direction:rtl">
+          <div style="font-weight:800;font-size:0.95rem;color:var(--dark);font-family:var(--urdu)">${c.name}</div>
+          <div style="font-size:0.72rem;color:var(--grey);margin-top:2px;font-family:var(--urdu)">${c.type} · ${cp.done ? '✅ مکمل' : '📖 شروع نہیں'}</div>
+        </div>
+        <div style="color:var(--gold);font-size:0.85rem;font-family:var(--ui)">${'⭐'.repeat(cp.stars||0)}</div>
+      </div>`;
+    }).join('');
+  }
+}
+
+/* ── RENDER CHAPTERS ── */
+function renderChapters() {
+  document.getElementById('ch-stars').textContent = totalStars();
+  const grid = document.getElementById('ch-grid');
+  if (!grid) return;
+  grid.innerHTML = CHAPTERS.map((c, i) => {
+    const cp = getCP(c.id);
+    return `<div class="ch-card ${cp.done ? 'done' : ''}" onclick="openChapter(${i})">
+      ${cp.done ? '<div class="cc-badge">✅ مکمل</div>' : ''}
+      <span class="cc-icon">${c.icon}</span>
+      <div class="cc-num">${c.type} · سبق ${c.id}</div>
+      <div class="cc-name">${c.name}</div>
+      <div class="cc-stars">${'⭐'.repeat(cp.stars||0)}${'☆'.repeat(Math.max(0,3-(cp.stars||0)))}</div>
+    </div>`;
+  }).join('');
+}
+
+/* ── OPEN CHAPTER ── */
+function openChapter(idx) {
+  CUR = idx;
+  const c = CHAPTERS[idx];
+  document.getElementById('ch-screen-title').textContent = c.name;
+  document.getElementById('bm-btn').textContent = getBM().includes(c.id) ? '🌟' : '🔖';
+  setCP(c.id, { done: true });
+  renderStoryTab(c);
+  renderWordsTab(c);
+  renderGrammarTab(c);
+  renderGameTab(c);
+  renderFlashTab(c);
+  renderQuizTab(c);
+  renderWriteTab(c);
+  renderNotesTab(c);
+  showTab('story');
+  showScreen('chapter-screen');
+}
+
+function toggleBM() {
+  const c = CHAPTERS[CUR];
+  toggleBMch(c.id);
+  document.getElementById('bm-btn').textContent = getBM().includes(c.id) ? '🌟' : '🔖';
+}
+
+/* ── STORY TAB ── */
+function renderStoryTab(c) {
+  document.getElementById('tab-story').innerHTML = `
+    <div class="story-card">
+      <div class="story-title">${c.icon} ${c.story.title}</div>
+      <div class="story-body">${c.story.text}</div>
+    </div>
+    <div class="explain-box">
+      <h4>📌 مختصر وضاحت</h4>
+      <p>${c.explain}</p>
+    </div>
+    <div style="text-align:center;padding:4px 0 16px">
+      <button class="btn btn-green" onclick="showTab('words')">→ الفاظ کے معنی</button>
+    </div>`;
+}
+
+function popWord(word, meaning) {
+  showModal(`<div style="font-size:1.5rem;font-weight:900;color:var(--emerald);margin-bottom:8px;font-family:var(--urdu);direction:rtl">${word}</div>
+    <p>${meaning}</p>
+    <button class="btn btn-green" style="margin-top:14px" onclick="closeModal()">👍 ٹھیک ہے</button>`);
+}
+
+/* ── WORDS TAB ── */
+function renderWordsTab(c) {
+  const rows = c.words.map(w => `<tr><td>${w.emoji}</td><td style="font-weight:900">${w.urdu}</td><td>${w.meaning}</td></tr>`).join('');
+  document.getElementById('tab-words').innerHTML = `
+    <div class="story-card">
+      <div class="story-title">📝 الفاظ کے معنی</div>
+      <table class="meanings-table">
+        <thead><tr><th></th><th>لفظ</th><th>معنی</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+    <div style="text-align:center;padding:4px 0 16px">
+      <button class="btn btn-green" onclick="showTab('grammar')">→ قواعد</button>
+    </div>`;
+}
+
+/* ── GRAMMAR TAB ── */
+function renderGrammarTab(c) {
+  document.getElementById('tab-grammar').innerHTML = `
+    <div class="grammar-card">
+      <h3>📝 ${c.grammar.topic}</h3>
+      <p>${c.grammar.rule}</p>
+      <div class="ex-chips">${c.grammar.examples.map(e => `<span class="ex-chip">${e}</span>`).join('')}</div>
+    </div>
+    <div style="text-align:center;padding:4px 0 16px">
+      <button class="btn btn-green" onclick="showTab('game')">→ کھیل شروع کریں</button>
+    </div>`;
+}
+
+/* ── GAME TAB ── */
+function renderGameTab(c) {
+  const el = document.getElementById('tab-game');
+  const pairs = c.game.pairs;
+  const words   = [...pairs.map(p => p.word)].sort(() => Math.random() - 0.5);
+  const meanings= [...pairs.map(p => p.meaning)].sort(() => Math.random() - 0.5);
+  let selW = null, selM = null, matched = 0;
+
+  el.innerHTML = `
+    <div class="game-box">
+      <div class="game-title">${c.game.title}</div>
+      <div style="font-size:0.8rem;color:var(--grey);text-align:center;margin-bottom:10px;font-family:var(--urdu)">ایک لفظ چھوئیں، پھر اس کا معنی چھوئیں!</div>
+      <div class="match-grid">
+        <div class="match-col" id="wc">${words.map((w,i) => `<div class="match-item" id="w${i}" data-val="${w}">${w}</div>`).join('')}</div>
+        <div class="match-col" id="mc">${meanings.map((m,i) => `<div class="match-item" id="m${i}" data-val="${m}">${m}</div>`).join('')}</div>
+      </div>
+      <div id="match-sc" style="text-align:center;margin-top:14px;font-weight:900;font-size:1rem;color:var(--emerald);font-family:var(--urdu)"></div>
+    </div>
+    <div style="text-align:center;padding:14px 0 10px;display:flex;gap:8px;justify-content:center">
+      <button class="btn btn-ghost" onclick="renderGameTab(CHAPTERS[${CUR}])">🔄 دوبارہ</button>
+      <button class="btn btn-green" onclick="showTab('flash')">→ فلیش کارڈ</button>
+    </div>`;
+
+  let lW = null, lM = null, lMatched = 0;
+
+  el.querySelectorAll('.match-item').forEach(item => {
+    item.addEventListener('click', function() {
+      if (this.classList.contains('matched')) return;
+      const t = this.id.startsWith('w') ? 'w' : 'm';
+      if (t === 'w') {
+        el.querySelectorAll('[id^="w"]').forEach(e => e.classList.remove('selected'));
+        this.classList.add('selected'); lW = this;
+      } else {
+        el.querySelectorAll('[id^="m"]').forEach(e => e.classList.remove('selected'));
+        this.classList.add('selected'); lM = this;
+      }
+      if (lW && lM) {
+        const isMatch = pairs.some(p => p.word === lW.dataset.val && p.meaning === lM.dataset.val);
+        if (isMatch) {
+          lW.classList.remove('selected'); lW.classList.add('matched');
+          lM.classList.remove('selected'); lM.classList.add('matched');
+          lMatched++;
+          const sc = document.getElementById('match-sc');
+          if (sc) sc.textContent = lMatched === pairs.length ? '🎉 شاباش! سب ملا لیے!' : `✅ ${lMatched}/${pairs.length} ملے`;
+          if (lMatched === pairs.length) { celebrate(); addStar(); }
+        } else {
+          lW.classList.add('wrong-m'); lM.classList.add('wrong-m');
+          setTimeout(() => { lW.classList.remove('wrong-m','selected'); lM.classList.remove('wrong-m','selected'); }, 600);
+        }
+        lW = null; lM = null;
+      }
+    });
+  });
+}
+
+/* ── FLASH TAB ── */
+function renderFlashTab(c) { FS = { idx: 0, flipped: false }; updateFC(c); }
+
+function updateFC(c) {
+  const el = document.getElementById('tab-flash');
+  const v = c.words[FS.idx];
+  const dots = c.words.map((_,i) => `<div class="fc-dot ${i===FS.idx?'on':''}"></div>`).join('');
+
+  el.innerHTML = `
+    <div style="text-align:center;font-size:0.78rem;color:var(--grey);margin-bottom:4px;font-family:var(--urdu)">کارڈ کو چھوئیں تاکہ معنی دیکھیں!</div>
+    <div class="fc-scene" onclick="flipFC()">
+      <div class="fc-card ${FS.flipped?'flipped':''}">
+        <div class="fc-face fc-front">
+          <span class="fc-emoji">${v.emoji}</span>
+          <div class="fc-word">${v.urdu}</div>
+          <div class="fc-hint">چھوئیں ←</div>
+        </div>
+        <div class="fc-face fc-back">
+          <span class="fc-emoji">${v.emoji}</span>
+          <div class="fc-mean">${v.meaning}</div>
+        </div>
+      </div>
+    </div>
+    <div class="fc-dots">${dots}</div>
+    <div class="fc-nav">
+      <button class="fc-nav-btn" onclick="nextFC()">◀</button>
+      <span class="fc-counter">${FS.idx+1} / ${c.words.length}</span>
+      <button class="fc-nav-btn" onclick="prevFC()">▶</button>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:12px 0;direction:rtl">
+      ${c.words.map((v,i) => `<span style="background:${i===FS.idx?'var(--emerald)':'#f0fdf4'};color:${i===FS.idx?'white':'var(--dark)'};border-radius:20px;padding:5px 14px;font-size:0.92rem;font-weight:800;cursor:pointer;font-family:var(--urdu)" onclick="jumpFC(${i})">${v.urdu}</span>`).join('')}
+    </div>
+    <div style="text-align:center;padding:0 0 16px">
+      <button class="btn btn-green btn-full" onclick="showTab('quiz')">→ سوالات</button>
+    </div>`;
+}
+
+function flipFC() { FS.flipped = !FS.flipped; const c = document.querySelector('.fc-card'); if (c) c.classList.toggle('flipped'); }
+function prevFC() { const c = CHAPTERS[CUR]; FS.idx = (FS.idx - 1 + c.words.length) % c.words.length; FS.flipped = false; updateFC(c); }
+function nextFC() { const c = CHAPTERS[CUR]; FS.idx = (FS.idx + 1) % c.words.length; FS.flipped = false; updateFC(c); }
+function jumpFC(i) { FS.idx = i; FS.flipped = false; updateFC(CHAPTERS[CUR]); }
+
+/* ── QUIZ TAB ── */
+function renderQuizTab(c) { QS = { q: 0, score: 0, answered: false }; updateQuiz(c); }
+
+function updateQuiz(c) {
+  const el = document.getElementById('tab-quiz');
+  if (QS.q >= c.quiz.length) { showScore(c); return; }
+  const q = c.quiz[QS.q];
+  const pct = (QS.q / c.quiz.length) * 100;
+
+  el.innerHTML = `
+    <div class="quiz-prog-wrap"><div class="quiz-prog-fill" style="width:${pct}%"></div></div>
+    <div class="quiz-meta"><span>سوال ${QS.q+1} / ${c.quiz.length}</span><span>اسکور: ${QS.score}/${QS.q}</span></div>
+    <div class="quiz-q-box">
+      <span class="quiz-q-icon">${q.icon}</span>
+      ${q.q}
+    </div>
+    <div class="quiz-opts">
+      ${q.opts.map((o,i) => `<button class="quiz-opt" onclick="ansQ(${i},${q.ans},this)">
+        <span style="display:inline-block;width:26px;height:26px;background:rgba(0,0,0,0.07);border-radius:8px;line-height:26px;text-align:center;font-family:var(--ui);font-size:0.8rem;margin-left:8px">${['الف','ب','ج','د'][i]}</span>
+        ${o}
+      </button>`).join('')}
+    </div>
+    <div id="qfb"></div>`;
+}
+
+function ansQ(chosen, correct, btn) {
+  if (QS.answered) return;
+  QS.answered = true;
+  document.querySelectorAll('.quiz-opt').forEach(b => b.disabled = true);
+  const c = CHAPTERS[CUR];
+  const fb = document.getElementById('qfb');
+  if (chosen === correct) {
+    btn.classList.add('correct'); QS.score++;
+    if (fb) fb.innerHTML = `<div class="quiz-fb fb-good">⭐ بہت اچھے! صحیح جواب!</div>`;
+  } else {
+    btn.classList.add('wrong');
+    document.querySelectorAll('.quiz-opt')[correct].classList.add('correct');
+    if (fb) fb.innerHTML = `<div class="quiz-fb fb-bad">❌ صحیح جواب ہے: <b>${c.quiz[QS.q].opts[correct]}</b></div>`;
+  }
+  setTimeout(() => { QS.q++; QS.answered = false; updateQuiz(CHAPTERS[CUR]); }, 2000);
+}
+
+function showScore(c) {
+  const pct   = (QS.score / c.quiz.length) * 100;
+  const stars = pct === 100 ? 3 : pct >= 60 ? 2 : pct >= 40 ? 1 : 0;
+  const emoji = pct === 100 ? '🏆' : pct >= 80 ? '🌟' : pct >= 60 ? '😊' : '📚';
+  const msg   = pct === 100 ? 'بہترین! شاباش!' : pct >= 80 ? 'بہت اچھے!' : pct >= 60 ? 'اچھا کیا!' : 'مزید مشق کریں!';
+
+  setCP(c.id, { stars, quizDone: true });
+  if (stars >= 2) celebrate();
+
+  document.getElementById('tab-quiz').innerHTML = `
+    <div class="score-wrap">
+      <span class="score-trophy">${emoji}</span>
+      <div class="score-num">${QS.score}/${c.quiz.length}</div>
+      <div class="score-msg">${msg}</div>
+      <div class="score-stars">${'⭐'.repeat(stars)}${'☆'.repeat(3-stars)}</div>
+      <button class="btn btn-green btn-full" onclick="renderQuizTab(CHAPTERS[${CUR}])">🔄 دوبارہ</button>
+      <button class="btn btn-gold btn-full" onclick="showTab('write')">→ لکھائی</button>
+      <button class="btn btn-ghost btn-full" onclick="showScreen('chapters-screen');renderChapters()">📚 اسباق</button>
+    </div>`;
+}
+
+/* ── WRITE TAB ── */
+function renderWriteTab(c) {
+  const saved = P[`wr_${c.id}`] || '';
+  document.getElementById('tab-write').innerHTML = `
+    <div class="writing-prompt">
+      <div class="wp-t">✍️ لکھائی کی مشق</div>
+      <div>${c.writing.prompt}</div>
+      <div class="wp-h">💡 ${c.writing.hint}</div>
+    </div>
+    <div class="lined-area">
+      <textarea placeholder="یہاں لکھیں... ✏️" oninput="saveW(${c.id},this.value)">${saved}</textarea>
+    </div>
+    <div style="display:flex;gap:8px;padding:12px 0 16px">
+      <button class="btn btn-green" style="flex:1" onclick="saveWN(${c.id})">💾 محفوظ</button>
+      <button class="btn btn-rose" style="flex:1" onclick="clearW(${c.id})">🗑️ صاف</button>
+    </div>`;
+}
+
+function saveW(id, val)   { P[`wr_${id}`] = val; saveP(P); }
+function saveWN(id)       { const v = document.querySelector('.lined-area textarea')?.value; if (v !== undefined) { saveW(id, v); showModal(`<div style="font-size:2rem">💾</div><h3>محفوظ ہو گیا!</h3><p>آپ کی لکھائی محفوظ ہے۔</p><button class="btn btn-green" style="margin-top:12px" onclick="closeModal()">ٹھیک ہے</button>`); } }
+function clearW(id)       { const t = document.querySelector('.lined-area textarea'); if (t) t.value = ''; saveW(id, ''); }
+
+/* ── NOTES TAB ── */
+function renderNotesTab(c) {
+  const saved = P[`nt_${c.id}`] || '';
+  document.getElementById('tab-notes').innerHTML = `
+    <div class="story-card" style="margin-bottom:12px">
+      <div class="story-title">📔 میرے نوٹس — ${c.name}</div>
+      <p style="font-size:0.88rem;color:var(--grey);font-family:var(--urdu)">یہاں اپنی باتیں یا اہم نقاط لکھیں۔</p>
+    </div>
+    <textarea class="notes-area" placeholder="نوٹس لکھیں..." oninput="saveN(${c.id},this.value)">${saved}</textarea>
+    <div style="display:flex;gap:8px;margin-top:10px;margin-bottom:16px">
+      <button class="btn btn-green" style="flex:1" onclick="saveNN(${c.id})">💾 محفوظ</button>
+      <button class="btn btn-rose" style="flex:1" onclick="clearN(${c.id})">🗑️ صاف</button>
+    </div>`;
+}
+
+function saveN(id, v) { P[`nt_${id}`] = v; saveP(P); }
+function saveNN(id)   { const v = document.querySelector('.notes-area')?.value; if (v !== undefined) saveN(id, v); }
+function clearN(id)   { const t = document.querySelector('.notes-area'); if (t) t.value = ''; saveN(id, ''); }
+
+/* ── PROGRESS ── */
+function renderProgress() {
+  document.getElementById('prog-stars').textContent = `${totalStars()} ⭐`;
+  const done = CHAPTERS.filter(c => getCP(c.id).done).length;
+  const quizD = CHAPTERS.filter(c => getCP(c.id).quizDone).length;
+
+  const bg = document.getElementById('badge-grid');
+  if (bg) {
+    bg.innerHTML = BADGES.map(b => {
+      let earned = false;
+      if (b.id==='b1') earned = done >= 1;
+      else if (b.id==='b2') earned = done >= 3;
+      else if (b.id==='b3') earned = quizD >= 3;
+      else if (b.id==='b4') earned = done >= 6;
+      else if (b.id==='b5') earned = done >= 9;
+      else if (b.id==='b6') earned = done >= 12;
+      return `<div class="badge-card ${earned?'earned':''}">
+        <div class="b-ico">${b.icon}</div>
+        <div class="b-nm">${b.name}</div>
+      </div>`;
+    }).join('');
+  }
+
+  const list = document.getElementById('prog-ch-list');
+  if (list) {
+    list.innerHTML = CHAPTERS.map(c => {
+      const cp = getCP(c.id);
+      return `<div class="ch-prog-item">
+        <span class="ch-prog-ico">${c.icon}</span>
+        <div class="ch-prog-nm">${c.name}</div>
+        <div class="ch-prog-sc">${'⭐'.repeat(cp.stars||0) || (cp.done?'✅':'○')}</div>
+      </div>`;
+    }).join('');
+  }
+}
+
+/* ── BOOKMARKS ── */
+function renderBookmarks() {
+  const bm = getBM();
+  const body = document.getElementById('bm-body');
+  if (!body) return;
+  if (!bm.length) {
+    body.innerHTML = `<div class="bm-empty">🔖<br><br>ابھی کوئی بُک مارک نہیں ہے۔<br><span style="font-size:0.85rem">کسی سبق میں 🔖 دبائیں۔</span></div>`;
+    return;
+  }
+  body.innerHTML = bm.map(id => {
+    const c = CHAPTERS.find(ch => ch.id === id);
+    if (!c) return '';
+    return `<div class="bm-item" onclick="openChapter(${c.id-1})">
+      <span style="font-size:1.8rem">${c.icon}</span>
+      <div style="flex:1;direction:rtl">
+        <div style="font-weight:800;font-size:0.95rem;color:var(--dark);font-family:var(--urdu)">${c.name}</div>
+        <div style="font-size:0.75rem;color:var(--grey);margin-top:2px;font-family:var(--urdu)">${c.type} · چھوئیں</div>
+      </div>
+      <span style="color:var(--gold);font-family:var(--ui)">${'⭐'.repeat(getCP(id).stars||0)||'☆'}</span>
+    </div>`;
+  }).join('');
+}
+
+/* ── RANDOM QUIZ ── */
+function startRandomQuiz() {
+  const allQ = CHAPTERS.flatMap(c => c.quiz.map(q => ({ ...q, chName: c.name })));
+  const shuffled = allQ.sort(() => Math.random() - 0.5).slice(0, 10);
+  RQ = { qs: shuffled, q: 0, score: 0, answered: false };
+  showScreen('rquiz-screen');
+  updateRQ();
+}
+
+function updateRQ() {
+  const el = document.getElementById('rquiz-body');
+  if (!el) return;
+  if (RQ.q >= RQ.qs.length) {
+    const pct = Math.round((RQ.score / RQ.qs.length) * 100);
+    el.innerHTML = `<div class="score-wrap">
+      <span class="score-trophy">${pct >= 80 ? '🏆' : '📚'}</span>
+      <div class="score-num">${RQ.score}/${RQ.qs.length}</div>
+      <div class="score-msg">${pct >= 80 ? 'بہت اچھے!' : 'مزید مشق کریں!'}</div>
+      <button class="btn btn-green btn-full" onclick="startRandomQuiz()">🔄 نیا کوئز</button>
+      <button class="btn btn-ghost btn-full" onclick="showScreen('home-screen')">🏠 گھر</button>
+    </div>`;
+    return;
+  }
+  const q = RQ.qs[RQ.q];
+  el.innerHTML = `
+    <div class="quiz-prog-wrap"><div class="quiz-prog-fill" style="width:${(RQ.q/RQ.qs.length)*100}%"></div></div>
+    <div class="quiz-meta"><span>سوال ${RQ.q+1}/${RQ.qs.length}</span><span style="font-size:0.65rem;color:var(--grey);font-family:var(--urdu)">${q.chName}</span></div>
+    <div class="quiz-q-box"><span class="quiz-q-icon">${q.icon}</span>${q.q}</div>
+    <div class="quiz-opts">${q.opts.map((o,i) => `<button class="quiz-opt" onclick="ansRQ(${i},${q.ans},this)">${o}</button>`).join('')}</div>
+    <div id="rqfb"></div>`;
+}
+
+function ansRQ(chosen, correct, btn) {
+  if (RQ.answered) return;
+  RQ.answered = true;
+  document.querySelectorAll('.quiz-opt').forEach(b => b.disabled = true);
+  const fb = document.getElementById('rqfb');
+  if (chosen === correct) {
+    btn.classList.add('correct'); RQ.score++;
+    if (fb) fb.innerHTML = `<div class="quiz-fb fb-good">✅ صحیح!</div>`;
+  } else {
+    btn.classList.add('wrong');
+    document.querySelectorAll('.quiz-opt')[correct].classList.add('correct');
+    if (fb) fb.innerHTML = `<div class="quiz-fb fb-bad">❌ صحیح: <b>${RQ.qs[RQ.q].opts[correct]}</b></div>`;
+  }
+  setTimeout(() => { RQ.q++; RQ.answered = false; updateRQ(); }, 2000);
+}
+
+/* ── UTILS ── */
+function addStar() {
+  const c = CHAPTERS[CUR];
+  const cp = getCP(c.id);
+  if ((cp.stars||0) < 3) setCP(c.id, { stars: Math.min(3, (cp.stars||0) + 1) });
+}
+
+function celebrate() {
+  const layer = document.getElementById('conf-layer');
+  layer.innerHTML = '';
+  const colors = ['#27ae60','#f39c12','#2980b9','#8e44ad','#e74c3c','#f1c40f'];
+  for (let i = 0; i < 55; i++) {
+    const d = document.createElement('div');
+    d.className = 'conf-dot';
+    d.style.cssText = `left:${Math.random()*100}%;top:-12px;background:${colors[Math.floor(Math.random()*colors.length)]};width:${5+Math.random()*9}px;height:${5+Math.random()*9}px;border-radius:${Math.random()>.5?'50%':'2px'};animation-duration:${1.5+Math.random()*2}s;animation-delay:${Math.random()*.5}s;`;
+    layer.appendChild(d);
+  }
+  setTimeout(() => layer.innerHTML = '', 3500);
+}
+
+function showModal(html) { document.getElementById('modal-inner').innerHTML = html; document.getElementById('overlay').classList.add('on'); }
+function closeModal()    { document.getElementById('overlay').classList.remove('on'); }
+document.getElementById('overlay').addEventListener('click', e => { if (e.target.id==='overlay') closeModal(); });
+
+function toggleDark() {
+  darkMode = !darkMode;
+  document.body.classList.toggle('dark-mode', darkMode);
+  document.getElementById('dark-btn').textContent = darkMode ? '☀️' : '🌙';
+}
+
+function confirmReset() {
+  showModal(`<div style="font-size:2rem">⚠️</div><h3>تمام ترقی مٹا دیں؟</h3><p>تمام ستارے، نوٹس اور بُک مارک حذف ہو جائیں گے۔</p>
+    <div style="display:flex;gap:8px;margin-top:14px">
+      <button class="btn btn-rose" style="flex:1" onclick="doReset()">ری سیٹ</button>
+      <button class="btn btn-ghost" style="flex:1" onclick="closeModal()">منسوخ</button>
+    </div>`);
+}
+
+function doReset() {
+  localStorage.removeItem('cl4urdu');
+  P = {};
+  closeModal();
+  showScreen('home-screen');
+  showModal(`<div style="font-size:2rem">✅</div><h3>مکمل!</h3><p>سب صاف ہو گیا۔</p><button class="btn btn-green" style="margin-top:12px" onclick="closeModal()">ٹھیک ہے</button>`);
+}
+
+/* ── PWA ── */
+if ('serviceWorker' in navigator) {
+  try {
+    const swCode = `const C='cl4urdu-v1';self.addEventListener('install',()=>self.skipWaiting());self.addEventListener('activate',()=>self.clients.claim());self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).catch(()=>new Response('Offline')))));`;
+    navigator.serviceWorker.register(URL.createObjectURL(new Blob([swCode],{type:'application/javascript'}))).then(()=>console.log('✅ Offline')).catch(()=>{});
+  } catch(e){}
+}
+
+(function(){
+  try {
+    const m = {name:'JKBOSE Class 4 Urdu App',short_name:'کلاس 4 اردو',start_url:'./',display:'standalone',background_color:'#27ae60',theme_color:'#27ae60',orientation:'portrait',icons:[{src:"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='32' fill='%2327ae60'/><text x='96' y='130' font-size='100' text-anchor='middle'>📚</text></svg>",sizes:'192x192',type:'image/svg+xml'}]};
+    const l=document.createElement('link');l.rel='manifest';
+    l.href=URL.createObjectURL(new Blob([JSON.stringify(m)],{type:'application/manifest+json'}));
+    document.head.appendChild(l);
+  } catch(e){}
+})();
+
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferredPrompt = e; document.getElementById('ib').classList.add('show'); });
+document.getElementById('ib-install').addEventListener('click', async () => { if (deferredPrompt) { deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt = null; document.getElementById('ib').classList.remove('show'); } });
+
+/* ── INIT ── */
+document.addEventListener('DOMContentLoaded', () => {
+  updateHome();
+  console.log('📚 JKBOSE Class 4 Urdu App — Mateen Yousuf, SED J&K');
+});
+</script>
+</body>
+</html>
